@@ -8,6 +8,8 @@ create database if not exists meu_streaming;
 
 ## Instalação
 
+Para rodar o npm é necessário ter o Node instalado localmente.
+
 ```bash
 $ npm install
 ```
