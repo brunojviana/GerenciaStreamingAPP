@@ -8,6 +8,14 @@ export class UserService {
         @Inject(USER_REPOSITORY)
         private usersModel: typeof User
     ) {}
+    
+    async find(cpf: string): Promise<User> {
+        return this.usersModel.findOne({
+            where: {
+                cpf: cpf
+            }
+        });
+    }
 
     async findAll(): Promise<User[]> {
         return this.usersModel.findAll();
