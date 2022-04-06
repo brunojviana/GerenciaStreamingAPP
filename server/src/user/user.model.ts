@@ -2,7 +2,6 @@ import { AllowNull, Column, DataType, Model, Table } from "sequelize-typescript"
 
 
 @Table({
-    freezeTableName: true,
     createdAt: false, 
     updatedAt: false 
 })
@@ -12,6 +11,13 @@ export class User extends Model {
         allowNull: false
     })
     name: string;
+
+    @Column({
+        type: DataType.STRING(11),
+        allowNull: false,
+        unique: true
+    })
+    cpf: string;
 
     @Column({
         type: DataType.STRING,
@@ -30,5 +36,11 @@ export class User extends Model {
         allowNull: false
     })
     password: string;
+
+    @Column({
+        type:DataType.STRING,
+        allowNull: true
+    })
+    reset_password
     
 }
