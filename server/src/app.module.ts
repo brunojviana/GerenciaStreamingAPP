@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DataBaseModule } from 'config/database/database.module';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UserController } from './user/users.controller';
 
@@ -8,10 +9,8 @@ import { UserController } from './user/users.controller';
   imports: [
     ConfigModule.forRoot(),
     DataBaseModule,
-    UserModule
+    UserModule,
+    AuthModule
   ],
-  controllers: [
-    UserController
-  ]
 })
 export class AppModule {}
