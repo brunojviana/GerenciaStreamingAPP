@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
 
-  /*Widget get _images => Row(
+  Widget get _images => Row(
         children: [Expanded(
           child: Image.asset('images/fones-de-ouvido.png',
             width: 46,
@@ -31,7 +31,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
         ],
-      );*/
+      );
 
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
@@ -83,6 +83,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
         width: 128,
         height: 41,
+        color: AppColors.accent,
         child: ElevatedButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -162,7 +163,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 children: [
                   const SizedBox(height: 5),
                   _messenger,
-                  //_images,
+                  _images,
                   _usermail,
                   _password,
                   _forgotPasswordButton,

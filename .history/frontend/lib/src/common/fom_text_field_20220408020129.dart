@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/src/theme.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 extension CoreFormTextField on Widget {
@@ -7,7 +6,8 @@ extension CoreFormTextField on Widget {
     required ThemeData theme,
     TextInputType keyboardType = TextInputType.name,
     TextInputAction textInputAction = TextInputAction.done,
-    Color borderColor = AppColors.accent,
+    //Color borderColor = Colors.teal,
+    Color = Colors.teal,
     double borderWidth = 1,
     bool obscureText = false,
     bool enabled = true,
@@ -41,7 +41,7 @@ extension CoreFormTextField on Widget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10),
+          const SizedBox(height: 56),
           TextFormField(
             inputFormatters: [maskFormatter],
             keyboardType: keyboardType,
@@ -51,7 +51,7 @@ extension CoreFormTextField on Widget {
             enabled: enabled,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-              constraints: const BoxConstraints(maxHeight: 48),
+              //constraints: const BoxConstraints(maxHeight: 48),
               isDense: true,
               hintText: hint,
               errorText: errorText,

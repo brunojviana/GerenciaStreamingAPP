@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
 
-  /*Widget get _images => Row(
+  Widget get _images => Row(
         children: [Expanded(
           child: Image.asset('images/fones-de-ouvido.png',
             width: 46,
@@ -31,7 +31,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
         ],
-      );*/
+      );
 
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
@@ -119,6 +119,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         ),
       );
 
+  Widget get _bottomBar => Container(
+        height: 47,
+        width: double.infinity,
+        color: AppColors.primary,
+        alignment: Alignment.bottomCenter,
+      );
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
@@ -162,22 +169,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 children: [
                   const SizedBox(height: 5),
                   _messenger,
-                  //_images,
+                  _images,
                   _usermail,
                   _password,
                   _forgotPasswordButton,
                   _loginButton,
                   _register,
+                  _bottomBar,
                 ],
               ),
             );
           }),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.primary,
-        shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
       ),
     );
   }

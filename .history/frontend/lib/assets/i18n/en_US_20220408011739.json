@@ -9,6 +9,6 @@
     "login" : "LOGIN",
     "forgot_password" : "Forgot password!",
     "username_required" : "E-mail is required!",
-    "login_password_required" : "Password is required!",
+    "password_required" : "Password is required!",
     "register" : "Don't have an account? Sign Up"
 }

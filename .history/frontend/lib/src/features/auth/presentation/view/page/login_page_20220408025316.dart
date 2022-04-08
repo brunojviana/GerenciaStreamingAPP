@@ -162,7 +162,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 children: [
                   const SizedBox(height: 5),
                   _messenger,
-                  //_images,
+                  _images,
                   _usermail,
                   _password,
                   _forgotPasswordButton,

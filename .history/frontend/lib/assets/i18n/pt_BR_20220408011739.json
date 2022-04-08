@@ -9,6 +9,6 @@
     "login" : "ENTRAR",
     "forgot_password" : "Esqueci minha senha",
     "username_required" : "A informação do E-mail é obrigatório!",
-    "login_password_required" : "A informação da senha é obrigatória!",
+    "password_required" : "A informação da senha é obrigatória!",
     "register" : "Não possui conta? Cadastre-se"
 }

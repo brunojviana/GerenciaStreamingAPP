@@ -15,27 +15,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
 
-  /*Widget get _images => Row(
-        children: [Expanded(
-          child: Image.asset('images/fones-de-ouvido.png',
-            width: 46,
-            height: 46,
-            fit: BoxFit.cover,
-            ),
-          ),
-          Expanded(
-            child: Image.asset('images/camera.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.cover,
-              ),
-            ),
-        ],
-      );*/
-
+  Widget get _images => Row(
+    children: [Image.asset('images/fones-de-ouvido.png',
+                width: 46,
+                height: 46,
+                fit: BoxFit.scaleDown,
+               ),
+               Image.asset('images/camera.png',
+                width: 46,
+                height: 46,
+                fit: BoxFit.scaleDown
+               ),
+              ],
+            );
+  
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 35,
+        height: 56,
         width: double.infinity,
         child: Text('messenger'.i18n(),
           style: const TextStyle(
@@ -71,7 +67,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   Widget get _forgotPasswordButton => Container(
         margin: const EdgeInsets.fromLTRB(30, 30, 30, 20),
         width: double.infinity,
-        height: 35,
+        height: 56,
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
           onPressed: store.isLoading ? null : () {},
@@ -99,7 +95,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
 
   Widget get _register => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 35,
+        height: 56,
         width: double.infinity,
         child: TextButton(
           style: ButtonStyle(
@@ -117,6 +113,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 },
           child: Text('register'.i18n()),
         ),
+      );
+
+  Widget get _bottomBar => Container(
+        height: 47,
+        width: double.infinity,
+        color: AppColors.primary,
+        alignment: Alignment.bottomCenter,
       );
 
   @override
@@ -162,22 +165,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 children: [
                   const SizedBox(height: 5),
                   _messenger,
-                  //_images,
+                  _images,
                   _usermail,
                   _password,
                   _forgotPasswordButton,
                   _loginButton,
                   _register,
+                  _bottomBar,
                 ],
               ),
             );
           }),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.primary,
-        shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
       ),
     );
   }

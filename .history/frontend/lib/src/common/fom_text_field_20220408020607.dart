@@ -8,6 +8,7 @@ extension CoreFormTextField on Widget {
     TextInputType keyboardType = TextInputType.name,
     TextInputAction textInputAction = TextInputAction.done,
     Color borderColor = AppColors.accent,
+    Color insideColor = AppColors.accent,
     double borderWidth = 1,
     bool obscureText = false,
     bool enabled = true,
@@ -51,7 +52,7 @@ extension CoreFormTextField on Widget {
             enabled: enabled,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-              constraints: const BoxConstraints(maxHeight: 48),
+              //constraints: const BoxConstraints(maxHeight: 48),
               isDense: true,
               hintText: hint,
               errorText: errorText,
