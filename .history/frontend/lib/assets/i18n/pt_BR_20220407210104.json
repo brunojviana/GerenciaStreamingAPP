@@ -1,0 +1,13 @@
+{
+    "app_name" : "Streamer",
+
+    "usermail" : "E-mail",
+    "username_hint": "Insira seu e-mail cadastrado",
+    "password": "Senha",
+    "password_hint": "Insira sua senha",
+    "login" : "Entrar",
+    "forgot_password" : "Esqueci minha senha",
+    "username_required" : "A informação do E-mail é obrigatório!",
+    "password_required" : "A informação da senha é obrigatória!",
+    "register" : "Cadastre-se"
+}

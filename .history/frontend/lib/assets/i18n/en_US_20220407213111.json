@@ -1,0 +1,13 @@
+{
+    "app_name" : "Streamer",
+
+    "usermail" : "E-mail",
+    "usermail_hint": "Type your registered e-mail",
+    "password": "Password",
+    "password_hint": "Type your password",
+    "login" : "LOGIN",
+    "forgot_password" : "Forgot password!",
+    "username_required" : "E-mail is required!",
+    "password_required" : "Password is required!",
+    "register" : "Sign Up"
+}
