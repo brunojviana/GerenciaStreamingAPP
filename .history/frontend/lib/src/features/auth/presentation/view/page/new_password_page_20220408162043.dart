@@ -57,7 +57,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
         ),
       );
 
-  Widget get _newPassword => widget.createFormField(
+  Widget get _newpassword => widget.createFormField(
         theme: _theme,
         keyboardType: TextInputType.text,
         obscureText: true,
@@ -137,17 +137,39 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
             ),
           ),
           onPressed: store.isLoading ? null : store.setNewPassword,
-          child: Text('send'.i18n(),
-            style: const TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondary, 
-            ),
-          ),
+          child: Text('setNewPassowrd'.i18n()),
         ),
       ),
   );
+
+  Widget get _register => Container(
+        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        height: 35,
+        width: double.infinity,
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+          ),
+          onPressed: store.isLoading
+              ? null
+              : () {
+                  Navigator.pop(context);
+                  Modular.to.pushNamed('/register');
+                },
+          child: Text('register'.i18n(),
+            style: const TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: AppColors.secondary, 
+            ),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -177,13 +199,13 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 5),
-                  _messengerCode,
-                  _code,
-                  _messengerNewPassword,
-                  _newPassword,
-                  _confirmedNewpassword,
-                  _validationPassword,
-                  _setNewPasswordButton,
+                  _messenger,
+                  //_images,
+                  _usermail,
+                  _password,
+                  _forgotPasswordButton,
+                  _loginButton,
+                  _register,
                 ],
               ),
             );

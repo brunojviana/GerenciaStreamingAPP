@@ -32,7 +32,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
         ),
       );
 
-  Widget get _usermail => widget.createFormField(
+  Widget get _code => widget.createFormField(
         theme: _theme,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
@@ -55,11 +55,8 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/newpassword');
-                },
-          child: Text('send'.i18n(),
+          onPressed: store.isLoading ? null : store.resetPassword,
+          child: Text('resetPassowrd'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 15,
@@ -99,9 +96,13 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 5),
-                  _messenger,
-                  _usermail,
-                  _resetPasswordButton
+                  _messengerCode,
+                  _code,
+                  _messengerNewPassword,
+                  _newPassword,
+                  _confirmedNewpassword,
+                  _validationPassword,
+                  _setNewPasswordButton,
                 ],
               ),
             );

@@ -5,23 +5,22 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 
-import '../../viewmodel/reset_password_viewmodel.dart';
+import '../../viewmodel/new_password_viewmodel.dart';
 
-class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({ Key? key }) : super(key: key);
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({ Key? key }) : super(key: key);
 
   @override
-  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
 }
-
-class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPasswordViewModel> {
+class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordViewModel> {
   late ThemeData _theme;
 
-  Widget get _messenger => Container(
+  Widget get _messengerCode => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
         height: 35,
         width: double.infinity,
-        child: Text('username_hint'.i18n(),
+        child: Text('messenger_code'.i18n(),
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
@@ -32,17 +31,45 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
         ),
       );
 
-  Widget get _usermail => widget.createFormField(
+  Widget get _code => widget.createFormField(
         theme: _theme,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
-        hint: 'username_hint'.i18n(),
+        hint: 'code_hint'.i18n(),
         enabled: !store.isLoading,
         errorText: store.error.usermail,
         onChange: (value) => store.usermail = value,
       );
 
-  Widget get _resetPasswordButton => Center(child: Container(
+  Widget get _password => widget.createFormField(
+        theme: _theme,
+        keyboardType: TextInputType.text,
+        obscureText: true,
+        hint: 'password_hint'.i18n(),
+        enabled: !store.isLoading,
+        errorText: store.error.password,
+        onChange: (value) => store.password = value,
+      );
+
+  Widget get _forgotPasswordButton => Container(
+        margin: const EdgeInsets.fromLTRB(30, 30, 30, 20),
+        width: double.infinity,
+        height: 35,
+        child: TextButton(
+          style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
+          onPressed: store.isLoading ? null : () {},
+          child: Text('forgot_password'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppColors.secondary, 
+            ),
+          ),
+        ),
+      );
+
+  Widget get _loginButton => Center(child: Container(
         margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
         width: 128,
         height: 41,
@@ -55,21 +82,40 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/newpassword');
-                },
-          child: Text('send'.i18n(),
-            style: const TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondary, 
-            ),
-          ),
+          onPressed: store.isLoading ? null : store.login,
+          child: Text('login'.i18n()),
         ),
       ),
   );
+
+  Widget get _register => Container(
+        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        height: 35,
+        width: double.infinity,
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+          ),
+          onPressed: store.isLoading
+              ? null
+              : () {
+                  Navigator.pop(context);
+                  Modular.to.pushNamed('/register');
+                },
+          child: Text('register'.i18n(),
+            style: const TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: AppColors.secondary, 
+            ),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +125,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('reset_password'.i18n(), 
+        title: Text('set_new_password'.i18n(), 
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 20,
@@ -100,8 +146,12 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
                 children: [
                   const SizedBox(height: 5),
                   _messenger,
+                  //_images,
                   _usermail,
-                  _resetPasswordButton
+                  _password,
+                  _forgotPasswordButton,
+                  _loginButton,
+                  _register,
                 ],
               ),
             );

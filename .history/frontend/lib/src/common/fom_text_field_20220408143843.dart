@@ -21,13 +21,11 @@ extension CoreFormTextField on Widget {
     ValueChanged<String>? onFieldSubmitted,
     FormFieldSetter<String>? onSaved,
   }) {
-
     final maskFormatter = MaskTextInputFormatter(
       mask: mask,
       filter: maskFilter,
       type: MaskAutoCompletionType.lazy,
     );
-
     final border = OutlineInputBorder(
       borderSide: BorderSide(
         width: borderWidth,
@@ -61,6 +59,7 @@ extension CoreFormTextField on Widget {
               focusedBorder: border,
               errorBorder: border,
               focusedErrorBorder: border,
+              fillColor: AppColors.accent,
             ),
             validator: validator,
             onChanged: onChange,

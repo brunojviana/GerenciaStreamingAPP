@@ -44,6 +44,9 @@ extension CoreFormTextField on Widget {
         children: [
           const SizedBox(height: 10),
           TextFormField(
+            style: const TextStyle(
+              color: AppColors.textLight,
+            ),
             inputFormatters: [maskFormatter],
             keyboardType: keyboardType,
             textInputAction: textInputAction,
@@ -61,6 +64,7 @@ extension CoreFormTextField on Widget {
               focusedBorder: border,
               errorBorder: border,
               focusedErrorBorder: border,
+              hoverColor: AppColors.accent,
             ),
             validator: validator,
             onChanged: onChange,

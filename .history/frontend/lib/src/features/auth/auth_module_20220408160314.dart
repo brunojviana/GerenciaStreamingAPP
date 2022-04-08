@@ -22,7 +22,7 @@ class AuthModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const LoginPage()),
         ChildRoute('/register', child: (_, __) => const RegisterPage()),
-        ChildRoute('/reset', child: (_, __) => const ResetPasswordPage()),
+        ChildRoute('/reset', child: (_, __) => const ResetPassword()),
         ChildRoute('/newpassword', child: (_, __) => const NewPasswordPage()),
       ];
 }

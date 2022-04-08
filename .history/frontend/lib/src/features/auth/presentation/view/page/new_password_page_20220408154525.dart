@@ -5,42 +5,98 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 
-import '../../viewmodel/login_viewmodel.dart';
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({ Key? key }) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
 }
-class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
-  late ThemeData _theme;
+class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordViewModel> {
+  late ThemeData Theme;
 
-  /*Widget get _images => Container(
-    height: 50,
-    width: double.infinity,
-    child: Row(
-      children: [SizedBox(
-          height: 50,
-          width: 50,
-          child: Image.asset('images/fones-de-ouvido.png',
-            width: 46,
-            height: 46,
-            fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: Image.asset('images/camera.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.cover,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 11, 3, 124),
+        title: Text('Cadastrar Nova Senha'),
+      ),
+
+      body: Form(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              SizedBox(height: 35),
+              
+              Text('Informe o código enviado para o seu e-mail'),
+              
+              SizedBox(height: 15),
+
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Código',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-        ],
-      )
-    );*/
-  
+
+              SizedBox(height: 40),
+
+              Text('Insira sua nova senha'),
+              
+              SizedBox(height: 15),
+              
+              TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                labelText: 'Nova senha',
+                border: OutlineInputBorder(),
+                ), 
+              ),
+
+              SizedBox(height: 12),
+
+              TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                labelText: 'Confirme a senha',
+                border: OutlineInputBorder(),
+                ), 
+              ),
+              
+              SizedBox(height: 80),
+
+              Container(
+                height: 40,
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: _enviar,
+                  child: Text(
+                    'ENVIAR',
+                    ),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 18,
+                    ),
+                  ), 
+                ),
+              ),      
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
         height: 35,
@@ -82,10 +138,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 35,
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/reset');
-                },
+          onPressed: store.isLoading ? null : () {},
           child: Text('forgot_password'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
@@ -128,7 +181,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
+          onPressed: store.isLoading
+              ? null
+              : () {
                   Navigator.pop(context);
                   Modular.to.pushNamed('/register');
                 },

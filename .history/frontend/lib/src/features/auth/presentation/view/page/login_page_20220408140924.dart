@@ -49,7 +49,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
@@ -82,10 +82,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 35,
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/reset');
-                },
+          onPressed: store.isLoading ? null : () {},
           child: Text('forgot_password'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
@@ -103,7 +100,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 41,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -128,7 +124,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
+          onPressed: store.isLoading
+              ? null
+              : () {
                   Navigator.pop(context);
                   Modular.to.pushNamed('/register');
                 },

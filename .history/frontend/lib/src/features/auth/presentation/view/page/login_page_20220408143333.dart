@@ -82,10 +82,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 35,
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/reset');
-                },
+          onPressed: store.isLoading ? null : () {},
           child: Text('forgot_password'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
@@ -128,7 +125,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
+          onPressed: store.isLoading
+              ? null
+              : () {
                   Navigator.pop(context);
                   Modular.to.pushNamed('/register');
                 },

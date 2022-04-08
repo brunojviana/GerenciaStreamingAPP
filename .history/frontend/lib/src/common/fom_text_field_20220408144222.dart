@@ -61,6 +61,7 @@ extension CoreFormTextField on Widget {
               focusedBorder: border,
               errorBorder: border,
               focusedErrorBorder: border,
+              focusColor: AppColors.accent,
             ),
             validator: validator,
             onChanged: onChange,

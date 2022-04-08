@@ -11,14 +11,9 @@
     "username_required" : "E-mail is required!",
     "login_password_required" : "Password is required!",
     "register" : "Don't have an account? Sign Up",
-    "code_required": "Code sent to your e-mail is required!",
+    "code_required": "The Code sent to your e-mail is required!",
     "new_password_required": "New password is required!",
     "confirmed_new_password_required": "The confirmation of the new password is required!",
     "set_new_password": "Set New Password",
-    "messenger_code": "Type the code sent to your e-mail",
-    "validation_lenght": "Password must contain 8 characters",
-    "validation_alphanumeric": "Must have letters and numbers",
-    "validation_special_character": "At least one special character",
-    "send": "SEND",
-    "reset_password": "Reset Password"
+    "messenger_code": "Type the code sent to your e-mail"
 }

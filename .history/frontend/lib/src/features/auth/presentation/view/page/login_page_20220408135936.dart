@@ -48,8 +48,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         child: Text('messenger'.i18n(),
           style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
@@ -82,18 +82,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 35,
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/reset');
-                },
-          child: Text('forgot_password'.i18n(),
-            style: const TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondary, 
-            ),
-          ),
+          onPressed: store.isLoading ? null : () {},
+          child: Text('forgot_password'.i18n()),
         ),
       );
 
@@ -103,7 +93,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         height: 41,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -128,18 +117,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
+          onPressed: store.isLoading
+              ? null
+              : () {
                   Navigator.pop(context);
                   Modular.to.pushNamed('/register');
                 },
-          child: Text('register'.i18n(),
-            style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: AppColors.secondary, 
-            ),
-          ),
+          child: Text('register'.i18n()),
         ),
       );
 

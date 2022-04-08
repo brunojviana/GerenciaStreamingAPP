@@ -55,10 +55,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
-                  Modular.to.pushNamed('/newpassword');
-                },
+          onPressed: store.isLoading ? null : store.resetPassword,
           child: Text('send'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
