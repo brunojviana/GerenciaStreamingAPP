@@ -1,0 +1,14 @@
+{
+    "app_name" : "Streamer",
+    "intro": "Manage your streaming service subscriptions and track your consumption",
+    "messenger": "Type your E-mail and Senha to login",
+    "usermail" : "E-mail",
+    "usermail_hint": "Type your registered e-mail",
+    "password": "Password",
+    "password_hint": "Type your password",
+    "login" : "LOGIN",
+    "forgot_password" : "Forgot password!",
+    "username_required" : "E-mail is required!",
+    "password_required" : "Password is required!",
+    "register" : "Don't have an account? Sign Up"
+}
