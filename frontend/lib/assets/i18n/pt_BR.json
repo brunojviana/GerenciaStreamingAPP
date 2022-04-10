@@ -35,5 +35,7 @@
     "create_password_hint": "Crie uma senha forte",
     "register_button": "CADASTRAR",
     "messenger_new_password": "Crie sua nova senha",
-    "confirmPassword_hint": "Confirme a nova senha"
+    "confirmPassword_hint": "Confirme a nova senha",
+    "invalid_email_address": "E-mail Inválido",
+    "invalid_cpf": "CPF Inválido"
 }

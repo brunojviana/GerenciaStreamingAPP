@@ -6,8 +6,15 @@ class ResetPasswordUseCase {
   final repository = Modular.get<IReset>();
 
   String? validateUsermail(String usermail) {
+    
     if (usermail.isEmpty) {
       return 'usermail_required'.i18n();
+    }
+    else if (!usermail.contains("@")){
+      return 'invalid_email_address'.i18n();
+    }
+    else if (usermail.length < 4){
+     return 'invalid_email_address'.i18n();
     }
 
     return null;

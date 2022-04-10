@@ -12,6 +12,7 @@
     "login_password_required" : "Password is required!",
     "register_link" : "Don't have an account? Sign Up",
     "code_required": "Code sent to your e-mail is required!",
+    "code_hint": "Code",
     "new_password_required": "New password is required!",
     "confirmed_new_password_required": "The confirmation of the new password is required!",
     "set_new_password": "Set New Password",
@@ -26,11 +27,14 @@
     "birthdate_required": "Birth Date is required!",
     "register_title": "Sign Up",
     "data_hint": "Inform your data",
-    "CPF_hint": "Type your CPF",
+    "cpf_hint": "Type your CPF",
     "name_hint": "Type your full name",
     "email_hint": "Type your e-mail",
     "birthdate_hint": "Type your birthdate",
     "create_password": "Create your password",
     "create_password_hint": "Create a strong password",
-    "register_button": "SIGN UP" 
+    "register_button": "SIGN UP",
+    "messenger_new_password": "Create your new password",
+    "confirmPassword_hint": "Confirm the new password",
+    "invalid_email_address": "E-mail address invalid"
 }

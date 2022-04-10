@@ -7,8 +7,12 @@ class RegisterUseCase {
   final repository = Modular.get<IRegister>();
 
   String? validateCpf(String cpf) {
+    
     if (cpf.isEmpty) {
       return 'cpf_required'.i18n();
+    }
+    else if(cpf.length != 11){
+      return 'invalid_cpf'.i18n();
     }
 
     return null;
@@ -16,6 +20,9 @@ class RegisterUseCase {
 
   String? validateName(String name) {
     if (name.isEmpty) {
+      return 'name_required'.i18n();
+    }
+    else if(name.contains(RegExp(r'[0-9]') , 1)){
       return 'name_required'.i18n();
     }
 
@@ -26,6 +33,13 @@ class RegisterUseCase {
     if (email.isEmpty) {
       return 'usermail_required'.i18n();
     }
+    else if (!email.contains("@")){
+      return 'invalid_email_address'.i18n();
+    }
+    
+    else if (email.length < 4){
+      return 'invalid_email_address'.i18n();
+    }
 
     return null;
   }
@@ -34,6 +48,10 @@ class RegisterUseCase {
     if (birthdate.isEmpty) {
       return 'birthdate_required'.i18n();
     }
+    else if (birthdate.length > 9){
+      return 'birthdate_required'.i18n();
+    }
+    
 
     return null;
   }
@@ -41,6 +59,15 @@ class RegisterUseCase {
   String? validatePassword(String password) {
     if (password.isEmpty) {
       return 'login_password_required'.i18n();
+    }
+    else if(password.length < 8){
+      return 'validation_lenght'.i18n();
+    }
+    else if((!password.contains(RegExp(r'[0-9]') , 1)) || ((!password.contains(RegExp(r'[a-z]') , 1))) && (!password.contains(RegExp(r'[A-Z]') , 1))){
+        return 'validation_alphanumeric'.i18n();       
+    }
+    else if(!password.contains(RegExp(r'[!@#\$&*~%^()]'), 1)){
+      return 'validation_special_character'.i18n();
     }
     return null;
   }
