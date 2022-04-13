@@ -42,6 +42,6 @@ export class User extends Model {
         type:DataType.STRING,
         allowNull: true
     })
-    reset_password
+    reset_password: string
     
 }
