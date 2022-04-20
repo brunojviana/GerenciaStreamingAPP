@@ -15,31 +15,36 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
 
-  /*Widget get _images => Container(
-    height: 50,
-    width: double.infinity,
-    child: Row(
-      children: [SizedBox(
-          height: 50,
-          width: 50,
-          child: Image.asset('images/fones-de-ouvido.png',
-            width: 46,
-            height: 46,
-            fit: BoxFit.cover,
-            ),
-          ),
+  Widget get _images => Center(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(130, 0, 130, 0),
+      height: 50,
+      width: double.infinity,
+      child: Row(
+        children: [
           SizedBox(
             height: 50,
             width: 50,
-            child: Image.asset('images/camera.png',
+            child: Image.asset('lib/assets/images/fones-de-ouvido.png',
               width: 46,
               height: 46,
-              fit: BoxFit.cover,
+              fit: BoxFit.scaleDown,
+              ),
+          ),
+          const SizedBox(width: 20),
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: Image.asset('lib/assets/images/camera.png',
+              width: 46,
+              height: 46,
+              fit: BoxFit.scaleDown,
               ),
             ),
-        ],
-      )
-    );*/
+          ],
+        )
+      ),
+  );
   
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
@@ -48,8 +53,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         child: Text('messenger'.i18n(),
           style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
@@ -83,7 +88,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
           onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
                   Modular.to.pushNamed('/reset');
                 },
           child: Text('forgot_password'.i18n(),
@@ -129,7 +133,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
             ),
           ),
           onPressed: store.isLoading ? null : () {
-                  Navigator.pop(context);
                   Modular.to.pushNamed('/register');
                 },
           child: Text('register_link'.i18n(),
@@ -149,6 +152,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 113,
         backgroundColor: AppColors.primary,
         title: Column(
@@ -186,8 +190,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 5),
+                  _images,
                   _messenger,
-                  //_images,
                   _usermail,
                   _password,
                   _forgotPasswordButton,
