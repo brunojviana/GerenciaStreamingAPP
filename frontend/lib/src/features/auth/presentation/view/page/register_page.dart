@@ -23,7 +23,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.left,
@@ -78,7 +78,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.left,
@@ -207,7 +207,21 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
+        child: SizedBox(
+          height: 47.0,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Positioned(
+              bottom: 20,
+              child: IconButton(
+                icon: const Icon(Icons.home, color: AppColors.textLight),
+                onPressed: () {
+                  Modular.to.pushNamed('/login');
+                }
+              ),  
+            )
+          ),
+        ),
       ),
     );
   }

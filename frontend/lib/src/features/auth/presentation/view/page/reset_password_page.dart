@@ -4,7 +4,6 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-
 import '../../viewmodel/reset_password_viewmodel.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -17,11 +16,22 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPasswordViewModel> {
   late ThemeData _theme;
 
-  /*Widget get _image => Center(
-    child: Image.asset('images/senha.png',
-      fit: BoxFit.cover,
+  Widget get _image => Center(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
+      height: 50,
+      width: double.infinity,
+      child: SizedBox(
+        height: 50,
+        width: 50,
+        child: Image.asset('lib/assets/images/senha.png',
+          width: 46,
+          height: 46,
+          fit: BoxFit.scaleDown,
+        ),
+      )
     ),
-  );*/
+  );
 
   Widget get _messenger => Container(
         margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
@@ -31,7 +41,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
           textAlign: TextAlign.left,
@@ -66,7 +76,6 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               ),
             ),
             onPressed: store.isLoading ? null : () {
-                    Navigator.pop(context);
                     Modular.to.pushNamed('/newpassword');
                   },
             child: Text('send'.i18n(),
@@ -112,7 +121,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 5),
-                  //_image,
+                  _image,
                   _messenger,
                   _usermail,
                   _resetPasswordButton
@@ -125,7 +134,21 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
+        child: SizedBox(
+          height: 47.0,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Positioned(
+              bottom: 20,
+              child: IconButton(
+                icon: const Icon(Icons.home, color: AppColors.textLight),
+                onPressed: () {
+                  Modular.to.pushNamed('/login');
+                }
+              ),  
+            )
+          ),
+        ),
       ),
     );
   }

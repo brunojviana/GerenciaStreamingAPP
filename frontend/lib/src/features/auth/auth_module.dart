@@ -5,6 +5,7 @@ import 'package:frontend/src/features/auth/domain/repository/register_interface.
 import 'package:frontend/src/features/auth/domain/repository/reset_password_interface.dart';
 import 'package:frontend/src/features/auth/presentation/view/page/new_password_page.dart';
 import 'package:frontend/src/features/auth/presentation/view/page/reset_password_page.dart';
+import 'package:frontend/src/features/onboarding/presentation/view/page/onboarding_page.dart';
 import 'data/repository/login_repository.dart';
 import 'data/repository/new_password_repository.dart';
 import 'data/repository/register_repository.dart';
@@ -40,7 +41,8 @@ class AuthModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const LoginPage()),
+        ChildRoute('/', child: (_, __) => OnBoardingPage()),
+        ChildRoute('/login', child: (_, __) => const LoginPage()),
         ChildRoute('/register', child: (_, __) => const RegisterPage()),
         ChildRoute('/reset', child: (_, __) => const ResetPasswordPage()),
         ChildRoute('/newpassword', child: (_, __) => const NewPasswordPage()),
