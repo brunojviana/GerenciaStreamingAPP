@@ -42,6 +42,10 @@ export class User extends Model {
         type:DataType.STRING,
         allowNull: true
     })
+<<<<<<< HEAD
     reset_password: string
+=======
+    reset_password
+>>>>>>> origin/bruno
     
 }
