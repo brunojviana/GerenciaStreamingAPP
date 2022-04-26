@@ -35,5 +35,7 @@
     "create_password_hint": "Create a strong password",
     "register_button": "SIGN UP",
     "messenger_new_password": "Create your new password",
-    "confirmPassword_hint": "Confirm the new password"
+    "confirmPassword_hint": "Confirm the new password",
+    "invalid_email_address": "E-mail address invalid",
+    "invalid_cpf": "CPF Invalid"
 }

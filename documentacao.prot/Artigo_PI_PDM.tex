@@ -1,0 +1,186 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[brazil]{babel}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Aplicativo Mobile para Gerenciamento de Assinaturas de Serviços de Streaming\\
+{\footnotesize \textsuperscript}
+}
+
+\author{\IEEEauthorblockN{Bruno de Jesus Viana}
+\IEEEauthorblockA{\textit{Ciência da Computação} \\
+\textit{Centro Universitário IESB}\\
+Brasília-DF, Brasil \\
+brunojviana@hotmail.com}
+\and
+\IEEEauthorblockN{Diego Alexandre da Silva}
+\IEEEauthorblockA{\textit{Ciência da Computação} \\
+\textit{Centro Universitário - IESB}\\
+Brasília-DF, Brasil \\
+diego.alexandrev@gmail.com}
+\and
+\IEEEauthorblockN{João Victor Resende}
+\IEEEauthorblockA{\textit{Ciência da Computação} \\
+\textit{Centro Universitário - IESB}\\
+Brasília-DF, Brasil \\
+jvr1998@hotmail.com}
+\and
+\IEEEauthorblockN{Luciano Junio Morais do Nascimento}
+\IEEEauthorblockA{\textit{Engenharia da Computação} \\
+\textit{Centro Universitário - IESB}\\
+Brasília-DF, Brasil \\
+lucianojuninho14@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+
+A crescente digitalização de serviços, processos de trabalho e hábitos do cotidiano das pesssoas, somada ao maior acesso a provedores de internet, vem contribuindo para a oferta de plataformas de streaming de vídeo, música, esportes, jornalismo, games e outros conteúdos de entretenimento. Com a gama cada vez maior de possibilidade de escolha por parte do consumidor, surge a necessidade de gerenciamento dos gastos realizados para consumo do conteúdo disponiblizado. Este trabalho pretende propor uma ferramenta na forma de aplicativo móvel que permita o acompanhamento do consumo e recomende alterações na conjunto de assinaturas mantidas pelo usuário.
+
+Palavras-chave: Streaming; Entretenimento; Controle; Aplicativo
+
+\end{abstract}
+
+\section{Contextualização}
+
+O consumo de serviços de streaming, principalmente de filmes, séries, música e eventos esportivos vêm apresentando crescimento  do número de usuários ano a ano. Por conta disso, na esteira das pioneiras Netflix e Spotify, por exemplo, grandes empresas do mercado do entretenimento e de tecnologia vem investindo e lançando novas plataformas de streaming, aumentando assim o leque de opções dos consumidores. A expansão desse mercado é tão significativa que é cada vez mais evidente a substituição da TV paga por serviços de streaming e da migração do consumo de músicas em meios físicos para o digital.
+
+A crescente oferta de novas plataformas e conteúdos licenciados e originais, por um lado, traz diversificação, praticidade e acesso mais barato e facilitado aos consumidores. Contudo, quando se considera que o mercado vem se fragmentando com produtos individuais do crescente número de provedores, surge um problema relacionado a como gerenciar todas essas assinaturas, tendo em vista que, somadas, elas podem representar um valor relevante no orçamento do consumidor. O desafio é identificar formas em que o usuário possa ter acesso aos conteúdos que deseja, mas sem gastar  rotineiramente em serviços que serão pouco utilizados. 
+
+Nota-se que existem soluções para curadoria de conteúdo dos serviços de streaming, bem como para gerenciamento de carteiras de assinaturas do ponto de vista financeiro (controle de gastos). Porém, há pouco material a respeito de recomendações para rotação de assinaturas com base no consumo efetivo do usuário, otimizando assim o gasto. 
+
+A rotação se constitui como uma estratégia em que o usuário pode manter assinaturas fixas (aquelas que mais utiliza) e contratar outras de seu interesse periodicamente e repetidamente (para acompanhar séries específicas, por exemplo). Entende-se que uma aplicação mobile que possibilite esse tipo de gerenciamento pode ser interessante para o público usuário de serviços de streaming. 
+
+\section{Questões de Pesquisa}
+
+A crescente utilização dos serviços de streaming como forma de entretenimento faz com que novos serviços sejam lançados frequentemente. Cada nova plataforma que ofereça conteúdo que o usuário deseja consumir representa um custo adicional. A enxurrada de conteúdos licenciados e originais de diferentes provedores faz com as pessoas assinem vários serviços individualmente, muitas vezes pagando por algo que pouco consomem. Não há nenhuma solução digital que facilite o gerenciamento de uma carteira de assinaturas, de modo que o usuário possa otimizar o seu gasto com base no seu consumo efetivo (conteúdo consumido). Desse modo, surgem as seguintes questões a serem respondidas:
+
+\begin{itemize}
+\item É possível otimizar os gastos com assinaturas de serviços de streaming considerando o consumo efetivo do usuário e as possibilidades de cancelamento e reingresso sem custo adicional?
+\item Um aplicativo mobile pode oferecer uma plataforma de gerenciamento e recomendações para a manutenção de assinaturas fixas e rotação de assinaturas?
+\end{itemize}
+
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+
+Desenvolver um aplicativo mobile que possibilite o gerenciamento de assinaturas de serviços de streaming e ofereça recomendações para otimização dos gastos com a rotação de assinaturas, com base no perfil de consumo de conteúdo pelo usuário.
+
+\subsection{Objetivos Específicos}
+\begin{itemize}
+\item Identificar metodologias e propostas existentes para otimização de gastos por meio de rotação de assinaturas, conforme consumo efetivo do usuário;
+\item Relacionar todos os serviços de streaming em oferta no país com seus respectivos valores e condições;
+\item Desenvolver API para processamento e fluxo dos dados do aplicativo mobile;
+\item Modelar banco de dados para persistência dos dados dos usuários;
+\item Desenvolver aplicação mobile para cadastramento de usuários, assinaturas, histórico de consumo de conteúdo e acompanhamento das assinaturas e recomendações de rotação.
+\end{itemize}
+
+\section{Referencial Teórico}
+
+\subsection{Conceito de Streaming}
+
+\subsection{Sistemas de Recomendação}
+
+\subsection{Rotação de Assinaturas}
+
+\subsection{Aplicações para Dispositivos Móveis}
+
+\section{Trabalhos Correlatos}
+
+Em se tratando de serviços de streaming, nota-se que há estudos e publicações sobre o tema, porém com pouca atenção dada a formas como o consumidor pode gerenciar o conteúdo consumido e os gastos realizados.
+Abaixo são apresentados exemplos de trabalhos correlatos ao tema aqui tratado:
+
+\begin{itemize}
+\item \textbf{Alves} \cite{b1} apresenta estudo sobre o cenário de competição e digitalização do mercado de entretenimento e cultura digitais. São apresentados fatores que contribuíram e contribuem para o avanço do mercado de streaming e dados sobre o consumo de conteúdo nessas plataformas no Brasil. Cita os efeitos da grande oferta de conteúdo para os consumidores nos aspectos culturais e econômicos, mas não trata de forma de gerenciar e controlar tais gastos.
+
+\item \textbf{Montardo} e \textbf{Valiati} \cite{b2} escreveram sobre os aspectos que caracterizam o consumo de conteúdo em plataformas de streaming. O trabalho contribui para o entendimento dos hábitos de consumo personalizado dos usuário, contudo é focado em fatores sociológicos.
+
+\item \textbf{Fandeli} \cite{b3} apresenta dados sobre a adoção de serviços de streaming de vídeo no Brasil e o seu consequente impacto em outros canais tradicionais como a televisão aberta, a televisão por assinatura e o cinema. Traz conclusões interessantes sobre os efeitos do streaming nos meios anteriormente dominantes que foram menciodados. Porém, não aborda a forma como os usuários gerenciam e comparam os seus gastos com o consumo de conteúdo nesses diferentes meios.
+
+\item \textbf{Kweon} e \textbf{Kweon} \cite{b4} abordam em seu trabalho as estratégias de precificação que vem sendo adotadas pelas principais empresas provedoras de serviços de streaming. Apresenta conclusões acerca da necessidade de oferta de planos de menor custo para atender as demandas dos usuários com a crescente quantidade de plataformas disponíveis. Não trata de formas com as quais os usuários possam otimizar os seus gastos com os serviços de streaming, apenas aponta que este é um tema sensível para esse grupo.
+
+\item \textbf{Westcott et al} \cite{b5} Trata-se de trabalho publicado pela Consultoria Delloit acerca das tendências observadas no consumo de serviços de streaming após os impactos da pandemia de COVID19. Apresenta dados sobre os hábitos de consumo das diferentes gerações presentes na sociedade atual. Além disso, apresenta conclusões interessantes acerca das exigências dos usuários quanto a preço e conteúdo e suas implicações para os provedores. Demonstra que o gerenciamento dos custos dos serviços é um tema sensível para os usuários, mas não aborda formas de fazê-lo.
+
+\item \textbf{SEIBT} \cite{b6} Neste trabalho, o autor apresenta uma proposta de sistema web para o gerenciamento de assinaturas de diferentes tipos, incluindo serviços de streaming. O sistema possui a funcionalidade de sugerir formas de economia de gastos aos usuários com base na comparação com valores pagos por outras pessoas que utilizam o mesmo serviço. O trabalho possui foco no controle de gastos, mas não aborda recomendações com base no consumo individualizado de cada usuário. 
+
+\item \textbf{BAHR} \cite{b7} A autora apresenta um aplicativo de catálogo de serviços de streaming. O foco do aplicativo desenvolvido é oferecer uma interface que facilite a escolha, pelo usuário, do conteúdo que irá assistir. Não contempla o gerenciamento das assinaturas do usuário e controle de gastos. 
+
+\end{itemize}  
+
+\section{Resultados Esperados}
+
+Com a identificação de metodologias e propostas existentes para otimização de gastos, o que se espera é obter subsídios para desenvolvimento da computação que irá realizar a análise os dados de consumo de conteúdo do usuário e seus gastos correspondentes. Com isso, espera-se desenvolver um sistema de recomendaçao satisfatoriamente assertivo para auxiliar o usuário na escolha das assinaturas que deve ou não manter.
+
+Com a relação de todos os serviços disponíveis no país e seus respectivos valores de assinatura, espera-se prover o programa de dados que possibilitem a comparação dos valores pagos pelo usuário e aqueles que são ofertados pelos provedores, com o intuito de apresentar recomendações para alterações.
+
+Com o desenvolvimento da API, espera-se prover o aplicativo de uma sólida e eficiente estrutura de back-end que gerencie e provenha prover o fluxo dos dados para o perfeito funcionamento do aplicativo, incluindo a comunicação com o banco de dados e procedimentos de autenticação.
+
+Com a modelagem do banco de dados, espera-se prover persistência aos dados cadastros pelo usuário no aplicativo, de modo que sejam facilmente acessados e atualizados, sem afetar o desempenho da aplicação mobile.
+
+Por fim, com o desenvolvimento da aplicação mobile, espera-se oferecer uma ferramenta de fácil utilização, de bom desempenho e que seja efetiva no gerenciamento das assinaturas e consumo de conteúdo dos usuários. Espera-se que seja desenvolvida uma aplicação que preencha o gap existente atualmente e que seja atraente ao público de usuários de serviço de streaming. 
+
+\section{Cronograma}
+
+As atividades necessárias para a realização deste trabalho serão realizadas conforme cronograma apresentado na sequência:
+
+\begin{itemize}
+\item Pesquisa do referencial teórico - 07 a 06/04/2022
+\item Elaboração do protótipo do aplicativo - 28/03 a 06/04/2022
+\item Pesquisa de metodologias de rotação de assinaturas - 01 a 13/04/2022
+\item Apresentação P1 - 13/04/2022
+\item Catalogação (relação) dos serviços de streaming - 14 a 21/04/2022
+\item Desenvolvimento da API - 01/04/2022 a 15/05/2022
+\item Modelagem do Banco de Dados - 01 a 31/05/2022
+\item Desenvolvimento da Aplicação Mobile - 01/04 a 31/05/2022
+\item Redação do artigo (trabalho escrito) - 23/03 a 31/05/2022
+\item Apresentação P2 - 08/06/2022
+\end{itemize}
+
+\section{Metodologia}
+
+A metodologia a ser utilizada para o desenvolvimento do trabalho e consecução dos objetivos propostos é a seguinte:
+
+\begin{itemize}
+\item Inicialmente, será realizada pesquisa em trabalhos acadêmicos e sites especializados objetivando identificar metodologias e propostas existentes para rotação de carteiras de assinaturas de streaming que otimizem o gasto do usuário. Após isso, as informações obtidas serão consolidadas em uma metodologia a ser implementada no programa;
+\item A relação dos serviços oferecidos no Brasil e seus valores atuais será obtida a partir de consulta a sites especializados e de curadoria, bem como aos portais dos próprios serviços. Os dados obtidos serão armazenados em uma tabela específica do banco de dados relacional a ser modelado;
+\item A API para processamento e fluxo dos dados será desenvolvida utilizando-se a linguagem de programação Kotlin e será disponibilizada no serviço Heroku. A API terá endpoints para requisição dos dados e execução das funções do programa, além de intermediar o acesso ao banco de dados para leitura e gravação;
+\item O banco de dados a ser modelado será do tipo relacional, utilizando o sistema gerenciador PostgreSQL ou outro de características similares e igualmente sem custo de licença de uso;
+\item Para o desenvolvimento da aplicação mobile será, inicialmente, elaborado um protótipo a partir da ferramenta FIGMA e, com base nele, programação do aplicativo utilizando-se o kit de desenvolvimento de interface de usuário Flutter;
+\end{itemize}
+
+\section{Implementação}
+
+\section{Apresentação e Análise dos Resultados}
+
+\section*{Conclusão}
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} AlVES, Patrick Maia. Competição e digitalização: a expansão dos serviços culturais-digitais – os casos da Netflix, Disney e Apple. 2019. Disponível em: http://revistas.unisinos.br/index.php/ciencias-sociais/article/view/csu.2019.55.3.03 Acesso em: 11 mar. 2022\newline
+
+\bibitem{b2} MONTARDO, Sandra Portella; VALIATI, Vanessa Amália Dalpizol. Streaming de conteúdo, streaming de si? Elementos para análise do consumo personalizado em plataformas de streaming. 2021. Disponível em: https://revistaseletronicas.pucrs.br/index.php/revistafamecos/article/view\\/35310 Acesso em: 11 mar. 2022\newline
+
+\bibitem{b3} FADANELLI, Fernando. O Efeito da utilização de Streaming em outros meios concorrentes. 2020. Disponível em: https://repositorio.ifrs.edu.br/handle/123456789/360 Acesso em: 11 mar. 2022\newline
+
+\bibitem{b4} KWEON, Heaji J, KWEON; Sang Hee. Pricing Strategy within the U.S. Streaming Services Market: A Focus on Netflix's Price Plans. 2022. Disponível em https://www.koreascience.or.kr/article/JAKO202119759275785.page Acesso em: 22 mar. 2022\newline
+
+\bibitem{b5} WESTCOTT, Kevin, Loucks et al. COVID-19 accelerates subscriptions and cancellations as consumers search for value. Digital media trends survey, 14th edition. Deloitte Insights. 2020. Disponível em: https://www2.deloitte.com/us/en/insights/industry/technology/digital-media-trends-consumption-habits-survey/summary.html Acesso em: 22 mar. 2022\newline
+
+\bibitem{b6} SEIBT, Gustavo Merini. Assinômetro: sistema web para controle de gastos com assinatura. Blumenau: 2020. Disponível em: http://dsc.inf.furb.br/arquivos/tccs/monografias/2020-1-gustavo-merini-seibt-monografia.pdf Acesso em: 11 mar. 2022\newline
+
+\bibitem{b7} BAHR, Letícia da Luz Fontes. Electo: Interface digital de um aplicativo de catálogo para serviços de streaming. Florianópolis: 2019. Disponível em: https://repositorio.ufsc.br/handle/123456789/197811 Acesso em: 11 mar. 2022\newline
+
+\end{thebibliography}
+
+
+\end{document}
