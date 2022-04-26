@@ -1,3 +1,8 @@
 .history/
+.history
+.history/frontend/
+.history/frontend
 .vscode/
 .dart_tool/
+.dart_tool
+.vscode
