@@ -17,6 +17,14 @@ export class UserService {
         });
     }
 
+    async findEmail(email: string): Promise<User> {
+        return this.usersModel.findOne({
+            where: {
+                email: email
+            }
+        });
+    }
+
     async findAll(): Promise<User[]> {
         return this.usersModel.findAll();
     }

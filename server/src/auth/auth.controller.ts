@@ -3,12 +3,12 @@ import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./local-auth.guard";
 
 
-@Controller()
+@Controller('login')
 export class AuthController {
     constructor (private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)
-    @Post('login')
+    @Post()
     async login(@Request() req) {
         return this.authService.login(req.user);
     }
