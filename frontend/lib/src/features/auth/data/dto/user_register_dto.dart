@@ -1,9 +1,9 @@
 class UserRegisterDto {
-  const UserRegisterDto(this.cpf, this.name, this.email, this.birthdate, this.password);
+  const UserRegisterDto(this.cpf, this.name, this.email, this.dateBirth, this.password);
 
   final String cpf;
   final String name;
   final String email;
-  final String birthdate;
+  final String dateBirth;
   final String password;
 }

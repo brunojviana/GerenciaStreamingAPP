@@ -60,14 +60,14 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
         onChange: (value) => store.email = value,
       );
 
-  Widget get _birthdate => widget.createFormField(
+  Widget get _dateBirth => widget.createFormField(
         theme: _theme,
         keyboardType: TextInputType.datetime,
         textInputAction: TextInputAction.next,
         hint: 'birthdate_hint'.i18n(),
         enabled: !store.isLoading,
-        errorText: store.error.birthdate,
-        onChange: (value) => store.birthdate = value,
+        errorText: store.error.dateBirth,
+        onChange: (value) => store.dateBirth = value,
       );
 
   Widget get _messenger_password => Container(
@@ -154,11 +154,17 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : store.register,
+          onPressed: () {
+            store.isLoading ? null : _register();
+          },
           child: Text('register_button'.i18n()),
         ),
       ),
   );
+
+  void _register() async {
+    int? response = await store.register();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +199,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
                   _cpf,
                   _name,
                   _email,
-                  _birthdate,
+                  _dateBirth,
                   _messenger_password,
                   _password,
                   _validationPassword,

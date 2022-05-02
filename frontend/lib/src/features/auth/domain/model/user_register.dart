@@ -1,13 +1,12 @@
 class UserRegister {
-  const UserRegister(this.cpf, this.name, this.email, this.birthdate, this.password);
+  const UserRegister(this.cpf, this.name, this.email, this.dateBirth, this.password);
 
   final String cpf;
   final String name;
   final String email;
-  final String birthdate;
-  final String? password;
+  final String dateBirth;
+  final String password;
 
   factory UserRegister.fromJson(Map<String, dynamic> json) =>
-      UserRegister(json['cpf'], json['name'], json['email'], json['birthdate'],
-                       json['password']);
+      UserRegister(json['cpf'], json['name'], json['email'], json['dateBirth'], json['password']);
 }

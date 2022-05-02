@@ -44,12 +44,12 @@ class RegisterUseCase {
     return null;
   }
 
-  String? validateBirthDate(String birthdate) {
-    if (birthdate.isEmpty) {
-      return 'birthdate_required'.i18n();
+  String? validateBirthDate(String dateBirth) {
+    if (dateBirth.isEmpty) {
+      return 'dateBirth_required'.i18n();
     }
-    else if (birthdate.length > 9){
-      return 'birthdate_required'.i18n();
+    else if (dateBirth.length > 10){
+      return 'dateBirth_required'.i18n();
     }
     
 
@@ -72,7 +72,7 @@ class RegisterUseCase {
     return null;
   }
 
-  Future<UserRegister> register(String cpf, String name, String email, String birthdate, String password) {
-    return repository.register(UserRegister(cpf, name, email, birthdate, password));
+  Future<int?> register(String cpf, String name, String email, String dateBirth, String password) {
+    return repository.register(UserRegister(cpf, name, email, dateBirth, password));
   }
 }

@@ -19,7 +19,7 @@ abstract class _RegisterViewModelBase with Store {
   String email = '';
 
   @observable
-  String birthdate = '';
+  String dateBirth = '';
 
   @observable
   String password = '';
@@ -44,7 +44,7 @@ abstract class _RegisterViewModelBase with Store {
 
   @action
   void validateBirthDate() {
-    error.birthdate = _usecase.validateBirthDate(birthdate);
+    error.dateBirth = _usecase.validateBirthDate(dateBirth);
   }
 
   @action
@@ -52,7 +52,7 @@ abstract class _RegisterViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
-  void register() async {
+  Future<int?> register() async {
     error.clear();
 
     validateCpf();
@@ -63,14 +63,18 @@ abstract class _RegisterViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
-      try {
-        await _usecase.register(cpf, name, email, birthdate, password);
-      } on UnimplementedError {
-        // TODO: Fix!!!
-        error.register = 'Função não implementada!';
-      } finally {
+      
+      int? res = await _usecase.register(cpf, name, email, dateBirth, password);
+
+      if (res == 201) {
+        Modular.to.navigate('/login');
         isLoading = false;
       }
+
+      return res;
+    } else {
+        print("Erro");
+        return null;
     }
   }
 }
@@ -88,7 +92,7 @@ abstract class _RegisterErrorBase with Store {
   String? email;
 
   @observable
-  String? birthdate;
+  String? dateBirth;
   
   @observable
   String? password;
@@ -97,14 +101,14 @@ abstract class _RegisterErrorBase with Store {
   String? register;
 
   @computed
-  bool get hasErrors => cpf != null || name != null || email != null || birthdate != null ||
+  bool get hasErrors => cpf != null || name != null || email != null || dateBirth != null ||
                         password != null || register != null;
 
   void clear() {
     cpf = null;
     name = null;
     email = null;
-    birthdate = null;
+    dateBirth = null;
     password = null;
     register = null;
   }
