@@ -43,5 +43,4 @@ export class User extends Model {
         allowNull: true
     })
     reset_password: string;
-    
 }

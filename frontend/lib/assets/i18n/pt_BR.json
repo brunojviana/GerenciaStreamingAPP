@@ -38,8 +38,11 @@
     "confirmPassword_hint": "Confirme a nova senha",
     "invalid_email_address": "E-mail Inválido",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "invalid_cpf": "CPF Inválido"
 =======
+=======
+>>>>>>> 72319ae489fe62a6dd59803cfc099d1af97c3d92
     "invalid_cpf": "CPF Inválido",
     "skip_onboarding": "PULAR",
     "manage_subscriptions": "Gerencie suas Assinaturas",
@@ -50,5 +53,8 @@
     "recommendations_description": "Com o Streament você receberá recomendações para rotação do seu conjunto de assinaturas.",
     "next": "AVANÇAR",
     "start": "INICIAR"
+<<<<<<< HEAD
 >>>>>>> f01aee5a4eda0f41f28078a8c08ee6c104c300c2
+=======
+>>>>>>> 72319ae489fe62a6dd59803cfc099d1af97c3d92
 }
