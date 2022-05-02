@@ -67,7 +67,7 @@ abstract class _RegisterViewModelBase with Store {
       int? res = await _usecase.register(cpf, name, email, dateBirth, password);
 
       if (res == 201) {
-        Modular.to.navigate('/login');
+        Modular.to.pushNamedAndRemoveUntil('/login', (p0) => false);
         isLoading = false;
       }
 
