@@ -114,7 +114,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : store.login,
+          onPressed: store.isLoading ? null : _login,
           child: Text('login'.i18n()),
         ),
       ),
@@ -145,6 +145,10 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           ),
         ),
       );
+
+  void _login() async {
+    int? response = await store.login();
+  }
 
   @override
   Widget build(BuildContext context) {

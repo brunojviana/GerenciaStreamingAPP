@@ -38,7 +38,7 @@ class LoginUseCase {
     return null;
   }
 
-  Future<User> login(String usermail, String password) {
+  Future<int?> login(String usermail, String password) {
     return repository.login(User(usermail, password));
   }
 }

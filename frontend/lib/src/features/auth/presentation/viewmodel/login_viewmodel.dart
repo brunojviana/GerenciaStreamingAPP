@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -29,7 +31,7 @@ abstract class _LoginViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
-  void login() async {
+  Future<int?> login() async {
     error.clear();
 
     validateUsermail();
@@ -37,14 +39,20 @@ abstract class _LoginViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
-      try {
-        await _usecase.login(usermail, password);
-      } on UnimplementedError {
-        // TODO: Fix!!!
-        error.login = 'Função não implementada!';
-      } finally {
+
+      int? res = await _usecase.login(usermail, password);
+
+      print(res);
+
+      if (res == 201) {
+        Modular.to.pushNamedAndRemoveUntil('/reset', (p0) => false);
         isLoading = false;
       }
+
+      return res;
+    } else {
+        print("Erro");
+        return null;
     }
   }
 }
