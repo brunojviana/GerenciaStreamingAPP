@@ -54,17 +54,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  final _$birthdateAtom = Atom(name: '_RegisterViewModelBase.birthdate');
+  final _$dateBirthAtom = Atom(name: '_RegisterViewModelBase.dateBirth');
 
   @override
   String get dateBirth {
-    _$birthdateAtom.reportRead();
+    _$dateBirthAtom.reportRead();
     return super.dateBirth;
   }
 
   @override
   set dateBirth(String value) {
-    _$birthdateAtom.reportWrite(value, super.dateBirth, () {
+    _$dateBirthAtom.reportWrite(value, super.dateBirth, () {
       super.dateBirth = value;
     });
   }
@@ -163,7 +163,7 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
 cpf: ${cpf},
 name: ${name},
 email: ${email},
-birthdate: ${dateBirth},
+dateBirth: ${dateBirth},
 password: ${password},
 isLoading: ${isLoading}
     ''';
@@ -224,17 +224,17 @@ mixin _$RegisterError on _RegisterErrorBase, Store {
     });
   }
 
-  final _$birthdateAtom = Atom(name: '_RegisterErrorBase.birthdate');
+  final _$dateBirthAtom = Atom(name: '_RegisterErrorBase.dateBirth');
 
   @override
   String? get dateBirth {
-    _$birthdateAtom.reportRead();
+    _$dateBirthAtom.reportRead();
     return super.dateBirth;
   }
 
   @override
   set dateBirth(String? value) {
-    _$birthdateAtom.reportWrite(value, super.dateBirth, () {
+    _$dateBirthAtom.reportWrite(value, super.dateBirth, () {
       super.dateBirth = value;
     });
   }
@@ -275,7 +275,7 @@ mixin _$RegisterError on _RegisterErrorBase, Store {
 cpf: ${cpf},
 name: ${name},
 email: ${email},
-birthdate: ${dateBirth},
+dateBirth: ${dateBirth},
 password: ${password},
 register: ${register},
 hasErrors: ${hasErrors}

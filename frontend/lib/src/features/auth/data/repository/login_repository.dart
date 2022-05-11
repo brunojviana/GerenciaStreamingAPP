@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:frontend/src/features/auth/domain/model/user_register.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/src/features/auth/domain/model/user.dart';
 import 'package:frontend/src/features/auth/domain/repository/login_interface.dart';

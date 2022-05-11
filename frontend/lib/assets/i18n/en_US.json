@@ -37,12 +37,6 @@
     "messenger_new_password": "Create your new password",
     "confirmPassword_hint": "Confirm the new password",
     "invalid_email_address": "E-mail address invalid",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "invalid_cpf": "CPF Invalid"
-=======
-=======
->>>>>>> 72319ae489fe62a6dd59803cfc099d1af97c3d92
     "invalid_cpf": "CPF Invalid",
     "skip_onboarding": "SKIP",
     "manage_subscriptions": "Manage your Subscriptions",
@@ -52,9 +46,13 @@
     "recommendations": "Get Recommendations",
     "recommendations_description": "With Streament you will receive recommendations for rotating your subscription set.",
     "next": "NEXT",
-    "start": "START"
-<<<<<<< HEAD
->>>>>>> f01aee5a4eda0f41f28078a8c08ee6c104c300c2
-=======
->>>>>>> 72319ae489fe62a6dd59803cfc099d1af97c3d92
+    "start": "START",
+    "welcome": "Welcome, ",
+    "my_data": "My Data",
+    "my_subscriptions": "My Subscriptions",
+    "my_movies": "Movies and TV Shows",
+    "my_other_contents": "Other Contents",
+    "my_spending_history": "Spending History",
+    "map": "Map",
+    "notifications": "Notifications"
 }

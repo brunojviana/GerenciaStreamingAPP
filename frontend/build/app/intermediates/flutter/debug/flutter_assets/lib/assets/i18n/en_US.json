@@ -46,5 +46,13 @@
     "recommendations": "Get Recommendations",
     "recommendations_description": "With Streament you will receive recommendations for rotating your subscription set.",
     "next": "NEXT",
-    "start": "START"
+    "start": "START",
+    "welcome": "Welcome, ",
+    "my_data": "My Data",
+    "my_subscriptions": "My Subscriptions",
+    "my_movies": "Movies and TV Shows",
+    "my_other_contents": "Other Contents",
+    "my_spending_history": "Spending History",
+    "map": "Map",
+    "notifications": "Notifications"
 }

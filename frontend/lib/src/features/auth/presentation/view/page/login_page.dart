@@ -88,7 +88,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
           onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('/reset');
+                  Modular.to.pushNamed('reset');
                 },
           child: Text('forgot_password'.i18n(),
             style: const TextStyle(
@@ -133,7 +133,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
             ),
           ),
           onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('/register');
+                  Modular.to.pushNamed('register');
                 },
           child: Text('register_link'.i18n(),
             style: const TextStyle(

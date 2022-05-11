@@ -222,7 +222,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 onPressed: () {
-                  Modular.to.pushNamed('/login');
+                  Modular.to.pushNamed('/auth');
                 }
               ),  
             )
