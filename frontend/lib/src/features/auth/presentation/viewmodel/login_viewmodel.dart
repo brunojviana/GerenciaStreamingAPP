@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-
 import '../../domain/usecase/login_usecase.dart';
 
 part 'login_viewmodel.g.dart';

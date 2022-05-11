@@ -12,7 +12,7 @@ class OnboardingViewModel extends GetxController {
 
   forwardAction() {
     if (isLastPage) {
-      Modular.to.pushNamed('/login');
+      Modular.to.pushNamed('/auth');
     } else {
       pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
     }

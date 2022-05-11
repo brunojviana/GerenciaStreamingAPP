@@ -227,7 +227,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 onPressed: () {
-                  Modular.to.pushNamed('/login');
+                  Modular.to.pushNamed('/auth');
                 }
               ),  
             )

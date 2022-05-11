@@ -5,8 +5,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:localization/localization.dart';
 import '../../../../../theme.dart';
 
-class OnBoardingPage extends StatelessWidget {
-  OnBoardingPage({Key? key}) : super(key: key);
+class OnboardingPage extends StatelessWidget {
+  OnboardingPage({Key? key}) : super(key: key);
   final viewmodel = OnboardingViewModel();
 
   @override
@@ -102,7 +102,7 @@ class OnBoardingPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                    Modular.to.pushNamed('/login');
+                    Modular.to.pushNamed('/auth');
                 },
                   child: Text('skip_onboarding'.i18n()),
                 ),

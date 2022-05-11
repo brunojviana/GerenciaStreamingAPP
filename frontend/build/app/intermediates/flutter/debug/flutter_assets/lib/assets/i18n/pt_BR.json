@@ -46,5 +46,13 @@
     "recommendations": "Get Recommendations",
     "recommendations_description": "Com o Streament você receberá recomendações para rotação do seu conjunto de assinaturas.",
     "next": "AVANÇAR",
-    "start": "INICIAR"
+    "start": "INICIAR",
+    "welcome": "Bem vindo, ",
+    "my_data": "Meus Dados",
+    "my_subscriptions": "Minhas Assinaturas",
+    "my_movies": "Filmes e Séries",
+    "my_other_contents": "Outros Conteúdos",
+    "my_spending_history": "Histórico de Gastos",
+    "map": "Mapa",
+    "notifications": "Notifications"    
 }

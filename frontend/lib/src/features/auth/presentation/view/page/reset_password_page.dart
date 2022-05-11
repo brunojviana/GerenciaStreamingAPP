@@ -76,7 +76,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               ),
             ),
             onPressed: store.isLoading ? null : () {
-                    Modular.to.pushNamed('/newpassword');
+                    Modular.to.pushNamed('newpassword');
                   },
             child: Text('send'.i18n(),
               style: const TextStyle(
@@ -143,7 +143,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 onPressed: () {
-                  Modular.to.pushNamed('/login');
+                  Modular.to.pushNamed('/auth');
                 }
               ),  
             )
