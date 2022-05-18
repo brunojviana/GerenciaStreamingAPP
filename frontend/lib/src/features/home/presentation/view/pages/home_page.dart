@@ -14,13 +14,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   late ThemeData _theme;
-  late String _name;
+  final String _name = "Bruno";
 
   Widget get _myData => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('my_data'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -33,11 +33,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/profile');
+          Modular.to.pushNamed('profile');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/perfil.png',
             width: 104,
             height: 104,
@@ -51,9 +51,9 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _mySubscriptions => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
-        child: Text('my_subscritptions'.i18n(),
+        height: 30,
+        width: 190,
+        child: Text('my_subscriptions'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
@@ -65,11 +65,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/subscriptions');
+          Modular.to.pushNamed('subscriptions');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/streaming-online.png',
             width: 104,
             height: 104,
@@ -83,8 +83,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _myMovies => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('my_movies'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -97,11 +97,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/movies');
+          Modular.to.pushNamed('movies');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/aplicativo-de-streaming-de-tv.png',
             width: 104,
             height: 104,
@@ -115,8 +115,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _myOtherContents => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('my_other_contents'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -129,11 +129,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/otherContents');
+          Modular.to.pushNamed('otherContents');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/musica.png',
             width: 104,
             height: 104,
@@ -147,8 +147,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _mySpendings => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('my_spending_history'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -161,11 +161,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/spendings');
+          Modular.to.pushNamed('spendings');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/aumentando.png',
             width: 104,
             height: 104,
@@ -179,8 +179,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _recommendations => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('recommendations'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -193,11 +193,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/recommendations');
+          Modular.to.pushNamed('recommendations');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/recomendacao.png',
             width: 104,
             height: 104,
@@ -211,8 +211,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _map => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('map'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -225,11 +225,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/map');
+          Modular.to.pushNamed('map');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/mapa.png',
             width: 104,
             height: 104,
@@ -243,8 +243,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   Widget get _notifications => Column(
     children: [
       SizedBox(
-        height: 20,
-        width: 104,
+        height: 30,
+        width: 190,
         child: Text('notifications'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
@@ -257,11 +257,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/notifications');
+          Modular.to.pushNamed('notifications');
         },
         child: SizedBox(
           height: 104,
-          width: 104,
+          width: 190,
           child: Image.asset('lib/assets/images/notificacao.png',
             width: 104,
             height: 104,
@@ -280,7 +280,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('welcome'.i18n() + _name, 
+        title: Text('welcome'.i18n() + _name + '!', 
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 20,
@@ -295,7 +295,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
             return Form(
               
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -306,18 +306,21 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
                       _mySubscriptions,
                     ],
                   ),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       _myMovies,
                       _myOtherContents,
                     ],
                   ),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       _mySpendings,
                       _recommendations,
                     ],
                   ),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       _map,
@@ -342,7 +345,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 onPressed: () {
-                  Modular.to.pushNamed('/login');
+                  Modular.to.pushNamed('/auth');
                 }
               ),  
             )

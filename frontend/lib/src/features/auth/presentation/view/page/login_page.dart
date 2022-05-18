@@ -114,7 +114,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
           ),
-          onPressed: store.isLoading ? null : _login,
+          onPressed: store.isLoading ? null : () {
+                  Modular.to.pushNamed('home');
+                },
           child: Text('login'.i18n()),
         ),
       ),

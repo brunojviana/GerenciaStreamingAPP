@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import '../map/map_module.dart';
 import 'data/repository/home_repository.dart';
 import 'domain/repository/profile_interface.dart';
 import 'domain/usecase/home_usecase.dart';
@@ -16,5 +17,15 @@ class HomeModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const HomePage()),
+        ModuleRoute('/profile', module: MapModule()),
+        ModuleRoute('/subscriptions', module: MapModule()),
+        ModuleRoute('/movies', module: MapModule()),
+        ModuleRoute('/otherContents', module: MapModule()),
+        ModuleRoute('/spendings', module: MapModule()),
+        ModuleRoute('/recommendations', module: MapModule()),
+        ModuleRoute('/map', module: MapModule()),
+        ModuleRoute('/notifications', module: MapModule()),
+        ModuleRoute('/map', module: MapModule()),
+
       ];
 }

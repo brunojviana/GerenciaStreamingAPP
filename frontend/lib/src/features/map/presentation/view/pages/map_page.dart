@@ -71,7 +71,7 @@ class _MapPageState extends ModularState<MapPage, MapViewModel> {
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 onPressed: () {
-                  Modular.to.pushNamed('/login');
+                  Modular.to.pushNamed('/auth');
                 }
               ),  
             )

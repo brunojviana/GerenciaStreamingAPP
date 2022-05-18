@@ -4,6 +4,7 @@ import 'package:frontend/src/features/auth/domain/repository/register_interface.
 import 'package:frontend/src/features/auth/domain/repository/reset_password_interface.dart';
 import 'package:frontend/src/features/auth/presentation/view/page/new_password_page.dart';
 import 'package:frontend/src/features/auth/presentation/view/page/reset_password_page.dart';
+import '../home/home_module.dart';
 import 'data/repository/login_repository.dart';
 import 'data/repository/new_password_repository.dart';
 import 'data/repository/register_repository.dart';
@@ -43,5 +44,6 @@ class AuthModule extends Module {
         ChildRoute('/register', child: (_, __) => const RegisterPage()),
         ChildRoute('/reset', child: (_, __) => const ResetPasswordPage()),
         ChildRoute('/newpassword', child: (_, __) => const NewPasswordPage()),
+        ModuleRoute('/home', module: HomeModule()),
       ];
 }
