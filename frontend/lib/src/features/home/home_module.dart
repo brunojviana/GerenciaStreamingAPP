@@ -5,6 +5,7 @@ import 'domain/repository/profile_interface.dart';
 import 'domain/usecase/home_usecase.dart';
 import 'presentation/view/pages/home_page.dart';
 import 'presentation/viewmodel/home_viewmodel.dart';
+import '../register_provider/provider_module.dart';
 
 class HomeModule extends Module {
   @override
@@ -18,7 +19,7 @@ class HomeModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const HomePage()),
         ModuleRoute('/profile', module: MapModule()),
-        ModuleRoute('/subscriptions', module: MapModule()),
+        ModuleRoute('/subscriptions', module: ProviderModule()),
         ModuleRoute('/movies', module: MapModule()),
         ModuleRoute('/otherContents', module: MapModule()),
         ModuleRoute('/spendings', module: MapModule()),
