@@ -1,4 +1,7 @@
-import { AllowNull, Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Content } from "src/content/content.model";
+import { Signature } from "src/signature/signature.model";
+import { User_Signature } from "src/user-signature/user-signature.model";
 
 
 @Table({
@@ -30,7 +33,7 @@ export class User extends Model {
         type: DataType.DATEONLY,
         allowNull: false
     })
-    dateBirth: Date;
+    date_birth: Date;
 
     @Column({
         type: DataType.STRING(8),
@@ -43,4 +46,7 @@ export class User extends Model {
         allowNull: true
     })
     reset_password: string;
+
+    @BelongsToMany(() => Signature, () => User_Signature)
+    signatures: Signature[];
 }

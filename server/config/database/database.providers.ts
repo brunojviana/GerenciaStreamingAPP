@@ -1,4 +1,7 @@
 import { Sequelize } from "sequelize-typescript"
+import { Content } from "src/content/content.model";
+import { Signature } from "src/signature/signature.model";
+import { User_Signature } from "src/user-signature/user-signature.model";
 import { User } from "src/user/user.model";
 
 
@@ -15,7 +18,10 @@ export const databaseProviders = [
                 database: process.env.DATABASE
             });
             sequelize.addModels([
-                User
+                User,
+                Signature,
+                User_Signature,
+                Content
             ]);
             await sequelize.sync();
             return sequelize;
