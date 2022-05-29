@@ -16,12 +16,20 @@ export class User_Signature extends Model {
 
     @ForeignKey(() => User)
     @Column({
+        references: {
+            model: 'users',
+            key: 'id'
+        },
         allowNull: false
     })
     user_id: number;
 
     @ForeignKey(() => Signature)
     @Column({
+        references: {
+            model: 'signatures',
+            key: 'id'
+        },
         allowNull: false
     })
     signature_id: number;
