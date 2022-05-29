@@ -33,4 +33,9 @@ export class UserService {
         this.usersModel.create(user);
     }
 
+    async delete (email: string) {
+        const user: User = await this.findEmail(email);
+        user.destroy();
+    }
+
 }

@@ -25,4 +25,9 @@ export class ContentService {
         this.contentsModel.create(content);
     }
 
+    async delete(id: number) {
+        const content: Content = await this.findId(id);
+        content.destroy();
+    }
+
 }

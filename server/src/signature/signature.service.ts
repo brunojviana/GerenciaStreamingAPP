@@ -25,4 +25,9 @@ export class SignatureService {
         this.signaturesModel.create(signature);
     }
 
+    async delete(id: number) {
+        const signature: Signature = await this.find(id);
+        signature.destroy();
+    }
+
 }
