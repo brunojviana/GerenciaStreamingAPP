@@ -1,0 +1,57 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/subscription/domain/repository/list_subscriptions_interface.dart';
+import 'data/repository/list_subscriptions_repository.dart';
+import 'data/repository/provider_repository.dart';
+import 'data/repository/select_provider_repository.dart';
+import 'data/repository/subscription_detal_repository.dart';
+import 'data/repository/subscription_repository.dart';
+import 'domain/repository/provider_interface.dart';
+import 'domain/repository/select_provider_interface.dart';
+import 'domain/repository/subscription_detail_interface.dart';
+import 'domain/repository/subscription_interface.dart';
+import 'domain/usecase/list_subscriptions_usecase.dart';
+import 'domain/usecase/provider_usecase.dart';
+import 'domain/usecase/select_provider_usecase.dart';
+import 'domain/usecase/subscription_detail_usecase.dart';
+import 'domain/usecase/subscription_usecase.dart';
+import 'presentation/view/pages/list_subscriptions_page.dart';
+import 'presentation/view/pages/register_provider_page.dart';
+import 'presentation/view/pages/register_subscription_page.dart';
+import 'presentation/view/pages/select_provider.dart';
+import 'presentation/view/pages/subscription_detail.dart';
+import 'presentation/viewmodel/list_subscriptions_viewmodel.dart';
+import 'presentation/viewmodel/register_provider_viewmodel.dart';
+import 'presentation/viewmodel/register_subscription_viewmodel.dart';
+import 'presentation/viewmodel/select_provider_viewmodel.dart';
+import 'presentation/viewmodel/subscription_detail_viewmodel.dart';
+
+class SubscriptionModule extends Module {
+  @override
+  List<Bind<Object>> get binds => [
+        Bind.factory((i) => ListSubscriptionsViewModel()),
+        Bind.factory((i) => ListSubscriptionsUseCase()),
+        Bind.factory<IListSubscriptions>((i) => ListSubsciptionsRepository()),
+        Bind.factory((i) => SelectProviderViewModel()),
+        Bind.factory((i) => SelectProviderUseCase()),
+        Bind.factory<IListProviders>((i) => SelectProviderRepository()),
+        Bind.factory((i) => RegisterProviderViewModel()),
+        Bind.factory((i) => RegisterProviderUseCase()),
+        Bind.factory<IProvider>((i) => ProviderRepository()),
+        Bind.factory((i) => RegisterSubscriptionViewModel()),
+        Bind.factory((i) => SubscriptionUseCase()),
+        Bind.factory<ISubscription>((i) => SubscriptionRepository()),
+        Bind.factory((i) => SubscriptionDetailViewModel()),
+        Bind.factory((i) => SubscriptionDetailUseCase()),
+        Bind.factory<ISubscriptionDetail>((i) => SubscriptionDetailRepository()),
+      ];
+
+  @override
+  List<ModularRoute> get routes => [
+        ChildRoute('/', child: (_, __) => const ListSubscriptionsPage()),
+        ChildRoute('/selectprovider', child: (_, __) => const SelectProviderPage()),
+        ChildRoute('/newprovider', child: (_, __) => const RegisterProviderPage()),
+        ChildRoute('/newsubscription', child: (_, __) => const RegisterSubscriptionPage()),
+        ChildRoute('/detailsubscription', child: (_, args) => 
+          SubscriptionDetailPage(subscription: args.data)),
+      ];
+}
