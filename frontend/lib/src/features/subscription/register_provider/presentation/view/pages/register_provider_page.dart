@@ -28,7 +28,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
 
   Widget get _messenger_logo => Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        height: 25,
+        height: 40,
         width: double.infinity,
         child: Text(
           'upload_logo'.i18n(),
@@ -44,7 +44,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
 
   Widget get _logoButton => Center(
         child: Container(
-            margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
+            margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             height: 90,
             width: double.infinity,
             child: SizedBox(
@@ -60,7 +60,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
 
   Widget get _messenger_provider => Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        height: 20,
+        height: 40,
         width: double.infinity,
         child: Text(
           'name_logo'.i18n(),
@@ -86,7 +86,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
 
   Widget get _messenger_category => Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        height: 25,
+        height: 40,
         width: double.infinity,
         child: Text(
           'provider_category'.i18n(),
@@ -99,17 +99,6 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
           textAlign: TextAlign.left,
         ),
       );
-
-  Widget get _category => Container(
-      alignment: Alignment.center,
-      child: Wrap(
-        direction: Axis.vertical,
-        spacing: 10.0,
-        runSpacing: 10.0,
-        children: <Widget>[
-          choiceChipWidget(category),
-        ],
-      ));
 
   Widget get _registerButton => Center(
         child: Container(
@@ -129,7 +118,15 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
             onPressed: () {
                Modular.to.pushNamed('subscription');
             },
-            child: Text('next'.i18n()),
+            child: Text('next'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textLight,
+              ),
+              textAlign: TextAlign.left,
+            ),
           ),
         ),
       );
@@ -157,28 +154,50 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
           textAlign: TextAlign.center,
         ),
       ),
+
       body: Center(
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
             return Form(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  _messenger_logo,
-                  _logoButton,
-                  _messenger_provider,
-                  _provider,
-                  _messenger_category,
-                  _category,
-                  _registerButton,
-                ],
-              ),
-            );
-          }),
+                mainAxisSize: MainAxisSize.max,             
+                    children: [
+                      Column(
+                        children: [
+                          _messenger_logo,
+                          _logoButton,
+                          _messenger_provider,
+                          _provider,
+                          _messenger_category,
+                        ],
+                      ),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        runAlignment : WrapAlignment.center,
+                        crossAxisAlignment : WrapCrossAlignment.center,
+                        spacing: 20.0,
+                        runSpacing: 20.0,
+                        children: <Widget>[
+                          choiceChipWidget(category),
+                        ],
+                      ),
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _registerButton
+                        ],
+                      ),
+                    ]
+                )
+              );
+            }),
+          ),
         ),
-      ),
+
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
@@ -200,40 +219,44 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
   }
 }
 
-class choiceChipWidget extends StatefulWidget {
-  final List<String> reportList;
-  choiceChipWidget(this.reportList);
+ class choiceChipWidget extends StatefulWidget {
+    final List<String> listChoice;
+    choiceChipWidget(this.listChoice);
 
   @override
   _choiceChipWidgetState createState() => new _choiceChipWidgetState();
 }
 
 class _choiceChipWidgetState extends State<choiceChipWidget> {
+  
   String selectedChoice = "";
-
   _buildChoiceList() {
     List<Widget> choices = [];
-    widget.reportList.forEach((item) {
+    widget.listChoice.forEach((item) { 
       choices.add(Container(
-        padding: const EdgeInsets.all(15.0),
-        child: Container(
-          child: ChoiceChip(
-            label: Text(item),
-            labelStyle: const TextStyle(
+        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4), 
+        child: ChoiceChip(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          label: Container(
+            alignment: Alignment.center,
+            width: 140.0,
+            height: 40.0,
+            child: Text(item,
+              style: const TextStyle(
               fontFamily: 'Nunito',
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
+              fontSize: 14,
               color: AppColors.textLight,
+              ),
             ),
-            backgroundColor: (AppColors.accent),
-            selectedColor: (AppColors.primaryLight),
-            selected: selectedChoice == item,
-            onSelected: (selected) {
-              setState(() {
-                selectedChoice = item;
-              });
-            },
           ),
+          backgroundColor: (AppColors.accent),
+          selectedColor: (AppColors.primaryLight),
+          selected: selectedChoice == item,
+          onSelected: (selected) {
+            setState(() {
+              selectedChoice = item;
+            });
+          },
         ),
       ));
     });

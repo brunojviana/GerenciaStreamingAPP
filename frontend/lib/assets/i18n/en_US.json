@@ -86,5 +86,22 @@
     "name_provider": "Provider name is required!",
     "date_subscription_required" : "Signature date information is mandatory",
     "value_required": "Information on the value of the service is mandatory",
-    "screens_required": "Information on the number of simultaneous screens is mandatory"
+    "screens_required": "Information on the number of simultaneous screens is mandatory",
+    "register_content": "Register content",
+    "content_name": "Enter the name of the content",
+    "content_name_hint": "Os Normais", 
+    "content_category": "Enter the content category",
+    "cat_movies": "Movies",
+    "cat_series": "Series",
+    "notif_disable": "Temporarily disable all notifications",
+    "notif_time": "Weekly usage time",
+    "notif_price": "Price change",
+    "notif_service": "Less used service",
+    "my_informations": "My informations",
+    "photo": "Photo",
+    "cpf": "CPF",
+    "name": "Name",
+    "birthdate": "Birth date",
+    "e-mail": "E-mail",
+    "change_password": "Change Password"
 }

@@ -111,15 +111,15 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
     ),
   );
 
-  Widget get _payment=> Container( 
-      alignment: Alignment.center,
-      child: Wrap(
-        spacing: 5.0,
-        runSpacing: 5.0,
+  Widget get _payment=> Row( 
+      children: [Wrap(
+        spacing: 35.0,
+        runSpacing: 135.0,
         children: <Widget>[
         choiceChipWidget(paymentFrequency),
         ],
       )
+      ],
   );
 
   Widget get _messeger_screens => Container(

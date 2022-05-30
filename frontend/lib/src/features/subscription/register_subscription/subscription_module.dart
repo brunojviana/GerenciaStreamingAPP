@@ -5,6 +5,7 @@ import '../register_subscription/domain/repository/subscription_interface.dart';
 import '../register_subscription/domain/usecase/subscription_usecase.dart';
 import '../register_subscription/presentation/view/pages/register_subscription_page.dart';
 import '../register_subscription/presentation/viewmodel/register_subscription_viewmodel.dart';
+import '../register_provider/presentation/view/pages/register_provider_page.dart';
 
 class SubscriptionModule extends Module {
   @override
@@ -17,5 +18,5 @@ class SubscriptionModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const RegisterSubscriptionPage()),
-      ];
+    ];
 }
