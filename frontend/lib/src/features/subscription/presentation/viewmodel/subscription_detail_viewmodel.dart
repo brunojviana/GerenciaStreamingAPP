@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import '../../data/dto/subscription_dto.dart';
 import '../../domain/usecase/subscription_detail_usecase.dart';
 
 part 'subscription_detail_viewmodel.g.dart';
@@ -15,9 +14,9 @@ abstract class _SubscriptionDetailViewModelBase with Store {
     return res;
   }
 
-  Future<int> deleteSubscription(SubscriptionDto subscription) async {
+  Future<int> deleteSubscription(int id) async {
     
-    int res = await _usecase.deleteSubscription(subscription);
+    int res = await _usecase.deleteSubscription(id);
     return res;
   }
 }

@@ -1,6 +1,4 @@
 import '../../domain/repository/subscription_detail_interface.dart';
-import '../dto/subscription_dto.dart';
-
 class SubscriptionDetailRepository implements ISubscriptionDetail {
   
   @override
@@ -9,7 +7,7 @@ class SubscriptionDetailRepository implements ISubscriptionDetail {
   }
 
   @override
-  Future<int> deleteSubscription(SubscriptionDto subscription) async {
+  Future<int> deleteSubscription(int id) async {
     throw UnimplementedError();
   }
 }

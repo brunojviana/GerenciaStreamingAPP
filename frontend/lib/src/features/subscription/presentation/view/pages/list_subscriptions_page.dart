@@ -7,6 +7,7 @@ import '../../viewmodel/list_subscriptions_viewmodel.dart';
 
 //Classe declarada apenas para carregar a tela. Deve ser utilizada a model.
 class Subscription {
+  int id;
   String pathLogo;
   String nameProvider;
   String categoryProvider;
@@ -17,10 +18,11 @@ class Subscription {
   String maxResolution;
   int content;
   Duration time;
-  String status;
+  int status;
 
   Subscription(
-    {required this.pathLogo,
+    {required this.id,
+     required this.pathLogo,
      required this.nameProvider,
      required this.categoryProvider,
      required this.signatureDate,
@@ -57,6 +59,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           child: ListTile(
             onTap: () {
               Modular.to.pushNamed('detailsubscription', arguments: Subscription(
+                id: _subscriptions[index].id,
                 pathLogo: _subscriptions[index].pathLogo,
                 nameProvider: _subscriptions[index].nameProvider,
                 categoryProvider: _subscriptions[index].categoryProvider,
@@ -109,6 +112,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
     //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
     _subscriptions = [
       Subscription(
+        id: 0001,
         pathLogo: 'lib/assets/images/netflix.png',
         nameProvider: 'Netflix',
         categoryProvider: 'cat_movies_and_series',
@@ -119,8 +123,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         maxResolution: 'Full HD',
         content: 0,
         time: const Duration(hours: 0, minutes: 0, seconds: 0),
-        status: 'status_active'.i18n()),
+        status: 1),
       Subscription(
+        id: 0002,
         pathLogo: 'lib/assets/images/prime.png',
         nameProvider: 'Amazon Prime Video',
         categoryProvider: 'cat_movies_and_series',
@@ -131,8 +136,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         maxResolution: 'Full HD',
         content: 0,
         time: const Duration(hours: 0, minutes: 0, seconds: 0),
-        status: 'status_active'.i18n()),
+        status: 1),
       Subscription(
+        id: 0003,
         pathLogo: 'lib/assets/images/hbo.png',
         nameProvider: 'HBO Max',
         categoryProvider: 'cat_movies_and_series',
@@ -143,8 +149,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         maxResolution: '4K',
         content: 0,
         time: const Duration(hours: 0, minutes: 0, seconds: 0),
-        status: 'status_active'.i18n()),
+        status: 1),
       Subscription(
+        id: 0004,
         pathLogo: 'lib/assets/images/spotify.png',
         nameProvider: 'Spotify',
         categoryProvider: 'cat_songs',
@@ -155,7 +162,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         maxResolution: 'other',
         content: 0,
         time: const Duration(hours: 0, minutes: 0, seconds: 0),
-        status: 'status_active'.i18n()),
+        status: 1),
     ];
 
     return Scaffold(
@@ -173,8 +180,10 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         ),
       body: _dataSubscription, 
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        backgroundColor: AppColors.primaryLight,
+        child: const Icon(Icons.add,
+          size: 40,
+          color: AppColors.textLight),
+        backgroundColor: AppColors.primary,
         onPressed: () {
           Modular.to.pushNamed('selectprovider');
         },

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import '../content/content_module.dart';
 import '../map/map_module.dart';
 import '../profile/profile_module.dart';
 import '../subscription/subscription_module.dart';
@@ -21,9 +22,9 @@ class HomeModule extends Module {
         ChildRoute('/', child: (_, __) => const HomePage()),
         ModuleRoute('/subscriptions', module: SubscriptionModule()),
         ModuleRoute('/map', module: MapModule()),
+        ModuleRoute('/movies', module: ContentModule()),
+        ModuleRoute('/otherContents', module: ContentModule()),
         //ModuleRoute('/profile', module: ProfileModule()), 
-        //ModuleRoute('/movies', module: MoviesModule()),
-        //ModuleRoute('/otherContents', module: OtherContentsModule()),
         //ModuleRoute('/spendings', module: SpendingsModule()),
         //ModuleRoute('/recommendations', module: RecommendationsModule()),
         //ModuleRoute('/notifications', module: NotificationsModule()),

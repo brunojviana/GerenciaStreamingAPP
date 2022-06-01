@@ -112,8 +112,10 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        backgroundColor: AppColors.primaryLight,
+        child: const Icon(Icons.add,
+          size: 40,
+          color: AppColors.textLight),
+        backgroundColor: AppColors.primary,
         onPressed: () {
           Modular.to.pushNamed('newprovider');
         },

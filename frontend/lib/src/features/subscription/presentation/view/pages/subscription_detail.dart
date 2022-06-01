@@ -3,6 +3,7 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 //import '../../../domain/model/subscription.dart';
+import '../../../data/dto/subscription_dto.dart';
 import '../../viewmodel/subscription_detail_viewmodel.dart';
 import 'list_subscriptions_page.dart';
 
@@ -18,36 +19,54 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
   late ThemeData _theme;
 
   Widget get _provider => Container(
-    margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 100,
-    child: ListTile(
-      visualDensity: const VisualDensity(vertical: 1),
-      title: Text(widget.subscription.nameProvider,
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
+    child: Row(
+      children: [
+        Container(
+          height: 80,
+          width: 80,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+          child: Image.asset(widget.subscription.pathLogo,
+            width: 80,
+            height: 80,
+            fit: BoxFit.scaleDown,
+          ),
         ),
-      ),
-      subtitle: Text(widget.subscription.categoryProvider.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.text, 
-        ),
-      ),
-      leading: Image.asset(widget.subscription.pathLogo,
-        width: 100,
-        height: 100,
-        fit: BoxFit.contain,
-      ),
-    ),
+        const SizedBox(width: 10),
+        SizedBox(
+          height: 70,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.subscription.nameProvider,
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Text(widget.subscription.categoryProvider.i18n(),
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+        )
+      ],
+    ), 
   );
 
   Widget get _subscriptionDate => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('signature_date'.i18n() + ': ' +
@@ -65,7 +84,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     ); 
 
   Widget get _subscriptionTime => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('subscription_time'.i18n(),
@@ -80,7 +99,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     ); 
 
   Widget get _screens => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('screens'.i18n() + ': ' + widget.subscription.screens.toString(),
@@ -95,7 +114,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _maxResolution => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('resolution'.i18n() + ': ' + widget.subscription.maxResolution.toString(),
@@ -110,7 +129,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _price => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('price'.i18n() + ': ' + 'currency'.i18n() +
@@ -126,7 +145,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _paymentFrequency => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment.i18n(),
@@ -141,7 +160,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _content => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('consumedContent'.i18n() + ': ' + widget.subscription.content.toString(),
@@ -156,7 +175,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _useTime => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
       child: Text('use_time'.i18n() + ': ' +
@@ -172,10 +191,10 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     );
 
   Widget get _status => Container(
-    margin: const EdgeInsets.fromLTRB(35, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('status'.i18n() + ': ' + widget.subscription.status,
+      child: Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status),
         style: const TextStyle(
           fontFamily: 'Nunito',
           fontSize: 20,
@@ -185,6 +204,44 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
         textAlign: TextAlign.left,
       ),
     );
+
+  Widget get _editButton => IconButton(
+    iconSize: 40,
+    onPressed: () {
+      Modular.to.pushNamed('editsubscription');
+    },
+    icon: const Icon(Icons.edit),
+  );
+
+  Widget get _concludeButton => IconButton(
+    iconSize: 40,
+    onPressed: () {
+      if (widget.subscription.status == 0){
+        store.switchStatus(1);  
+      }
+      else {
+        store.switchStatus(0);
+      } 
+    },
+    icon: const Icon(Icons.done),
+  );
+
+  Widget get _deleteButton => IconButton(
+    iconSize: 40,
+    onPressed: () { 
+      store.deleteSubscription(widget.subscription.id);
+    },
+    icon: const Icon(Icons.delete),
+  );
+
+  String _verifyStatus(int status) {
+    if (widget.subscription.status == 0) {
+      return 'status_inactive'.i18n();
+    }
+    else {
+      return 'status_active'.i18n();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -217,29 +274,11 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
           _status,
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            child: const Icon(Icons.edit),
-            backgroundColor: AppColors.primary,
-            onPressed: () {
-              Modular.to.pushNamed('editSubscription');
-            },
-          ),
-          /*const SizedBox(
-            height: 50,
-            width: 20,
-          ),          
-          FloatingActionButton(
-            child: const Icon(Icons.delete),
-            backgroundColor: AppColors.primary,
-            onPressed: () {
-              Modular.to.pushNamed('deleteSubscription');
-            },
-          ),*/
-        ],
-      ),
+      persistentFooterButtons: [
+        _editButton,
+        _concludeButton,
+        _deleteButton
+      ],
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
