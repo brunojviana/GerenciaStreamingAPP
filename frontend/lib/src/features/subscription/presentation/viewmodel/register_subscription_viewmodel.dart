@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:frontend/src/features/subscription/domain/usecase/subscription_usecase.dart';
+import 'package:frontend/src/features/subscription/domain/usecase/register_subscription_usecase.dart';
 
 part 'register_subscription_viewmodel.g.dart';
 

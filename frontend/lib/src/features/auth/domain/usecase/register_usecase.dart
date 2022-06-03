@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/auth/data/dto/user_register_dto.dart';
 import 'package:localization/localization.dart';
 import '../model/user_register.dart';
 import '../repository/register_interface.dart';
@@ -73,6 +74,6 @@ class RegisterUseCase {
   }
 
   Future<int?> register(String cpf, String name, String email, String dateBirth, String password) {
-    return repository.register(UserRegister(cpf, name, email, dateBirth, password));
+    return repository.register(UserRegisterDto(cpf, name, email, dateBirth, password));
   }
 }

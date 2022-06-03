@@ -8,12 +8,12 @@ import 'data/repository/subscription_repository.dart';
 import 'domain/repository/provider_interface.dart';
 import 'domain/repository/select_provider_interface.dart';
 import 'domain/repository/subscription_detail_interface.dart';
-import 'domain/repository/subscription_interface.dart';
+import 'domain/repository/register_subscription_interface.dart';
 import 'domain/usecase/list_subscriptions_usecase.dart';
-import 'domain/usecase/provider_usecase.dart';
+import 'domain/usecase/register_provider_usecase.dart';
 import 'domain/usecase/select_provider_usecase.dart';
 import 'domain/usecase/subscription_detail_usecase.dart';
-import 'domain/usecase/subscription_usecase.dart';
+import 'domain/usecase/register_subscription_usecase.dart';
 import 'presentation/view/pages/list_subscriptions_page.dart';
 import 'presentation/view/pages/register_provider_page.dart';
 import 'presentation/view/pages/register_subscription_page.dart';
@@ -50,7 +50,8 @@ class SubscriptionModule extends Module {
         ChildRoute('/', child: (_, __) => const ListSubscriptionsPage()),
         ChildRoute('/selectprovider', child: (_, __) => const SelectProviderPage()),
         ChildRoute('/newprovider', child: (_, __) => const RegisterProviderPage()),
-        ChildRoute('/newsubscription', child: (_, __) => const RegisterSubscriptionPage()),
+        ChildRoute('/newsubscription', child: (_, args) => RegisterSubscriptionPage(
+          provider: args.data)),
         ChildRoute('/detailsubscription', child: (_, args) => 
           SubscriptionDetailPage(subscription: args.data)),
       ];

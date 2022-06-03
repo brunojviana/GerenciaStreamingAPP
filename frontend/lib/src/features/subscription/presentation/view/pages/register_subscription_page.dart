@@ -5,12 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:frontend/src/features/subscription/presentation/viewmodel/register_subscription_viewmodel.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/provider.dart';
 
 class RegisterSubscriptionPage extends StatefulWidget {
-  const RegisterSubscriptionPage({ Key? key, /*required this.provider*/}) : super(key: key);
-
-  //final Provider provider;
+  final Provider provider;
+  //final Profile profile;
+  const RegisterSubscriptionPage({ Key? key, required this.provider, /*required this.profile*/}) : super(key: key);
 
   @override
   State<RegisterSubscriptionPage> createState() => _RegisterSubscriptionPageState();
@@ -31,21 +32,51 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
 
   late ThemeData _theme;
 
-  Widget get _image => Center(
-    child: Container(
-      margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
-      height: 50,
-      width: double.infinity,
-      child: SizedBox(
-        height: 50,
-        width: 50,
-        child: Image.asset('lib/assets/images/perfil.png',
-          width: 46,
-          height: 46,
-          fit: BoxFit.scaleDown,
+  Widget get _provider => Container(
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+    height: 70,
+    child: Row(
+      children: [
+        Container(
+          height: 60,
+          width: 60,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+          child: Image.asset(widget.provider.pathLogo!,
+            width: 60,
+            height: 60,
+            fit: BoxFit.scaleDown,
+          ),
         ),
-      )
-    ),
+        const SizedBox(width: 10),
+        SizedBox(
+          height: 60,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.provider.name!,
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Text(widget.provider.category!.i18n(),
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+        )
+      ],
+    ), 
   );
 
   Widget get _messeger_date => Container(
@@ -189,14 +220,14 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
             ),
           ),
           onPressed: () {
-            store.isLoading ? null : _registerSubscription();
+            store.isLoading ? null : _registerSubscription(/*widget.profile.cpf!*/);
           },
           child: Text('store'.i18n()),
         ),
       ),
   );
 
-  void _registerSubscription() async {
+  void _registerSubscription(/*String cpf*/) async {
     int? response = await store.registerSubscription();
   }
 
@@ -227,7 +258,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 5),
-                  _image,
+                  _provider,
                   _messeger_date,
                   _date,
                   _messeger_value,

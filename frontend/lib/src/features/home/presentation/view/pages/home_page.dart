@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/src/features/auth/domain/model/profile.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,7 +7,8 @@ import 'package:localization/localization.dart';
 import '../../viewmodel/home_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final Profile profile;
+  const HomePage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -14,7 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   late ThemeData _theme;
-  final String _name = "Bruno";
 
   Widget get _myData => Column(
     children: [
@@ -65,7 +66,14 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('subscriptions');
+          Modular.to.pushNamed('subscriptions', arguments: Profile(
+            pathProfilePhoto: widget.profile.pathProfilePhoto,
+            cpf: widget.profile.cpf,
+            name: widget.profile.name,
+            email: widget.profile.email,
+            dateBirth: widget.profile.dateBirth,
+            password: widget.profile.password,
+          ));
         },
         child: SizedBox(
           height: 104,
@@ -280,7 +288,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('welcome'.i18n() + _name + '!', 
+        title: Text('welcome'.i18n() + widget.profile.name! + '!', 
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 20,

@@ -19,7 +19,7 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const HomePage()),
+        ChildRoute('/', child: (_, args) => HomePage(profile: args.data)),
         ModuleRoute('/subscriptions', module: SubscriptionModule()),
         ModuleRoute('/map', module: MapModule()),
         ModuleRoute('/movies', module: ContentModule()),

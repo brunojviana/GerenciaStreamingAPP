@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-//import '../../../domain/model/subscription.dart';
-import '../../../data/dto/subscription_dto.dart';
+import '../../../domain/model/subscription.dart';
 import '../../viewmodel/subscription_detail_viewmodel.dart';
-import 'list_subscriptions_page.dart';
 
 class SubscriptionDetailPage extends StatefulWidget {
   final Subscription subscription;
@@ -27,7 +25,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.subscription.pathLogo,
+          child: Image.asset(widget.subscription.provider!.pathLogo!,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,
@@ -40,7 +38,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.subscription.nameProvider,
+              Text(widget.subscription.provider!.name!,
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 25,
@@ -49,7 +47,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
                 ),
                 textAlign: TextAlign.left,
               ),
-              Text(widget.subscription.categoryProvider.i18n(),
+              Text(widget.subscription.provider!.category!.i18n(),
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 20,
@@ -70,9 +68,9 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     height: 25,
     width: double.infinity,
       child: Text('signature_date'.i18n() + ': ' +
-                  widget.subscription.signatureDate.day.toString() + '/' +
-                  widget.subscription.signatureDate.month.toString() + '/' +
-                  widget.subscription.signatureDate.year.toString(),
+                  widget.subscription.signatureDate!.day.toString() + '/' +
+                  widget.subscription.signatureDate!.month.toString() + '/' +
+                  widget.subscription.signatureDate!.year.toString(),
         style: const TextStyle(
           fontFamily: 'Nunito',
           fontSize: 20,
@@ -148,7 +146,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment.i18n(),
+      child: Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment!.i18n(),
         style: const TextStyle(
           fontFamily: 'Nunito',
           fontSize: 20,
@@ -179,7 +177,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     height: 25,
     width: double.infinity,
       child: Text('use_time'.i18n() + ': ' +
-                  widget.subscription.time.inHours.toString() + 'hours'.i18n(),
+                  widget.subscription.time!.inHours.toString() + 'hours'.i18n(),
         style: const TextStyle(
           fontFamily: 'Nunito',
           fontSize: 20,
@@ -194,7 +192,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status),
+      child: Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status!),
         style: const TextStyle(
           fontFamily: 'Nunito',
           fontSize: 20,
@@ -229,7 +227,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
   Widget get _deleteButton => IconButton(
     iconSize: 40,
     onPressed: () { 
-      store.deleteSubscription(widget.subscription.id);
+      store.deleteSubscription(widget.subscription.id!);
     },
     icon: const Icon(Icons.delete),
   );

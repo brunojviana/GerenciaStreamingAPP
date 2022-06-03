@@ -117,11 +117,11 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
               ),
             ),
             onPressed: () {
-               Modular.to.pushNamed('newsubscription', /*arguments: 
+               Modular.to.pushNamed('newsubscription', arguments: 
                 Provider(
-                  pathLogo: '',
+                  pathLogo: 'lib/assets/images/adicionar-imagem.png',
                   name: store.name,
-                  category: store.category,)*/);
+                  category: store.category,));
             },
             child: Text('next'.i18n(),
               style: const TextStyle(

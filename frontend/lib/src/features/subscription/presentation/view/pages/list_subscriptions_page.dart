@@ -1,40 +1,10 @@
 import 'package:flutter/material.dart';
-//import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
+import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../domain/model/provider.dart';
 import '../../viewmodel/list_subscriptions_viewmodel.dart';
-
-//Classe declarada apenas para carregar a tela. Deve ser utilizada a model.
-class Subscription {
-  int id;
-  String pathLogo;
-  String nameProvider;
-  String categoryProvider;
-  DateTime signatureDate;
-  double price;
-  String periodPayment;
-  int screens;
-  String maxResolution;
-  int content;
-  Duration time;
-  int status;
-
-  Subscription(
-    {required this.id,
-     required this.pathLogo,
-     required this.nameProvider,
-     required this.categoryProvider,
-     required this.signatureDate,
-     required this.price,
-     required this.periodPayment,
-     required this.screens,
-     required this.maxResolution,
-     required this.content,
-     required this.time,
-     required this.status,
-    });
-}
 
 class ListSubscriptionsPage extends StatefulWidget {
   const ListSubscriptionsPage({Key? key}) : super(key: key);
@@ -60,9 +30,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
             onTap: () {
               Modular.to.pushNamed('detailsubscription', arguments: Subscription(
                 id: _subscriptions[index].id,
-                pathLogo: _subscriptions[index].pathLogo,
-                nameProvider: _subscriptions[index].nameProvider,
-                categoryProvider: _subscriptions[index].categoryProvider,
+                provider: _subscriptions[index].provider,
                 signatureDate: _subscriptions[index].signatureDate,
                 price: _subscriptions[index].price,
                 periodPayment: _subscriptions[index].periodPayment,
@@ -72,7 +40,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                 time: _subscriptions[index].time,
                 status: _subscriptions[index].status));
             },
-            title: Text(subscription.nameProvider,
+            title: Text(subscription.provider!.name!,
               style: const TextStyle(
                 fontFamily: 'Nunito',
                 fontSize: 20,
@@ -80,11 +48,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                 color: AppColors.text, 
               ),
             ),
-            subtitle: Text(subscription.categoryProvider.i18n() + '\n' +
+            subtitle: Text(subscription.provider!.category!.i18n() + '\n' +
                            'signature_date'.i18n() + ': ' + 
-                           subscription.signatureDate.day.toString() + '/' +
-                           subscription.signatureDate.month.toString() + '/' +
-                           subscription.signatureDate.year.toString() + '\n' +
+                           subscription.signatureDate!.day.toString() + '/' +
+                           subscription.signatureDate!.month.toString() + '/' +
+                           subscription.signatureDate!.year.toString() + '\n' +
                            'price'.i18n() + ': ' + 'currency'.i18n() +
                            subscription.price.toString(),
                 style: const TextStyle(
@@ -94,7 +62,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                   color: AppColors.text, 
                 ),
               ),
-            leading: Image.asset(subscription.pathLogo,
+            leading: Image.asset(subscription.provider!.pathLogo!,
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -113,9 +81,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
     _subscriptions = [
       Subscription(
         id: 0001,
-        pathLogo: 'lib/assets/images/netflix.png',
-        nameProvider: 'Netflix',
-        categoryProvider: 'cat_movies_and_series',
+        provider: const Provider(
+          pathLogo: 'lib/assets/images/netflix.png',
+          name: 'Netflix',
+          category: 'cat_movies_and_series',
+        ),  
         signatureDate: DateTime(2020, 11, 11),
         price: 39.90,
         periodPayment: 'monthly',
@@ -126,9 +96,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         status: 1),
       Subscription(
         id: 0002,
-        pathLogo: 'lib/assets/images/prime.png',
-        nameProvider: 'Amazon Prime Video',
-        categoryProvider: 'cat_movies_and_series',
+        provider: const Provider(
+          pathLogo: 'lib/assets/images/prime.png',
+          name: 'Amazon Prime Video',
+          category: 'cat_movies_and_series',
+        ),
         signatureDate: DateTime(2018, 05, 15),
         price: 89.90,
         periodPayment: 'yearly',
@@ -139,9 +111,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         status: 1),
       Subscription(
         id: 0003,
-        pathLogo: 'lib/assets/images/hbo.png',
-        nameProvider: 'HBO Max',
-        categoryProvider: 'cat_movies_and_series',
+        provider: const Provider(
+          pathLogo: 'lib/assets/images/hbo.png',
+          name: 'HBO Max',
+          category: 'cat_movies_and_series',
+        ),
         signatureDate: DateTime(2021, 09, 01),
         price: 23.50,
         periodPayment: 'monthly',
@@ -152,9 +126,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         status: 1),
       Subscription(
         id: 0004,
-        pathLogo: 'lib/assets/images/spotify.png',
-        nameProvider: 'Spotify',
-        categoryProvider: 'cat_songs',
+        provider: const Provider(
+          pathLogo: 'lib/assets/images/spotify.png',
+          name: 'Spotify',
+          category: 'cat_songs',
+        ),
         signatureDate: DateTime(2019, 08, 01),
         price: 9.90,
         periodPayment: 'monthly',

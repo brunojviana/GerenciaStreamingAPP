@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/src/common/fom_text_field.dart';
+import 'package:frontend/src/features/auth/domain/model/profile.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
+  late Profile _profile;
 
   Widget get _images => Center(
     child: Container(
@@ -115,7 +117,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
             ),
           ),
           onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('home');
+                  Modular.to.pushNamed('home', arguments: Profile(
+                    pathProfilePhoto: _profile.pathProfilePhoto,
+                    cpf: _profile.cpf,
+                    name: _profile.name,
+                    email: _profile.email,
+                    dateBirth: _profile.dateBirth,
+                    password: _profile.password
+                  ));
                 },
           child: Text('login'.i18n()),
         ),
@@ -155,6 +164,15 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+
+  //Declação apenas para carregar a página:
+  _profile = const Profile(
+    pathProfilePhoto: '',
+    cpf: '000.000.000-00',
+    name: 'Bruno',
+    email: 'bruno@email.com',
+    dateBirth: '01/01/1990',
+    password: '123456');
 
     return Scaffold(
       appBar: AppBar(

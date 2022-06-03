@@ -4,31 +4,21 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import '../../../../subscription/presentation/viewmodel/register_subscription_viewmodel.dart';
+import '../../../../auth/domain/model/user.dart';
+import '../../../../subscription/domain/model/subscription.dart';
+import '../../viewmodel/register_content_viewmodel.dart';
 
-class Subscription {
-    String pathLogo;
-    String nameProvider;
-    String categoryProvider;
-
-    Subscription(
-    {required this.pathLogo,
-     required this.nameProvider,
-     required this.categoryProvider,
-    });
-}
-
-class RegisterContent extends StatefulWidget {
-  const RegisterContent({Key? key}) : super(key: key);
+class RegisterContentPage extends StatefulWidget {
+  final Subscription subscription;
+  const RegisterContentPage({Key? key, required this.subscription}) : super(key: key);
 
   @override
-  State<RegisterContent> createState() => _RegisterContentState();
+  State<RegisterContentPage> createState() => _RegisterContentPageState();
 }
 
-class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscriptionViewModel> { //Alterar Subscription
+class _RegisterContentPageState extends ModularState<RegisterContentPage, RegisterContentViewModel> { //Alterar Subscription
   
   late ThemeData _theme;
-  late List<Subscription> _subscriptions;
   
   List<String> listContent = [
     'cat_movies'.i18n(),
@@ -41,48 +31,46 @@ class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscr
     'cat_others'.i18n(),
   ];
     
-  Widget get _dataSubscription => Container( 
-    child:(Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(80, 20, 0, 15),
-            width: 45,
-            height: 45,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Image.asset('lib/assets/images/globo.png'), // TODO: Path_Logo    
-                ),
-              ],
+  Widget get _dataSubscription => Row(
+    children: [
+      Container(
+        margin: const EdgeInsets.fromLTRB(80, 20, 0, 15),
+        width: 45,
+        height: 45,
+        child: Column(
+          children: [
+            Expanded(
+              child: Image.asset(widget.subscription.provider!.pathLogo!),    
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("GloboPlay", // TODO: nameProvider   
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.text, 
-                  ),
-                ),
-                Text("Categoria: Outros", // TODO: categoryProvider   
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 13,
-                  color: AppColors.text, 
-                  ),
-                ),       
-              ],
-            ) ,
-          ),
-        ],
-      )),
-    );
+          ],
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.subscription.provider!.name!,   
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+            ),
+            Text(widget.subscription.provider!.category!.i18n(),   
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 13,
+                color: AppColors.text, 
+              ),
+            ),       
+          ],
+        ) ,
+      ),
+    ],
+  );
 
   Widget get _message_name => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -122,7 +110,7 @@ class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscr
     ),
   );
 
-  Widget get _registerServiceButton =>Container(
+  Widget get _registerContentButton =>Container(
     margin: const EdgeInsets.fromLTRB(10, 40, 30, 10),
     width: 128,
     height: 41,
@@ -136,28 +124,22 @@ class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscr
         ),
       ),
       onPressed: () {
-        store.isLoading ? null : _registerSubscription();
+        store.isLoading ? null : _registerContent();
       },
       child: Text('store'.i18n()),
     ),
   );
   
 
-  void _registerSubscription() async {
-    int? response = await store.registerSubscription();
+  void _registerContent() async {
+    await store.registerContent(
+      const User(usermail: 'bruno@email.com', password: '123456', token: 'token'),
+      widget.subscription);
   }
 
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-
-     _subscriptions = [
-      Subscription(
-        pathLogo: 'lib/assets/images/perfil.png',
-        nameProvider: 'GloboPlay',
-        categoryProvider: 'Others',
-      )
-     ];
 
     return Scaffold(
       appBar: AppBar(
@@ -172,7 +154,6 @@ class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscr
           ),
         ),
       ),
-
       body: Center(
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
@@ -217,7 +198,7 @@ class _RegisterContentState extends ModularState<RegisterContent, RegisterSubscr
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          _registerServiceButton
+                          _registerContentButton
                         ],
                       ),
                     ],

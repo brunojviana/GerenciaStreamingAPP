@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/auth/data/dto/user_dto.dart';
 import 'package:frontend/src/features/auth/domain/repository/new_password_interface.dart';
 import 'package:localization/localization.dart';
 
@@ -48,6 +49,6 @@ class NewPasswordUseCase {
   }
 
   Future<User> setNewPassword(String code, String newPassword) {
-    return repository.setNewPassword(User(code, newPassword));
+    return repository.setNewPassword(UserDto(code, newPassword));
   }
 }

@@ -2,16 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-//import '../../../domain/model/provider.dart';
+import '../../../domain/model/provider.dart';
 import '../../viewmodel/select_provider_viewmodel.dart';
-
-//Classe declarada apenas para carregar a tela. Deve ser utilizado o model.
-class Provider {
-  String pathLogo;
-
-  Provider(
-    {required this.pathLogo});
-}
 
 class SelectProviderPage extends StatefulWidget {
   const SelectProviderPage({Key? key}) : super(key: key);
@@ -52,11 +44,14 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
               
       return GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('newsubscription');
+          Modular.to.pushNamed('newsubscription', arguments: Provider(
+            pathLogo: provider.pathLogo,
+            name: provider.name,
+            category: provider.category));
         },
         child: GridTile(
           child: Center(
-            child: Image.asset(provider.pathLogo,
+            child: Image.asset(provider.pathLogo!,
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -70,26 +65,77 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-
+    
     //Lista declarada apenas para carregar a tela. Deve ser carregada da API.
     _providers = [
-      Provider(pathLogo: 'lib/assets/images/apple.png'),
-      Provider(pathLogo: 'lib/assets/images/apple music.png'),
-      Provider(pathLogo: 'lib/assets/images/comebol.png'),
-      Provider(pathLogo: 'lib/assets/images/crunchroll.png'),
-      Provider(pathLogo: 'lib/assets/images/dazn.png'),
-      Provider(pathLogo: 'lib/assets/images/deezer.png'),
-      Provider(pathLogo: 'lib/assets/images/disney.png'),
-      Provider(pathLogo: 'lib/assets/images/globo.png'),
-      Provider(pathLogo: 'lib/assets/images/hbo.png'),
-      Provider(pathLogo: 'lib/assets/images/nba.png'),
-      Provider(pathLogo: 'lib/assets/images/paramount.png'),
-      Provider(pathLogo: 'lib/assets/images/premiere.png'),
-      Provider(pathLogo: 'lib/assets/images/prime music.png'),
-      Provider(pathLogo: 'lib/assets/images/prime.png'),
-      Provider(pathLogo: 'lib/assets/images/spotify.png'),
-      Provider(pathLogo: 'lib/assets/images/starz.png'),
-      Provider(pathLogo: 'lib/assets/images/tidal.png')
+      const Provider(
+        pathLogo: 'lib/assets/images/apple.png',
+        name: 'Apple TV',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/apple music.png',
+        name: 'Apple Music',
+        category: 'cat_songs'),
+      const Provider(
+        pathLogo: 'lib/assets/images/comebol.png',
+        name: 'Commebol TV',
+        category: 'cat_sports'),
+      const Provider(
+        pathLogo: 'lib/assets/images/crunchroll.png',
+        name:  'Crunchroll',
+        category: 'cat_anime'),
+      const Provider(
+        pathLogo: 'lib/assets/images/dazn.png',
+        name: "DAZN",
+        category: 'cat_sports'),
+      const Provider(
+        pathLogo: 'lib/assets/images/deezer.png',
+        name: 'Deezer',
+        category: 'cat_songs'),
+      const Provider(
+        pathLogo: 'lib/assets/images/disney.png',
+        name: 'Disney +',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/globo.png',
+        name: 'GloboPlay',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/hbo.png',
+        name: 'HBO Max',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/nba.png',
+        name: 'NBA League Pass',
+        category: 'cat_sports'),
+      const Provider(
+        pathLogo: 'lib/assets/images/paramount.png',
+        name: 'Paramount +',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/premiere.png',
+        name: 'Premiere',
+        category: 'cat_sports'),
+      const Provider(
+        pathLogo: 'lib/assets/images/prime music.png',
+        name: 'Amazon Prime Music',
+        category: 'cat_songs'),
+      const Provider(
+        pathLogo: 'lib/assets/images/prime.png',
+        name: 'Amazon Prime Video',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/spotify.png',
+        name: 'Spotify',
+        category: 'cat_songs'),
+      const Provider(
+        pathLogo: 'lib/assets/images/starz.png',
+        name: 'Starz Play',
+        category: 'cat_movies_and_series'),
+      const Provider(
+        pathLogo: 'lib/assets/images/tidal.png',
+        name: 'Tidal',
+        category: 'cat_songs')
     ];
 
     return Scaffold(

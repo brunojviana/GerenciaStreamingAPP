@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import '../../domain/usecase/content_detail.dart';
+import '../../domain/usecase/content_detail_usecase.dart';
 
 part 'content_detail_viewmodel.g.dart';
 
