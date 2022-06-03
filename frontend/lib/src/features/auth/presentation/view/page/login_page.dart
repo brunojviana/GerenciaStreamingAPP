@@ -189,7 +189,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
             return Form(
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

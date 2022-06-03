@@ -12,103 +12,106 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-            children: [
-              PageView.builder(
-                controller: viewmodel.pageController,
-                onPageChanged: viewmodel.selectedPageIndex,
-                itemCount: viewmodel.onboardingPages.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(viewmodel.onboardingPages[index].imageAsset, height: 200, width: 200),
-                      const SizedBox(height: 32),
-                      Text(viewmodel.onboardingPages[index].title,
-                        style: const TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.text,
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SafeArea(
+          child: Stack(
+              children: [
+                PageView.builder(
+                  controller: viewmodel.pageController,
+                  onPageChanged: viewmodel.selectedPageIndex,
+                  itemCount: viewmodel.onboardingPages.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(viewmodel.onboardingPages[index].imageAsset, height: 200, width: 200),
+                        const SizedBox(height: 32),
+                        Text(viewmodel.onboardingPages[index].title,
+                          style: const TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.text,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        Text(viewmodel.onboardingPages[index].description,
+                          maxLines: 5,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.secondary,
+                            ),
+                        ),
+                      ]);
+                  }
+                ),
+                Positioned(
+                  bottom: 30,
+                  left: 140,
+                  right: 140,
+                  child: Row(
+                    children: List.generate(
+                      viewmodel.onboardingPages.length,
+                      (index) => Obx(() {
+                          return Container(
+                            margin: const EdgeInsets.all(4),
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: viewmodel.selectedPageIndex.value == index
+                                ? AppColors.primaryLight
+                                : AppColors.accent,
+                              shape: BoxShape.circle
+                            ),
+                          );
+                        }
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: 20,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      const SizedBox(height: 32),
-                      Text(viewmodel.onboardingPages[index].description,
-                        maxLines: 2,
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.secondary,
-                          ),
-                      ),
-                    ]);
-                }
-              ),
-              Positioned(
-                bottom: 30,
-                left: 165,
-                right: 165,
-                child: Row(
-                  children: List.generate(
-                    viewmodel.onboardingPages.length,
-                    (index) => Obx(() {
-                        return Container(
-                          margin: const EdgeInsets.all(4),
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: viewmodel.selectedPageIndex.value == index
-                              ? AppColors.primaryLight
-                              : AppColors.accent,
-                            shape: BoxShape.circle
-                          ),
-                        );
-                      }
                     ),
+                    onPressed: viewmodel.forwardAction,
+                    child: Text(viewmodel.isLastPage ? 'start'.i18n() : 'next'.i18n()),
                   ),
                 ),
-              ),
-              Positioned(
-                right: 20,
-                bottom: 20,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                Positioned(
+                  left: 20,
+                  bottom: 20,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Modular.to.pushNamed('/auth');
+                  },
+                    child: Text('skip_onboarding'.i18n()),
                   ),
-                  onPressed: viewmodel.forwardAction,
-                  child: Text(viewmodel.isLastPage ? 'start'.i18n() : 'next'.i18n()),
-                ),
-              ),
-              Positioned(
-                left: 20,
-                bottom: 20,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Modular.to.pushNamed('/auth');
-                },
-                  child: Text('skip_onboarding'.i18n()),
-                ),
-              )              
-            ],
-          ),
+                )              
+              ],
+            ),
+        ),
       ),
     );
   }

@@ -1,11 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import '../content/content_module.dart';
 import '../map/map_module.dart';
+import '../profile/profile_module.dart';
+import '../subscription/subscription_module.dart';
 import 'data/repository/home_repository.dart';
 import 'domain/repository/profile_interface.dart';
 import 'domain/usecase/home_usecase.dart';
 import 'presentation/view/pages/home_page.dart';
 import 'presentation/viewmodel/home_viewmodel.dart';
-import '../subscription/register_provider/provider_module.dart';
 
 class HomeModule extends Module {
   @override
@@ -18,15 +20,13 @@ class HomeModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const HomePage()),
-        ModuleRoute('/profile', module: MapModule()),
-        ModuleRoute('/subscriptions', module: ProviderModule()), 
-        ModuleRoute('/movies', module: MapModule()),
-        ModuleRoute('/otherContents', module: MapModule()),
-        ModuleRoute('/spendings', module: MapModule()),
-        ModuleRoute('/recommendations', module: MapModule()),
+        ModuleRoute('/subscriptions', module: SubscriptionModule()),
         ModuleRoute('/map', module: MapModule()),
-        ModuleRoute('/notifications', module: MapModule()),
-        ModuleRoute('/map', module: MapModule()),
-
+        ModuleRoute('/movies', module: ContentModule()),
+        ModuleRoute('/otherContents', module: ContentModule()),
+        //ModuleRoute('/profile', module: ProfileModule()), 
+        //ModuleRoute('/spendings', module: SpendingsModule()),
+        //ModuleRoute('/recommendations', module: RecommendationsModule()),
+        //ModuleRoute('/notifications', module: NotificationsModule()),
       ];
 }
