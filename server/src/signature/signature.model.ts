@@ -1,6 +1,6 @@
-import { BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { Content } from "src/content/content.model";
-import { User_Signature } from "src/user-signature/user-signature.model";
+import { Provider } from "src/provider/provider.model";
 import { User } from "src/user/user.model";
 
 
@@ -9,16 +9,6 @@ import { User } from "src/user/user.model";
     updatedAt: false 
 })
 export class Signature extends Model {
-    @Column({
-        type: DataType.STRING
-    })
-    name_provider: string;
-
-    @Column({
-        type: DataType.STRING
-    })
-    category_provider: string;
-
     @Column({
         type: DataType.DATEONLY
     })
@@ -59,9 +49,26 @@ export class Signature extends Model {
     })
     status: number;
 
-    @BelongsToMany(() => User, () => User_Signature)
-    users: User[];
+    @ForeignKey(() => Provider)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    provider_id: number;
+
+    @ForeignKey(() => User)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    user_id: number;
+
+    @BelongsTo(() => User)
+    user: User;
 
     @HasMany(() => Content)
-    content: Content
+    content: Content;
+
+    @BelongsTo(() => Provider)
+    provider: Provider;
 }
