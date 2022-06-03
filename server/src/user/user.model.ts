@@ -1,7 +1,6 @@
-import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
-import { Content } from "src/content/content.model";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { File } from "src/file/file.model";
 import { Signature } from "src/signature/signature.model";
-import { User_Signature } from "src/user-signature/user-signature.model";
 
 
 @Table({
@@ -47,6 +46,16 @@ export class User extends Model {
     })
     reset_password: string;
 
-    @BelongsToMany(() => Signature, () => User_Signature)
-    signatures: Signature[];
+    @ForeignKey(() => File)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    file_id: number;
+
+    @BelongsTo(() => File)
+    file: File;
+
+    @HasMany(() => Signature)
+    signature: Signature;
 }
