@@ -6,8 +6,9 @@ import { mailConfig } from 'config/mail/mail.config';
 import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
 import { SignatureModule } from './signature/signature.module';
-import { UserSignatureModule } from './user-signature/user-signature.module';
 import { UserModule } from './user/user.module';
+import { ProviderModule } from './provider/provider.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -15,8 +16,9 @@ import { UserModule } from './user/user.module';
     DataBaseModule,
     UserModule,
     SignatureModule,
-    UserSignatureModule,
     ContentModule,
+    ProviderModule,
+    FileModule,
     AuthModule,
     MailerModule.forRoot(mailConfig)
   ]
