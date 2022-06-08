@@ -67,6 +67,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBa2H1K-ZYW6D9jFcbsNMqUOu0RB0X5190" />
 
+        <provider
+            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+            android:authorities="com.example.frontend.flutter.image_provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/flutter_image_picker_file_paths" />
+        </provider>
+
         <uses-library
             android:name="androidx.window.extensions"
             android:required="false" />

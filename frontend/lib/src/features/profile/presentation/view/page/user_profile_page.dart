@@ -1,19 +1,20 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:frontend/src/common/fom_text_field.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import '../../../../subscription/presentation/viewmodel/register_subscription_viewmodel.dart';
+import '../../../../auth/domain/model/profile.dart';
 
 class UserProfilePage extends StatefulWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+  final Profile profile;
+  const UserProfilePage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _UserProfilePageState extends ModularState<UserProfilePage, RegisterSubscriptionViewModel> { //Alterar Notification
+class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileViewModel> {
   
   late ThemeData _theme;
 
@@ -42,7 +43,7 @@ class _UserProfilePageState extends ModularState<UserProfilePage, RegisterSubscr
   margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
     height: 128.0,
     width: 128.0,
-      child: CircleAvatar( 
+      child: const CircleAvatar( 
         radius: 55,
         backgroundColor: AppColors.accent,
         child: CircleAvatar(
@@ -292,4 +293,4 @@ class _UserProfilePageState extends ModularState<UserProfilePage, RegisterSubscr
 
   );
   }
-}
+}*/

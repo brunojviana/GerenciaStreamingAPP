@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import '../../domain/usecase/register_usecase.dart';
 
@@ -52,7 +53,7 @@ abstract class _RegisterViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
-  Future<int?> register() async {
+  Future<int?> register(XFile? photo) async {
     error.clear();
 
     validateCpf();
@@ -64,7 +65,7 @@ abstract class _RegisterViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;
       
-      int? res = await _usecase.register(cpf, name, email, dateBirth, password);
+      int? res = await _usecase.register(photo, cpf, name, email, dateBirth, password);
 
       if (res == 201) {
         Modular.to.pushNamedAndRemoveUntil('/login', (p0) => false);
