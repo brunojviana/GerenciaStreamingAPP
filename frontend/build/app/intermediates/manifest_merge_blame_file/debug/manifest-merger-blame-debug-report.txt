@@ -12,33 +12,37 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/android/app/src/debug/AndroidManifest.xml:6:5-66
-14-->/home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/android/app/src/debug/AndroidManifest.xml:6:22-64
+14-->C:\Users\Diego\Documents\GitHub\GerenciaStreamingAPP\frontend\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\Diego\Documents\GitHub\GerenciaStreamingAPP\frontend\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <!-- Include required permissions for Google Maps API to run. -->
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:23:5-79
-16-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:23:22-76
+16-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:23:5-79
+16-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:23:22-76
 17
 18    <uses-feature
-18-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:26:5-28:35
+18-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:26:5-28:35
 19        android:glEsVersion="0x00020000"
-19-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:27:9-41
+19-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:27:9-41
 20        android:required="true" />
-20-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:28:9-32
+20-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:28:9-32
 21
 22    <queries>
-22-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:30:5-34:15
+22-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:30:5-34:15
 23
 24        <!-- Needs to be explicitly declared on Android R+ -->
 25        <package android:name="com.google.android.apps.maps" />
-25-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:33:9-64
-25-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:33:18-61
+25-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:33:9-64
+25-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:33:18-61
 26    </queries>
 27
 28    <application
 29        android:name="android.app.Application"
 30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+<<<<<<< HEAD
 30-->[androidx.core:core:1.8.0] /home/bruno/.gradle/caches/transforms-2/files-2.1/8e86e615f21ac3758e97e94e18045107/core-1.8.0/AndroidManifest.xml:24:18-86
+=======
+30-->[androidx.core:core:1.6.0] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\122df2e57d294d1a53db26bbc3b813c1\core-1.6.0\AndroidManifest.xml:24:18-86
+>>>>>>> b624d8815e736b34cd22734c0d9f34f77390927e
 31        android:debuggable="true"
 32        android:icon="@mipmap/ic_launcher"
 33        android:label="frontend" >
@@ -78,6 +82,7 @@
 67            android:name="com.google.android.geo.API_KEY"
 68            android:value="AIzaSyBa2H1K-ZYW6D9jFcbsNMqUOu0RB0X5190" />
 69
+<<<<<<< HEAD
 70        <provider
 70-->[:image_picker_android] /home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/build/image_picker_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
 71            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
@@ -114,6 +119,43 @@
 87-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:40:13-50
 88            android:required="false" />
 88-->[com.google.android.gms:play-services-maps:18.0.2] /home/bruno/.gradle/caches/transforms-2/files-2.1/7d064776558e2f29807c8a762199a631/jetified-play-services-maps-18.0.2/AndroidManifest.xml:41:13-37
+=======
+70        <uses-library
+70-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+71            android:name="androidx.window.extensions"
+71-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+72            android:required="false" />
+72-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+73        <uses-library
+73-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+74            android:name="androidx.window.sidecar"
+74-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+75            android:required="false" /> <!-- Needs to be explicitly declared on P+ -->
+75-->[androidx.window:window:1.0.0-beta04] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+76        <uses-library
+76-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:39:9-41:40
+77            android:name="org.apache.http.legacy"
+77-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:40:13-50
+78            android:required="false" />
+78-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\7d064776558e2f29807c8a762199a631\jetified-play-services-maps-18.0.2\AndroidManifest.xml:41:13-37
+79
+80        <activity
+80-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\642cc9e2632e586d1058ed231591ead4\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+81            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+81-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\642cc9e2632e586d1058ed231591ead4\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+82            android:exported="false"
+82-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\642cc9e2632e586d1058ed231591ead4\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+83            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+83-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\642cc9e2632e586d1058ed231591ead4\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+84
+85        <meta-data
+85-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\65c8b9154009d1931a3db50d7627d9e4\jetified-play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
+86            android:name="com.google.android.gms.version"
+86-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\65c8b9154009d1931a3db50d7627d9e4\jetified-play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
+87            android:value="@integer/google_play_services_version" />
+87-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\Diego\.gradle\caches\transforms-2\files-2.1\65c8b9154009d1931a3db50d7627d9e4\jetified-play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
+88    </application>
+>>>>>>> b624d8815e736b34cd22734c0d9f34f77390927e
 89
 90        <activity
 90-->[com.google.android.gms:play-services-base:18.0.1] /home/bruno/.gradle/caches/transforms-2/files-2.1/642cc9e2632e586d1058ed231591ead4/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45

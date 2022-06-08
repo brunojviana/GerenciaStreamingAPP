@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #Wed Jun 08 00:09:39 BRT 2022
 base.0=/home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+=======
+#Sun Jun 05 16:20:50 BRT 2022
+base.0=C\:\\Users\\Diego\\Documents\\GitHub\\GerenciaStreamingAPP\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+>>>>>>> b624d8815e736b34cd22734c0d9f34f77390927e
 renamed.0=classes.dex
 path.0=classes.dex
