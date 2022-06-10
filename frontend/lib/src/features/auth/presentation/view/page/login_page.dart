@@ -5,7 +5,6 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-
 import '../../viewmodel/login_viewmodel.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,28 +18,30 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
 
   Widget get _images => Center(
     child: Container(
-      margin: const EdgeInsets.fromLTRB(130, 0, 130, 0),
-      height: 50,
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 5),
+      height: 80,
       width: double.infinity,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 80,
+            width: 80,
             child: Image.asset('lib/assets/images/fones-de-ouvido.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.scaleDown,
+              width: 80,
+              height: 80,
+              fit: BoxFit.contain,
               ),
           ),
           const SizedBox(width: 20),
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 80,
+            width: 80,
             child: Image.asset('lib/assets/images/camera.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.scaleDown,
+              width: 80,
+              height: 80,
+              fit: BoxFit.contain,
               ),
             ),
           ],
@@ -132,7 +133,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   );
 
   Widget get _register => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
         height: 35,
         width: double.infinity,
         child: TextButton(
@@ -229,7 +230,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
+        child: Container(height: 45.0, color: AppColors.primary),
       ),
     );
   }

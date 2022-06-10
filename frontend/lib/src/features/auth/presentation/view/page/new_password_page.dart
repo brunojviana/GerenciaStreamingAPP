@@ -18,23 +18,23 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
 
   Widget get _image => Center(
     child: Container(
-      margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
-      height: 50,
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 5),
+      height: 80,
       width: double.infinity,
       child: SizedBox(
-        height: 50,
-        width: 50,
+        height: 80,
+        width: 80,
         child: Image.asset('lib/assets/images/senha.png',
-          width: 46,
-          height: 46,
-          fit: BoxFit.scaleDown,
+          width: 80,
+          height: 80,
+          fit: BoxFit.contain,
         ),
       )
     ),
   );
 
   Widget get _messengerCode => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: const EdgeInsets.fromLTRB(15, 40, 20, 10),
         height: 20,
         width: double.infinity,
         child: Text('messenger_code'.i18n(),
@@ -60,7 +60,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
 
 
   Widget get _messengerNewPassword => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: const EdgeInsets.fromLTRB(15, 20, 30, 10),
         height: 20,
         width: double.infinity,
         child: Text('messenger_new_password'.i18n(),
@@ -96,7 +96,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
 
   Widget get _validationPassword => Column(
     children: [Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
         height: 18,
         width: double.infinity,
         child: Text('validation_lenght'.i18n(),
@@ -110,7 +110,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
         ),
       ),
       Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
         height: 18,
         width: double.infinity,
         child: Text('validation_alphanumeric'.i18n(),
@@ -124,7 +124,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
         ),
       ),
       Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
         height: 18,
         width: double.infinity,
         child: Text('validation_special_character'.i18n(),
@@ -189,12 +189,12 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: Center(
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
-            return Form(
-              
+            return Form(            
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -218,21 +218,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
-              child: IconButton(
-                icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/auth');
-                }
-              ),  
-            )
-          ),
-        ),
+        child: Container(height: 45.0, color: AppColors.primary),
       ),
     );
   }

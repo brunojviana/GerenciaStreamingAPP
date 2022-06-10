@@ -17,7 +17,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
   late List<Provider> _providers;
 
   Widget get _message => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 30, 10, 30),
     height: 20,
     width: double.infinity,
     child: Text('select_provider_hint'.i18n(),
@@ -150,12 +150,16 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
-      body: Column(
-        children: [
-          _message,
-          _grid,
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            _message,
+            _grid,
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add,
@@ -170,20 +174,31 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
                   Modular.to.pushNamed('/home');
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

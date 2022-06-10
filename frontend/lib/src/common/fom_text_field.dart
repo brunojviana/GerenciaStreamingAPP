@@ -37,7 +37,7 @@ extension CoreFormTextField on Widget {
     );
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ extension CoreFormTextField on Widget {
             enabled: enabled,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-              constraints: const BoxConstraints(maxHeight: 48),
+              constraints: const BoxConstraints(maxHeight: 55),
               isDense: true,
               hintText: hint,
               errorText: errorText,

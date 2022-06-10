@@ -19,7 +19,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   XFile? _photo;
 
   Widget get _messagePhoto => Container(
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        margin: const EdgeInsets.fromLTRB(10, 20, 20, 10),
         height: 20,
         width: double.infinity,
         child: Text('photo_hint'.i18n(),
@@ -40,6 +40,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
 					radius: 50.0,
           backgroundColor: Colors.grey,
 					backgroundImage: _photo != null ? FileImage(File(_photo!.path)) : null,
+          foregroundImage: _photo == null ? const AssetImage('lib/assets/images/perfil.png') : null,
 				),
 				Positioned(
 					bottom: 5.0,
@@ -50,7 +51,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
 	            );
             },
             child: const Icon(
-							Icons.camera_alt,
+							Icons.add_a_photo,
 							color: AppColors.primary,
 							size: 28.0,
 						),
@@ -288,13 +289,13 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
             ),
             textAlign: TextAlign.center,
           ),
+        centerTitle: true,
         ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(15.0),
           child: Observer(builder: (_) {
             return Form(
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -321,21 +322,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
-              child: IconButton(
-                icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/auth');
-                }
-              ),  
-            )
-          ),
-        ),
+        child: Container(height: 45.0, color: AppColors.primary),
       ),
     );
   }

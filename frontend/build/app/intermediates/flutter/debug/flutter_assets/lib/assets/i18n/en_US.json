@@ -85,6 +85,7 @@
     "password_hint": "Type your password",
     "payment_frequency": "Inform the payment period",
     "photo": "Photo",
+    "photo_hint": "Select your Profile Photo",
     "price": "Price",
     "provider": "Provider",
     "provider_category": "Inform the category",

@@ -16,220 +16,309 @@ class SubscriptionDetailPage extends StatefulWidget {
 class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, SubscriptionDetailViewModel> {
   late ThemeData _theme;
 
-  Widget get _provider => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 100,
-    child: Row(
-      children: [
-        Container(
-          height: 80,
-          width: 80,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.subscription.provider!.pathLogo!,
-            width: 80,
+  Widget get _provider => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 100,
+      child: Row(
+        children: [
+          Container(
             height: 80,
-            fit: BoxFit.scaleDown,
+            width: 80,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+            child: Image.asset(widget.subscription.provider!.pathLogo!,
+              width: 80,
+              height: 80,
+              fit: BoxFit.scaleDown,
+            ),
           ),
-        ),
-        const SizedBox(width: 10),
-        SizedBox(
-          height: 70,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.subscription.provider!.name!,
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.text, 
+          const SizedBox(width: 10),
+          SizedBox(
+            height: 70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.subscription.provider!.name!,
+                  style: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.text, 
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              Text(widget.subscription.provider!.category!.i18n(),
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text, 
+                Text(widget.subscription.provider!.category!.i18n(),
+                  style: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text, 
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
+              ],
+            ),
+          )
+        ],
+      ), 
+    ),
+  );
+
+  Widget get _subscriptionDate => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.calendar_month, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('signature_date'.i18n() + ': ' +
+                        widget.subscription.signatureDate!.day.toString() + '/' +
+                        widget.subscription.signatureDate!.month.toString() + '/' +
+                        widget.subscription.signatureDate!.year.toString(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
               ),
-            ],
-          ),
-        )
-      ],
-    ), 
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  ); 
+
+  Widget get _subscriptionTime => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.timelapse, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('subscription_time'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  ); 
+
+  Widget get _screens => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.screen_share_outlined, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('screens'.i18n() + ': ' + widget.subscription.screens.toString(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
   );
 
-  Widget get _subscriptionDate => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('signature_date'.i18n() + ': ' +
-                  widget.subscription.signatureDate!.day.toString() + '/' +
-                  widget.subscription.signatureDate!.month.toString() + '/' +
-                  widget.subscription.signatureDate!.year.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
+  Widget get _maxResolution => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.hd, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('resolution'.i18n() + ': ' + widget.subscription.maxResolution.toString(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
         ),
-        textAlign: TextAlign.left,
       ),
-    ); 
-
-  Widget get _subscriptionTime => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('subscription_time'.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    ); 
-
-  Widget get _screens => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('screens'.i18n() + ': ' + widget.subscription.screens.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _maxResolution => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('resolution'.i18n() + ': ' + widget.subscription.maxResolution.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _price => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('price'.i18n() + ': ' + 'currency'.i18n() +
-                  widget.subscription.price.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _paymentFrequency => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment!.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _content => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('consumedContent'.i18n() + ': ' + widget.subscription.content.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _useTime => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('use_time'.i18n() + ': ' +
-                  widget.subscription.time!.inHours.toString() + 'hours'.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _status => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 25,
-    width: double.infinity,
-      child: Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status!),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
-      ),
-    );
-
-  Widget get _editButton => IconButton(
-    iconSize: 40,
-    onPressed: () {
-      Modular.to.pushNamed('editsubscription');
-    },
-    icon: const Icon(Icons.edit),
   );
 
-  Widget get _concludeButton => IconButton(
-    iconSize: 40,
-    onPressed: () {
-      if (widget.subscription.status == 0){
-        store.switchStatus(1);  
-      }
-      else {
-        store.switchStatus(0);
-      } 
-    },
-    icon: const Icon(Icons.done),
+  Widget get _price => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.monetization_on, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('price'.i18n() + ': ' + 'currency'.i18n() +
+                        widget.subscription.price.toString(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
   );
 
-  Widget get _deleteButton => IconButton(
-    iconSize: 40,
-    onPressed: () { 
-      store.deleteSubscription(widget.subscription.id!);
-    },
-    icon: const Icon(Icons.delete),
+  Widget get _paymentFrequency => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.payment, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment!.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  );
+
+  Widget get _content => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.live_tv, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('consumedContent'.i18n() + ': ' + widget.subscription.content.toString(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  );
+
+  Widget get _useTime => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.access_time, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('use_time'.i18n() + ': ' +
+                        widget.subscription.time!.inHours.toString() + 'hours'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  );
+
+  Widget get _status => Card(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      height: 25,
+      width: double.infinity,
+        child: Row(
+          children: [
+            const Icon(Icons.offline_pin, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status!),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      ),
+  );
+
+  Widget get _editButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () {
+          Modular.to.pushNamed('editsubscription');
+        },
+        icon: const Icon(Icons.edit),
+      ),
+      Text('edit'.i18n()),
+    ],
+  );
+
+  Widget get _cancelButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () {
+          if (widget.subscription.status == 0){
+            store.switchStatus(1);  
+          }
+          else {
+            store.switchStatus(0);
+          } 
+        },
+        icon: const Icon(Icons.cancel, color: Colors.red),
+      ),
+      Text('cancel'.i18n()),
+    ],
+  );
+
+  Widget get _deleteButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () { 
+          store.deleteSubscription(widget.subscription.id!);
+        },
+        icon: const Icon(Icons.delete),
+      ),
+      Text('delete'.i18n()),
+    ],
   );
 
   String _verifyStatus(int status) {
@@ -257,43 +346,60 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
-      body: Column(
-        children: [
-          _provider,
-          _subscriptionDate,
-          _subscriptionTime,
-          _screens,
-          _maxResolution,
-          _price,
-          _paymentFrequency,
-          _content,
-          _useTime,
-          _status,
-        ],
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              _provider,
+              _subscriptionDate,
+              _subscriptionTime,
+              _screens,
+              _maxResolution,
+              _price,
+              _paymentFrequency,
+              _content,
+              _useTime,
+              _status,
+            ],
+          ),
+        ),
       ),
       persistentFooterButtons: [
         _editButton,
-        _concludeButton,
+        _cancelButton,
         _deleteButton
       ],
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
                   Modular.to.pushNamed('/home');
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

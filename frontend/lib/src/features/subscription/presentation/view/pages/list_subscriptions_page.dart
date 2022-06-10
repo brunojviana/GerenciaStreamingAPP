@@ -17,61 +17,76 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
   late ThemeData _theme;
   late List<Subscription> _subscriptions;
 
-  Widget get _dataSubscription => SizedBox(
-    height: double.infinity,
-    width: double.infinity,
-    child: ListView.builder(
-      itemCount: _subscriptions.length,
-      itemBuilder: (context, index) {
-        final subscription = _subscriptions[index];
-        
-        return Card(
-          child: ListTile(
-            onTap: () {
-              Modular.to.pushNamed('detailsubscription', arguments: Subscription(
-                id: _subscriptions[index].id,
-                provider: _subscriptions[index].provider,
-                signatureDate: _subscriptions[index].signatureDate,
-                price: _subscriptions[index].price,
-                periodPayment: _subscriptions[index].periodPayment,
-                screens: _subscriptions[index].screens,
-                maxResolution: _subscriptions[index].maxResolution,
-                content: _subscriptions[index].content,
-                time: _subscriptions[index].time,
-                status: _subscriptions[index].status));
-            },
-            title: Text(subscription.provider!.name!,
-              style: const TextStyle(
-                fontFamily: 'Nunito',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text, 
-              ),
-            ),
-            subtitle: Text(subscription.provider!.category!.i18n() + '\n' +
-                           'signature_date'.i18n() + ': ' + 
-                           subscription.signatureDate!.day.toString() + '/' +
-                           subscription.signatureDate!.month.toString() + '/' +
-                           subscription.signatureDate!.year.toString() + '\n' +
-                           'price'.i18n() + ': ' + 'currency'.i18n() +
-                           subscription.price.toString(),
+  Widget get _dataSubscription => Center(
+    child: SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: _subscriptions.length,
+        itemBuilder: (context, index) {
+          final subscription = _subscriptions[index];
+          
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Modular.to.pushNamed('detailsubscription', arguments: Subscription(
+                  id: _subscriptions[index].id,
+                  provider: _subscriptions[index].provider,
+                  signatureDate: _subscriptions[index].signatureDate,
+                  price: _subscriptions[index].price,
+                  periodPayment: _subscriptions[index].periodPayment,
+                  screens: _subscriptions[index].screens,
+                  maxResolution: _subscriptions[index].maxResolution,
+                  content: _subscriptions[index].content,
+                  time: _subscriptions[index].time,
+                  status: _subscriptions[index].status));
+              },
+              title: Text(subscription.provider!.name!,
                 style: const TextStyle(
                   fontFamily: 'Nunito',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: AppColors.text, 
                 ),
               ),
-            leading: Image.asset(subscription.provider!.pathLogo!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.contain,
+              subtitle: Text(subscription.provider!.category!.i18n() + '\n' +
+                             'signature_date'.i18n() + ': ' + 
+                             subscription.signatureDate!.day.toString() + '/' +
+                             subscription.signatureDate!.month.toString() + '/' +
+                             subscription.signatureDate!.year.toString() + '\n' +
+                             'price'.i18n() + ': ' + 'currency'.i18n() +
+                             subscription.price.toString() + '\n' +
+                             'status'.i18n() + ': ' +
+                             _verifyStatus(subscription),
+                  style: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text, 
+                  ),
+                ),
+              minLeadingWidth: 80,
+              leading: Image.asset(subscription.provider!.pathLogo!,
+                width: 80,
+                height: 80,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-        );
-      },
-    )
+          );
+        },
+      )
+    ),
   );
+
+  String _verifyStatus(Subscription subscription) {
+    if (subscription.status == 0) {
+      return 'status_inactive'.i18n();
+    }
+    else {
+      return 'status_active'.i18n();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +168,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: _dataSubscription, 
       floatingActionButton: FloatingActionButton(
@@ -168,20 +184,31 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
                   Modular.to.pushNamed('/home');
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

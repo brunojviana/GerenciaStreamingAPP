@@ -19,22 +19,22 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
   Widget get _image => Center(
     child: Container(
       margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
-      height: 50,
+      height: 80,
       width: double.infinity,
       child: SizedBox(
-        height: 50,
-        width: 50,
+        height: 80,
+        width: 80,
         child: Image.asset('lib/assets/images/senha.png',
-          width: 46,
-          height: 46,
-          fit: BoxFit.scaleDown,
+          width: 80,
+          height: 80,
+          fit: BoxFit.contain,
         ),
       )
     ),
   );
 
   Widget get _messenger => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: const EdgeInsets.fromLTRB(15, 40, 30, 10),
         height: 20,
         width: double.infinity,
         child: Text('email_hint'.i18n(),
@@ -109,12 +109,12 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
             ),
             textAlign: TextAlign.center,
           ),
+        centerTitle: true,
         ),
       body: Center(
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
             return Form(
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -134,21 +134,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
-              child: IconButton(
-                icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/auth');
-                }
-              ),  
-            )
-          ),
-        ),
+        child: Container(height: 45.0, color: AppColors.primary),
       ),
     );
   }
