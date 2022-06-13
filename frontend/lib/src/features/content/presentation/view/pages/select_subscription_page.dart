@@ -3,11 +3,13 @@ import 'package:frontend/src/features/subscription/domain/model/subscription.dar
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../../subscription/domain/model/provider.dart';
 import '../../viewmodel/select_subscription_viewmodel.dart';
 
 class SelectSubscriptionPage extends StatefulWidget {
-  const SelectSubscriptionPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const SelectSubscriptionPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<SelectSubscriptionPage> createState() => _SelectSubscriptionPageState();
@@ -46,24 +48,13 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
                 
         return GestureDetector(
           onTap: () {
-            Modular.to.pushNamed('newcontent', arguments: Subscription(
-              id: subscription.id,
-              provider: subscription.provider!,
-              signatureDate: subscription.signatureDate,
-              price: subscription.price,
-              periodPayment: subscription.periodPayment,
-              screens: subscription.screens,
-              maxResolution: subscription.maxResolution,
-              content: subscription.content,
-              time: subscription.time,
-              status: subscription.status
-            ));
+            Modular.to.pushNamed('newcontent', arguments: _subscriptions[index]);
           },
           child: GridTile(
             child: Center(
               child: Image.asset(subscription.provider!.pathLogo!,
-                width: 80,
-                height: 80,
+                width: 100,
+                height: 100,
                 fit: BoxFit.contain,
               ),
             ),
@@ -153,12 +144,16 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
-      body: Column(
-        children: [
-          _message,
-          _grid,
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            _message,
+            _grid,
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add,
@@ -173,20 +168,31 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

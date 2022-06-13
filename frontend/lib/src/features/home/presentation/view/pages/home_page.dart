@@ -34,7 +34,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('profile');
+          Modular.to.pushNamed('profile', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -65,15 +65,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
           ),
         ),      
       GestureDetector(
-        onTap: () {
-          Modular.to.pushNamed('subscriptions', arguments: Profile(
-            pathProfilePhoto: widget.profile.pathProfilePhoto,
-            cpf: widget.profile.cpf,
-            name: widget.profile.name,
-            email: widget.profile.email,
-            dateBirth: widget.profile.dateBirth,
-            password: widget.profile.password,
-          ));
+        onTap: () async {
+          Modular.to.pushNamed('subscriptions', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -105,7 +98,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('movies');
+          Modular.to.pushNamed('movies', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -137,7 +130,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('otherContents');
+          Modular.to.pushNamed('otherContents', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -169,7 +162,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('spendings');
+          Modular.to.pushNamed('spendings', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -201,7 +194,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('recommendations');
+          Modular.to.pushNamed('recommendations', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -233,7 +226,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('map');
+          Modular.to.pushNamed('map', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -265,7 +258,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('notifications');
+          Modular.to.pushNamed('notifications', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,

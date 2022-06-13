@@ -48,15 +48,25 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
         ),
       );
 
-  Widget get _usermail => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        hint: 'usermail_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.usermail,
-        onChange: (value) => store.usermail = value,
-      );
+  Widget get _usermail => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'usermail_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.usermail,
+      onChange: (value) => store.usermail = value,
+    ),
+  );
 
   Widget get _resetPasswordButton => Center(
     child: SizedBox(
@@ -113,6 +123,7 @@ class _ResetPasswordPageState extends ModularState<ResetPasswordPage, ResetPassw
         ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
           child: Observer(builder: (_) {
             return Form(
               child: Column(

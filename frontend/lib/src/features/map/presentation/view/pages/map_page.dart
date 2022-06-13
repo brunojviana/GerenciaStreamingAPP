@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/features/auth/domain/model/profile.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,7 +9,8 @@ import 'package:localization/localization.dart';
 import '../../viewmodel/map_viewmodel.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const MapPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -46,6 +48,7 @@ class _MapPageState extends ModularState<MapPage, MapViewModel> {
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
@@ -62,20 +65,31 @@ class _MapPageState extends ModularState<MapPage, MapViewModel> {
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                }
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
                   Modular.to.pushNamed('/auth');
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -4,7 +4,6 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-
 import '../../viewmodel/new_password_viewmodel.dart';
 
 class NewPasswordPage extends StatefulWidget {
@@ -34,69 +33,98 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
   );
 
   Widget get _messengerCode => Container(
-        margin: const EdgeInsets.fromLTRB(15, 40, 20, 10),
-        height: 20,
-        width: double.infinity,
-        child: Text('messenger_code'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.left,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(15, 40, 20, 10),
+    height: 20,
+    width: double.infinity,
+    child: Text('messenger_code'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
 
-  Widget get _code => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        hint: 'code_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.code,
-        onChange: (value) => store.code = value,
-      );
-
+  Widget get _code => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'code_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.code,
+      onChange: (value) => store.code = value,
+    ),
+  );
 
   Widget get _messengerNewPassword => Container(
-        margin: const EdgeInsets.fromLTRB(15, 20, 30, 10),
-        height: 20,
-        width: double.infinity,
-        child: Text('messenger_new_password'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.left,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(15, 20, 30, 10),
+    height: 20,
+    width: double.infinity,
+    child: Text('messenger_new_password'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
 
-  Widget get _newPassword => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        hint: 'create_password_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.newPassword,
-        onChange: (value) => store.newPassword = value,
-      );
+  Widget get _newPassword => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'create_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.newPassword,
+      onChange: (value) => store.newPassword = value,
+    ),
+  );
 
-  Widget get _confirmedNewpassword => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        hint: 'confirmPassword_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.confirmedNewPassword,
-        onChange: (value) => store.confirmedNewPassword = value,
-      );
+  Widget get _confirmedNewpassword => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 20),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'confirm_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.confirmedNewPassword,
+      onChange: (value) => store.confirmedNewPassword = value,
+    ),
+  );
 
   Widget get _validationPassword => Column(
-    children: [Container(
-        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
+    children: [
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_lenght'.i18n(),
@@ -109,8 +137,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
           textAlign: TextAlign.center,
         ),
       ),
-      Container(
-        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_alphanumeric'.i18n(),
@@ -123,8 +150,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
           textAlign: TextAlign.center,
         ),
       ),
-      Container(
-        margin: const EdgeInsets.fromLTRB(4.5, 4.5, 4.5, 4.5),
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_special_character'.i18n(),
@@ -193,6 +219,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
         ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
           child: Observer(builder: (_) {
             return Form(            
               child: Column(
@@ -218,8 +245,19 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: Container(height: 45.0, color: AppColors.primary),
-      ),
+        child: 
+          Container(
+            alignment: Alignment.center,
+            height: 45.0,
+            child: IconButton(
+              icon: const Icon(Icons.logout, color: AppColors.textLight),
+              iconSize: 35,
+              onPressed: () {
+                Modular.to.pushNamed('/auth');
+              }
+            ),
+          ),
+        ),
     );
   }
 }

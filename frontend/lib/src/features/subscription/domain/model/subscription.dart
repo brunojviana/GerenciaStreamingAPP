@@ -1,4 +1,3 @@
-
 import 'package:frontend/src/features/subscription/domain/model/provider.dart';
 
 class Subscription {

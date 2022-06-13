@@ -26,6 +26,9 @@ abstract class _RegisterViewModelBase with Store {
   String password = '';
 
   @observable
+  String confirmedPassword = '';
+
+  @observable
   bool isLoading = false;
 
   @action
@@ -53,6 +56,11 @@ abstract class _RegisterViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
+  @action
+  void validateConfirmedPassword() {
+    error.confirmedPassword = _usecase.validateConfirmedPassword(password, confirmedPassword);
+  }
+
   Future<int?> register(XFile? photo) async {
     error.clear();
 
@@ -61,6 +69,7 @@ abstract class _RegisterViewModelBase with Store {
     validateEmail();
     validateBirthDate();
     validatePassword();
+    validateConfirmedPassword();
 
     if (!error.hasErrors) {
       isLoading = true;
@@ -99,11 +108,14 @@ abstract class _RegisterErrorBase with Store {
   String? password;
 
   @observable
+  String? confirmedPassword;
+
+  @observable
   String? register;
 
   @computed
   bool get hasErrors => cpf != null || name != null || email != null || dateBirth != null ||
-                        password != null || register != null;
+                        password != null || confirmedPassword != null || register != null;
 
   void clear() {
     cpf = null;
@@ -111,6 +123,7 @@ abstract class _RegisterErrorBase with Store {
     email = null;
     dateBirth = null;
     password = null;
+    confirmedPassword = null;
     register = null;
   }
 }

@@ -24,7 +24,7 @@ class HomeModule extends Module {
         ModuleRoute('/map', module: MapModule()),
         ModuleRoute('/movies', module: ContentModule()),
         ModuleRoute('/otherContents', module: ContentModule()),
-        //ModuleRoute('/profile', module: ProfileModule()), 
+        ModuleRoute('/profile', module: ProfileModule()), 
         //ModuleRoute('/spendings', module: SpendingsModule()),
         //ModuleRoute('/recommendations', module: RecommendationsModule()),
         //ModuleRoute('/notifications', module: NotificationsModule()),

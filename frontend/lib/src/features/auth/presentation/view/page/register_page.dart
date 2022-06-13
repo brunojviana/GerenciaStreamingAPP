@@ -19,17 +19,17 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   XFile? _photo;
 
   Widget get _messagePhoto => Container(
-        margin: const EdgeInsets.fromLTRB(10, 20, 20, 10),
+        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         height: 20,
         width: double.infinity,
         child: Text('photo_hint'.i18n(),
           style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
           ),
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
         ),
       );
 
@@ -112,12 +112,12 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
 
   Widget get _messageData => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 20,
+    height: 18,
     width: double.infinity,
     child: Text('data_hint'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -125,54 +125,94 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     ),
   );
   
-  Widget get _cpf => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.number,
-    textInputAction: TextInputAction.next,
-    hint: 'cpf_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.cpf,
-    onChange: (value) => store.cpf = value,
+  Widget get _cpf => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'cpf_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.cpf,
+      onChange: (value) => store.cpf = value,
+    ),
   );
 
-  Widget get _name => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.name,
-    textInputAction: TextInputAction.next,
-    hint: 'name_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.name,
-    onChange: (value) => store.name = value,
+  Widget get _name => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'name_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.name,
+      onChange: (value) => store.name = value,
+    ),
   );
 
-  Widget get _email => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.emailAddress,
-    textInputAction: TextInputAction.next,
-    hint: 'email_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.email,
-    onChange: (value) => store.email = value,
+  Widget get _email => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'email_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.email,
+      onChange: (value) => store.email = value,
+    ),
   );
 
-  Widget get _dateBirth => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.datetime,
-    textInputAction: TextInputAction.next,
-    hint: 'birthdate_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.dateBirth,
-    onChange: (value) => store.dateBirth = value,
+    Widget get _dateBirth => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'birthdate_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.dateBirth,
+      onChange: (value) => store.dateBirth = value,
+    ),
   );
 
   Widget get _messagePassword => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 20,
+    height: 18,
     width: double.infinity,
     child: Text('create_password'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -180,19 +220,49 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     ),
   );
 
-  Widget get _password => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.text,
-    obscureText: true,
-    hint: 'create_password_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.password,
-    onChange: (value) => store.password = value,
+  Widget get _password => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'create_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.password,
+      onChange: (value) => store.password = value,
+    ),
+  );
+
+  Widget get _confirmePassword => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 20),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'confirm_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.confirmedPassword,
+      onChange: (value) => store.confirmedPassword = value,
+    ),
   );
 
   Widget get _validationPassword => Column(
-    children: [Container(
-      margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+    children: [
+      SizedBox(
       height: 18,
       width: double.infinity,
       child: Text('validation_lenght'.i18n(),
@@ -205,8 +275,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
         textAlign: TextAlign.center,
       ),
     ),
-    Container(
-      margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+    SizedBox(
       height: 18,
       width: double.infinity,
       child: Text('validation_alphanumeric'.i18n(),
@@ -219,8 +288,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
         textAlign: TextAlign.center,
       ),
     ),
-    Container(
-      margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+    SizedBox(
       height: 18,
       width: double.infinity,
       child: Text('validation_special_character'.i18n(),
@@ -301,7 +369,6 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SizedBox(height: 5),
                   _messagePhoto,
                   _imageProfile,
                   _messageData,
@@ -311,7 +378,9 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
                   _dateBirth,
                   _messagePassword,
                   _password,
+                  _confirmePassword,
                   _validationPassword,
+                  const SizedBox(height: 5),
                   _registerButton,
                 ],
               ),

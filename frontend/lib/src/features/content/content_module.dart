@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import '../subscription/presentation/view/pages/select_provider.dart';
+import 'package:frontend/src/features/subscription/subscription_module.dart';
 import 'data/repository/content_detail_repository.dart';
 import 'data/repository/list_contents_repository.dart';
 import 'data/repository/register_content_repository.dart';
@@ -35,15 +35,15 @@ class ContentModule extends Module {
         Bind.factory<ISelectSubscription>((i) => SelectSubscriptionRepository()),
         Bind.factory((i) => RegisterContentViewModel()),
         Bind.factory((i) => RegisterContentUseCase()),
-        Bind.factory<IRegisterContent>((i) => RegisterContentRepository())
+        Bind.factory<IRegisterContent>((i) => RegisterContentRepository()),
         ];
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const ListContentsPage()),
+        ChildRoute('/', child: (_, args) => ListContentsPage(profile: args.data)),
         ChildRoute('/detailcontent', child: (_, args) => ContentDetailPage(content: args.data)),
-        ChildRoute('/selectsubscription', child: (_, __) => const SelectSubscriptionPage()),
-        ChildRoute('/newsubscription', child: (_, __) => const SelectProviderPage()),
+        ChildRoute('/selectsubscription', child: (_, args) => SelectSubscriptionPage(profile: args.data)),
+        ModuleRoute('/newsubscription', module: SubscriptionModule()),
         ChildRoute('/newcontent', child: (_, args) => RegisterContentPage(subscription: args.data)),
         
       ];

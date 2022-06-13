@@ -4,6 +4,7 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../../auth/domain/model/user.dart';
 import '../../../../subscription/domain/model/subscription.dart';
 import '../../viewmodel/register_content_viewmodel.dart';
@@ -17,10 +18,10 @@ class RegisterContentPage extends StatefulWidget {
 }
 
 class _RegisterContentPageState extends ModularState<RegisterContentPage, RegisterContentViewModel> { //Alterar Subscription
-  
   late ThemeData _theme;
-  
-  List<String> listContent = [
+  late Profile _profile;
+
+  List<String> listCategory = [
     'cat_movies'.i18n(),
     'cat_series'.i18n(),
     'cat_sports'.i18n(),
@@ -31,50 +32,57 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
     'cat_others'.i18n(),
   ];
     
-  Widget get _dataSubscription => Row(
-    children: [
-      Container(
-        margin: const EdgeInsets.fromLTRB(80, 20, 0, 15),
-        width: 45,
-        height: 45,
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(widget.subscription.provider!.pathLogo!),    
-            ),
-          ],
+  Widget get _subscription => Container(
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+    height: 100,
+    child: Row(
+      children: [
+        Container(
+          height: 80,
+          width: 80,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+          child: Image.asset(widget.subscription.provider!.pathLogo!,
+            width: 80,
+            height: 80,
+            fit: BoxFit.scaleDown,
+          ),
         ),
-      ),
-      Container(
-        margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(widget.subscription.provider!.name!,   
-              style: const TextStyle(
-                fontFamily: 'Nunito',
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text, 
+        const SizedBox(width: 10),
+        SizedBox(
+          height: 70,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.subscription.provider!.name!,
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
               ),
-            ),
-            Text(widget.subscription.provider!.category!.i18n(),   
-              style: const TextStyle(
-                fontFamily: 'Nunito',
-                fontSize: 13,
-                color: AppColors.text, 
+              Text(widget.subscription.provider!.category!.i18n(),
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.text, 
+                ),
+                textAlign: TextAlign.left,
               ),
-            ),       
-          ],
-        ) ,
-      ),
-    ],
+            ],
+          ),
+        )
+      ],
+    ), 
   );
 
-  Widget get _message_name => Container(
+
+  Widget get _messageName => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 40,
+    height: 20,
     width: double.infinity,
     child: Text('content_name'.i18n(),
       style: const TextStyle(
@@ -91,13 +99,13 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
     theme: _theme,
     keyboardType: TextInputType.name,
     textInputAction: TextInputAction.next,
-    hint: 'content_name_hint'.i18n(),
+    hint: 'name'.i18n(),
     enabled: !store.isLoading,
   );
 
-  Widget get _message_category => Container(
+  Widget get _messageCategory => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-    height: 40,
+    height: 20,
     width: double.infinity,
     child: Text('content_category'.i18n(),
       style: const TextStyle(
@@ -110,8 +118,19 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
     ),
   );
 
+  Widget get _category=> Container( 
+    alignment: Alignment.center,
+    child: Wrap(
+      spacing: 20.0,
+      runSpacing: 20.0,
+      children: <Widget>[
+          ChoiceChipWidget(listCategory),
+      ],
+    )
+  );  
+
   Widget get _registerContentButton =>Container(
-    margin: const EdgeInsets.fromLTRB(10, 40, 30, 10),
+    margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
     width: 128,
     height: 41,
     child: ElevatedButton(
@@ -153,6 +172,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
             color: AppColors.textLight, 
           ),
         ),
+      centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -167,38 +187,12 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
                     children: [
                       Column(
                         children: [
-                          _dataSubscription,
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SingleChildScrollView(
-                            child: Observer(builder: (_) {
-                              return Form(   
-                                child: Column(
-                                  children: [
-                                  _message_name,
-                                  _name,
-                                  _message_category,
-                                  ],     
-                                ),
-                              );  
-                            }),
-                          ), 
-                        ],
-                      ),
-                      Wrap(
-                        spacing: 20.0,
-                        runSpacing: 20.0,
-                        children: <Widget>[
-                          choiceChipWidget(listContent),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          _registerContentButton
+                          Card(child: _subscription),
+                          _messageName,
+                          _name,
+                          _messageCategory,
+                          _category,
+                          _registerContentButton,
                         ],
                       ),
                     ],
@@ -212,47 +206,59 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/home');
+                iconSize: 35,
+                onPressed: () async {
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: _profile);
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
-      ),
+      ),  
     );
     }
   }
 
-class choiceChipWidget extends StatefulWidget {
-    final List<String> listChoice;
-    choiceChipWidget(this.listChoice);
+class ChoiceChipWidget extends StatefulWidget {
+  final List<String> listChoice;
+  const ChoiceChipWidget(this.listChoice, {Key? key}) : super(key: key);
 
   @override
-  _choiceChipWidgetState createState() => new _choiceChipWidgetState();
+  _ChoiceChipWidgetState createState() => _ChoiceChipWidgetState();
 }
 
-class _choiceChipWidgetState extends State<choiceChipWidget> {
+class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
   
   String selectedChoice = "";
   _buildChoiceList() {
     List<Widget> choices = [];
-    widget.listChoice.forEach((item) { 
+    for (var item in widget.listChoice) { 
       choices.add(Container(
         margin: const EdgeInsets.fromLTRB(4, 4, 4, 4), 
         child: ChoiceChip(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           label: Container(
             alignment: Alignment.center,
-            width: 140.0,
+            width: 130.0,
             height: 40.0,
             child: Text(item,
               style: const TextStyle(
@@ -272,7 +278,7 @@ class _choiceChipWidgetState extends State<choiceChipWidget> {
           },
         ),
       ));
-    });
+    }
     return choices;
   }
 

@@ -3,11 +3,13 @@ import 'package:frontend/src/features/subscription/domain/model/subscription.dar
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/provider.dart';
 import '../../viewmodel/list_subscriptions_viewmodel.dart';
 
 class ListSubscriptionsPage extends StatefulWidget {
-  const ListSubscriptionsPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const ListSubscriptionsPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<ListSubscriptionsPage> createState() => _ListSubscriptionsPageState();
@@ -30,17 +32,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           return Card(
             child: ListTile(
               onTap: () {
-                Modular.to.pushNamed('detailsubscription', arguments: Subscription(
-                  id: _subscriptions[index].id,
-                  provider: _subscriptions[index].provider,
-                  signatureDate: _subscriptions[index].signatureDate,
-                  price: _subscriptions[index].price,
-                  periodPayment: _subscriptions[index].periodPayment,
-                  screens: _subscriptions[index].screens,
-                  maxResolution: _subscriptions[index].maxResolution,
-                  content: _subscriptions[index].content,
-                  time: _subscriptions[index].time,
-                  status: _subscriptions[index].status));
+                Modular.to.pushNamed('detailsubscription', arguments: _subscriptions[index]);
               },
               title: Text(subscription.provider!.name!,
                 style: const TextStyle(
@@ -177,7 +169,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('selectprovider');
+          Modular.to.pushNamed('selectprovider', arguments: widget.profile);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -194,7 +186,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
               ),
             ),

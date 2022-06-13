@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../auth/domain/model/profile.dart';
 import '../../domain/usecase/subscription_detail_usecase.dart';
 
 part 'subscription_detail_viewmodel.g.dart';
@@ -7,6 +11,14 @@ part 'subscription_detail_viewmodel.g.dart';
 class SubscriptionDetailViewModel = _SubscriptionDetailViewModelBase with _$SubscriptionDetailViewModel;
 abstract class _SubscriptionDetailViewModelBase with Store {
   final _usecase = Modular.get<SubscriptionDetailUseCase>();
+
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
+  }
 
   Future<int> switchStatus(int status) async {
     

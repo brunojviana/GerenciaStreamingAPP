@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/common/fom_text_field.dart';
+import 'package:frontend/src/features/auth/domain/model/profile.dart';
+import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -10,7 +12,8 @@ import 'package:frontend/src/features/subscription/presentation/viewmodel/regist
 import '../../../domain/model/provider.dart';
 
 class RegisterProviderPage extends StatefulWidget {
-  const RegisterProviderPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const RegisterProviderPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<RegisterProviderPage> createState() => _RegisterProviderPageState();
@@ -118,12 +121,12 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
             ),
           onPressed: () {
             _registerProvider(_image);
-            Modular.to.pushNamed('newsubscription', arguments: 
-              Provider(
+            Modular.to.pushNamed('newsubscription', arguments: Subscription(
+              provider: Provider(
                 pathLogo: _image!.path,
                 name: store.name,
-                category: store.category,)
-              );
+                category: store.category),
+              ));
             },
           child: Text('next'.i18n(),
             style: const TextStyle(
@@ -214,7 +217,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
               ),
             ),

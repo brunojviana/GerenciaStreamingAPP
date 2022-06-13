@@ -47,13 +47,12 @@ class RegisterUseCase {
 
   String? validateBirthDate(String dateBirth) {
     if (dateBirth.isEmpty) {
-      return 'dateBirth_required'.i18n();
+      return 'birthdate_required'.i18n();
     }
     else if (dateBirth.length > 10){
-      return 'dateBirth_required'.i18n();
+      return 'invalide_birthdate'.i18n();
     }
     
-
     return null;
   }
 
@@ -70,6 +69,18 @@ class RegisterUseCase {
     else if(!password.contains(RegExp(r'[!@#\$&*~%^()]'), 1)){
       return 'validation_special_character'.i18n();
     }
+
+    return null;
+  }
+
+  String? validateConfirmedPassword(String password, String confirmedPassword) {
+    if (confirmedPassword.isEmpty) {
+      return 'confirmed_new_password_required'.i18n();
+    }
+    else if(confirmedPassword != password){
+      return 'different_password'.i18n();
+    }
+    
     return null;
   }
 

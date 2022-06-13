@@ -10,14 +10,14 @@ import '../../../domain/model/provider.dart';
 
 class RegisterSubscriptionPage extends StatefulWidget {
   final Provider provider;
-  //final Profile profile;
-  const RegisterSubscriptionPage({ Key? key, required this.provider, /*required this.profile*/}) : super(key: key);
+  const RegisterSubscriptionPage({ Key? key, required this.provider}) : super(key: key);
 
   @override
   State<RegisterSubscriptionPage> createState() => _RegisterSubscriptionPageState();
 }
 
 class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPage, RegisterSubscriptionViewModel> { 
+   late Profile _profile;
    List<String> paymentFrequency = [
     'monthly'.i18n(),
     'yearly'.i18n(),
@@ -207,23 +207,23 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
 
   Widget get _registerServiceButton =>Center(child: Container(
     margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
-        width: 128,
-        height: 41,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+      width: 128,
+      height: 41,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
-          onPressed: () {
-            store.isLoading ? null : _registerSubscription(/*widget.profile.cpf!*/);
-          },
-          child: Text('store'.i18n()),
         ),
+        onPressed: () {
+          store.isLoading ? null : _registerSubscription(/*widget.profile.cpf!*/);
+        },
+        child: Text('store'.i18n()),
       ),
+    ),
   );
 
   void _registerSubscription(/*String cpf*/) async {
@@ -289,8 +289,9 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
-                onPressed: () {
-                  Modular.to.pushNamed('/home');
+                onPressed: () async {
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: _profile);
                 }
               ),
             ),

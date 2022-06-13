@@ -84,6 +84,22 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
+  final _$confirmedPasswordAtom =
+      Atom(name: '_RegisterViewModelBase.confirmedPassword');
+
+  @override
+  String get confirmedPassword {
+    _$confirmedPasswordAtom.reportRead();
+    return super.confirmedPassword;
+  }
+
+  @override
+  set confirmedPassword(String value) {
+    _$confirmedPasswordAtom.reportWrite(value, super.confirmedPassword, () {
+      super.confirmedPassword = value;
+    });
+  }
+
   final _$isLoadingAtom = Atom(name: '_RegisterViewModelBase.isLoading');
 
   @override
@@ -158,6 +174,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   }
 
   @override
+  void validateConfirmedPassword() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.validateConfirmedPassword');
+    try {
+      return super.validateConfirmedPassword();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cpf: ${cpf},
@@ -165,6 +192,7 @@ name: ${name},
 email: ${email},
 dateBirth: ${dateBirth},
 password: ${password},
+confirmedPassword: ${confirmedPassword},
 isLoading: ${isLoading}
     ''';
   }
@@ -254,6 +282,22 @@ mixin _$RegisterError on _RegisterErrorBase, Store {
     });
   }
 
+  final _$confirmedPasswordAtom =
+      Atom(name: '_RegisterErrorBase.confirmedPassword');
+
+  @override
+  String? get confirmedPassword {
+    _$confirmedPasswordAtom.reportRead();
+    return super.confirmedPassword;
+  }
+
+  @override
+  set confirmedPassword(String? value) {
+    _$confirmedPasswordAtom.reportWrite(value, super.confirmedPassword, () {
+      super.confirmedPassword = value;
+    });
+  }
+
   final _$registerAtom = Atom(name: '_RegisterErrorBase.register');
 
   @override
@@ -277,6 +321,7 @@ name: ${name},
 email: ${email},
 dateBirth: ${dateBirth},
 password: ${password},
+confirmedPassword: ${confirmedPassword},
 register: ${register},
 hasErrors: ${hasErrors}
     ''';

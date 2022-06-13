@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/provider.dart';
 import '../../viewmodel/select_provider_viewmodel.dart';
 
 class SelectProviderPage extends StatefulWidget {
-  const SelectProviderPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const SelectProviderPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<SelectProviderPage> createState() => _SelectProviderPageState();
@@ -44,10 +47,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
               
       return GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('newsubscription', arguments: Provider(
-            pathLogo: provider.pathLogo,
-            name: provider.name,
-            category: provider.category));
+          Modular.to.pushNamed('newsubscription', arguments: _providers[index]);
         },
         child: GridTile(
           child: Center(
@@ -167,7 +167,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('newprovider');
+          Modular.to.pushNamed('newprovider', arguments: widget.profile);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -184,7 +184,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
               ),
             ),

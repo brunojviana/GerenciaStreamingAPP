@@ -47,9 +47,9 @@ class SubscriptionModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const ListSubscriptionsPage()),
-        ChildRoute('/selectprovider', child: (_, __) => const SelectProviderPage()),
-        ChildRoute('/newprovider', child: (_, __) => const RegisterProviderPage()),
+        ChildRoute('/', child: (_, args) => ListSubscriptionsPage(profile: args.data)),
+        ChildRoute('/selectprovider', child: (_, args) => SelectProviderPage(profile: args.data)),
+        ChildRoute('/newprovider', child: (_, args) => RegisterProviderPage(profile: args.data)),
         ChildRoute('/newsubscription', child: (_, args) => RegisterSubscriptionPage(
           provider: args.data)),
         ChildRoute('/detailsubscription', child: (_, args) => 

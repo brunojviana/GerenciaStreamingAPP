@@ -12,4 +12,16 @@ class Profile {
       Profile(pathProfilePhoto: json['pathProfilePhoto'], cpf: json['cpf'],
               name: json['name'], email: json['email'], dateBirth: json['dateBirth'],
               password: json['password']);
+  
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['pathProfilePhoto'] = this.pathProfilePhoto;
+    data['cpf'] = this.cpf;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['dateBirth'] = this.dateBirth;
+    data['password'] = this.password;
+    return data;
+  }
+  
 }
