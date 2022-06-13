@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import '../../domain/model/profile.dart';

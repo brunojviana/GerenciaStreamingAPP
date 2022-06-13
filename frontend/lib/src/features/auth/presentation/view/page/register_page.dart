@@ -19,96 +19,99 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   XFile? _photo;
 
   Widget get _messagePhoto => Container(
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        height: 20,
-        width: double.infinity,
-        child: Text('photo_hint'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.center,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+    height: 20,
+    width: double.infinity,
+    child: Text('photo_hint'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.center,
+    ),
+  );
 
   Widget get _imageProfile =>  Center(
     child: Stack(
-			children: [
-				CircleAvatar(
-					radius: 50.0,
+	    children: [
+	      CircleAvatar(
+	        radius: 50.0,
           backgroundColor: Colors.grey,
-					backgroundImage: _photo != null ? FileImage(File(_photo!.path)) : null,
+	        backgroundImage: _photo != null ? FileImage(File(_photo!.path)) : null,
           foregroundImage: _photo == null ? const AssetImage('lib/assets/images/perfil.png') : null,
-				),
-				Positioned(
-					bottom: 5.0,
-					right: 5.0,
-					child: InkWell(
+	      ),
+	      Positioned(
+	        bottom: 5.0,
+	        right: 5.0,
+	        child: InkWell(
             onTap: () {
 	            showModalBottomSheet(context: context, builder: ((builder) => _bottomSheet),
 	            );
             },
             child: const Icon(
-							Icons.add_a_photo,
-							color: AppColors.primary,
-							size: 28.0,
-						),
-					),
-				),
-			]),
-	  );
+	            Icons.add_a_photo,
+	            color: AppColors.primary,
+	            size: 28.0,
+	          ),
+	        ),
+	      ),
+	    ]
+    ),
+	);
 
   Widget get _bottomSheet => Container(
-		height: 100.0,
-		width: MediaQuery.of(context).size.width,
-		margin: const EdgeInsets.symmetric(
-			horizontal: 20,
-			vertical: 20,
-		),
-		child: Center(
-		  child: Column(
-		  	children: [
-		  		Row(
+	  height: 100.0,
+	  width: MediaQuery.of(context).size.width,
+	  margin: const EdgeInsets.symmetric(
+	    horizontal: 20,
+	    vertical: 20,
+	  ),
+	  child: Center(
+	    child: Column(
+	      children: [
+	        Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-		  			SizedBox(
-              height: 100,
-              width: 100,
-		  			  child: Column(
-		  			    children: [
-		  			      IconButton(
-                    iconSize: 60, 
-		  			      	icon: const Icon(Icons.camera_alt),
-		  			      	onPressed: () {
-	                    _selectPhoto(ImageSource.camera);
-                    },
-		  			      ),
-                  Text('camera'.i18n()),
-		  			    ],
-		  			  ),
-		  			),
-            SizedBox(
-              height: 100,
-              width: 100,
-		  			  child: Column(
-		  			    children: [
-		  			      IconButton(
-                    iconSize: 60, 
-		  			      	icon: const Icon(Icons.image),
-		  			      	onPressed: () {
-	                    _selectPhoto(ImageSource.gallery);
-                    },
-		  			      ),
-                  Text('gallery'.i18n()),
-		  			    ],
-		  			  ),
-		  			),
-		  		]),
-		  	]),
-		  ),
-	  );
+	            SizedBox(
+                height: 100,
+                width: 100,
+	              child: Column(
+	                children: [
+	                  IconButton(
+                      iconSize: 60, 
+	                    icon: const Icon(Icons.camera_alt),
+	                    onPressed: () {
+	                      _selectPhoto(ImageSource.camera);
+                      },
+	                  ),
+                    Text('camera'.i18n()),
+	                ],
+	              ),
+	            ),
+              SizedBox(
+                height: 100,
+                width: 100,
+	              child: Column(
+	                children: [
+	                  IconButton(
+                      iconSize: 60, 
+	                    icon: const Icon(Icons.image),
+	                    onPressed: () {
+	                      _selectPhoto(ImageSource.gallery);
+                      },
+	                  ),
+                    Text('gallery'.i18n()),
+	                ],
+	              ),
+	            ),
+	          ]
+          ),
+	      ]
+      ),
+	  ),
+	);
 
   Widget get _messageData => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
