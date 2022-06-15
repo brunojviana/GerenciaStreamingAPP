@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/src/common/fom_text_field.dart';
+import 'package:frontend/src/features/subscription/domain/model/provider.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import '../../../../auth/domain/model/profile.dart';
-import '../../../../auth/domain/model/user.dart';
 import '../../../../subscription/domain/model/subscription.dart';
+import '../../../domain/model/content.dart';
 import '../../viewmodel/register_content_viewmodel.dart';
 
 class RegisterContentPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class RegisterContentPage extends StatefulWidget {
 class _RegisterContentPageState extends ModularState<RegisterContentPage, RegisterContentViewModel> { //Alterar Subscription
   late ThemeData _theme;
   late Profile _profile;
-
+  late Content? _response;
   List<String> listCategory = [
     'cat_movies'.i18n(),
     'cat_series'.i18n(),
@@ -81,7 +82,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
 
 
   Widget get _messageName => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
     height: 20,
     width: double.infinity,
     child: Text('content_name'.i18n(),
@@ -95,16 +96,28 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
     ),
   );
 
-  Widget get _name => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.name,
-    textInputAction: TextInputAction.next,
-    hint: 'name'.i18n(),
-    enabled: !store.isLoading,
-  );
+  Widget get _name => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.next,
+      hint: 'name'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.name,
+      onChange: (value) => store.name = value,
+    ),
+  );  
 
   Widget get _messageCategory => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
     height: 20,
     width: double.infinity,
     child: Text('content_category'.i18n(),
@@ -142,18 +155,75 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
           ),
         ),
       ),
-      onPressed: () {
-        store.isLoading ? null : _registerContent();
+      onPressed: () async {
+        store.isLoading ? null : 
+        _response = await _registerContent(widget.subscription.id!);
+        _showDialog(_response);
       },
       child: Text('store'.i18n()),
     ),
   );
   
 
-  void _registerContent() async {
-    await store.registerContent(
-      const User(usermail: 'bruno@email.com', password: '123456', token: 'token'),
-      widget.subscription);
+  Future<Content?> _registerContent(int _subscriptionId) async {
+    Content? response = await store.registerContent(_subscriptionId);
+    return response;
+  }
+
+  Future<void> _showDialog(Content? content) async {
+    //Content? content = widget.content;
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (content != null) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (content != null) ?
+            Text('content_register_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('content_register_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: (content != null) ?           
+          <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () { 
+                Modular.to.pop(context);
+                Modular.to.pushNamed('detailcontent', arguments: content);
+              },  
+            ),
+          ] :          
+          <Widget>[TextButton(
+              child: Text('cancel'.i18n().toString()),
+              onPressed: () async {
+                _profile = await store.getSavedUser();
+                Modular.to.pop(context);
+                Modular.to.pushNamed('/', arguments: _profile);
+              },  
+            ),
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Modular.to.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
   }
 
   @override
@@ -176,6 +246,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
       ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
           child: Observer(builder: (_) {
             return Form(   
               child: Column(
@@ -258,12 +329,13 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           label: Container(
             alignment: Alignment.center,
-            width: 130.0,
-            height: 40.0,
+            width: 150.0,
+            height: 55.0,
             child: Text(item,
               style: const TextStyle(
               fontFamily: 'Nunito',
-              fontSize: 14,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: AppColors.textLight,
               ),
             ),

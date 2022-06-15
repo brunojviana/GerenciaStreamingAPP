@@ -27,6 +27,6 @@ class HomeModule extends Module {
         ModuleRoute('/profile', module: ProfileModule()), 
         //ModuleRoute('/spendings', module: SpendingsModule()),
         //ModuleRoute('/recommendations', module: RecommendationsModule()),
-        //ModuleRoute('/notifications', module: NotificationsModule()),
+        //ModuleRoute('/chatbot', module: ChatbotModule()),
       ];
 }

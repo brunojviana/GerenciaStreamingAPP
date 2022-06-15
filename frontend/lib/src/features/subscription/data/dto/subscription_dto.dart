@@ -1,12 +1,16 @@
-import 'package:frontend/src/features/subscription/data/dto/provider_dto.dart';
-
 class SubscriptionDto {
-  const SubscriptionDto(this.provider, this.signatureDate, this.price, this.periodPayment, this.screens, this.maxResolution);
+  const SubscriptionDto(this.userId, this.idProvider, this.signatureDate, this.price, 
+                        this.periodPayment, this.screens, this.maxResolution, this.content,
+                        this.useTime, this.status);
   
-  final ProviderDto provider;
+  final int userId;
+  final int idProvider;
   final String signatureDate;
   final String price;
   final String periodPayment;
   final String screens;
   final String maxResolution;
+  final int content;
+  final double useTime;
+  final int status;
 }

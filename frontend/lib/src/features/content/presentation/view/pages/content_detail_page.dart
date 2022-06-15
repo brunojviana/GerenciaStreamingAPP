@@ -208,7 +208,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
       IconButton(
         iconSize: 30,
         onPressed: () {
-          Modular.to.pushNamed('editcontent');
+          Modular.to.pushNamed('editcontent', arguments: widget.content);
         },
         icon: const Icon(Icons.edit),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/src/common/fom_text_field.dart';
+import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,15 +23,14 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
     'monthly'.i18n(),
     'yearly'.i18n(),
   ];
-
   List<String> resolutionMax = [
     '4K'.i18n(),
     'Full HD'.i18n(),
     'HD'.i18n(),
     'other'.i18n(),
   ];
-
   late ThemeData _theme;
+  late Subscription? _response;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -80,13 +80,13 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
   );
 
   Widget get _messageDate => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 20,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
     width: double.infinity,
     child: Text('service_date'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -94,24 +94,34 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
     ),
   );
 
-  Widget get _date=> widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.datetime,
-    textInputAction: TextInputAction.next,
-    hint: 'service_date_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.date,
-    onChange: (value) => store.date = value,
-  );
+  Widget get _date => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.datetime,
+      textInputAction: TextInputAction.next,
+      hint: 'service_date_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.date,
+      onChange: (value) => store.date = value,
+    ),
+  );  
 
   Widget get _messageValue => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 20,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
     width: double.infinity,
     child: Text('service_value'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -119,24 +129,34 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
     ),
   );
 
-  Widget get _value=> widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.datetime,
-    textInputAction: TextInputAction.next,
-    hint: 'service_value_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.value,
-    onChange: (value) => store.value = value,
-  );
+  Widget get _value => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      hint: 'service_value_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.value,
+      onChange: (value) => store.value = value,
+    ),
+  ); 
   
   Widget get _messagePayment => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-    height: 20,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
     width: double.infinity,
     child: Text('payment_frequency'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -156,13 +176,13 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
   );
 
   Widget get _messageScreens => Container(
-    margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-    height: 20,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
     width: double.infinity,
     child: Text('simultaneous_screens'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -170,23 +190,33 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
     ),
   );
 
-  Widget get _screens=> widget.createFormField( 
-    theme: _theme,
-    keyboardType: TextInputType.datetime,
-    textInputAction: TextInputAction.next,
-    enabled: !store.isLoading,
-    errorText: store.error.screens,
-    onChange: (value) => store.screens = value,
-  );
+  Widget get _screens => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      enabled: !store.isLoading,
+      errorText: store.error.screens,
+      onChange: (value) => store.screens = value,
+    ),
+  ); 
 
   Widget get _messageResolution => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-    height: 20,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
     width: double.infinity,
     child: Text('maximum_resolution'.i18n(),
       style: const TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
@@ -218,16 +248,75 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
             ),
           ),
         ),
-        onPressed: () {
-          store.isLoading ? null : _registerSubscription(/*widget.profile.cpf!*/);
+        onPressed: () async {
+          store.isLoading ? null :
+          _profile = await store.getSavedUser(); 
+          _response = await _registerSubscription(_profile.id!, widget.provider.id!);
+          _showDialog(_response);
         },
         child: Text('store'.i18n()),
       ),
     ),
   );
 
-  void _registerSubscription(/*String cpf*/) async {
-    int? response = await store.registerSubscription();
+  Future<Subscription?> _registerSubscription(int userId, int idProvider) async {
+    Subscription? response = await store.registerSubscription(userId, idProvider);
+    return response;
+  }  
+
+  Future<void> _showDialog(Subscription? subscription) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (subscription != null) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (subscription != null) ?
+            Text('subscription_register_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('subscription_register_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: (subscription != null) ?           
+          <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () { 
+                Navigator.pop(context);
+                Modular.to.pushNamed('detailsubscription', arguments: subscription);
+              },  
+            ),
+          ] :          
+          <Widget>[ TextButton(
+              child: Text('cancel'.i18n().toString()),
+              onPressed: () async {
+                Navigator.pop(context);
+                _profile = await store.getSavedUser();
+                Modular.to.pushNamed('/', arguments: _profile);
+              },  
+            ),
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Navigator.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
   }
 
   @override
@@ -332,12 +421,13 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           label: Container(
             alignment: Alignment.center,
-            width: 130.0,
-            height: 40.0,
+            width: 150.0,
+            height: 55.0,
             child: Text(item,
               style: const TextStyle(
               fontFamily: 'Nunito',
-              fontSize: 14,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: AppColors.textLight,
               ),
             ),

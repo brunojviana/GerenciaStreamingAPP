@@ -98,7 +98,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('movies', arguments: widget.profile);
+          Modular.to.pushNamed('movies:1', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -130,7 +130,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('otherContents', arguments: widget.profile);
+          Modular.to.pushNamed('otherContents:2', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -241,12 +241,12 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     ],
   );
 
-  Widget get _notifications => Column(
+  Widget get _chatbot => Column(
     children: [
       SizedBox(
         height: 30,
         width: 175,
-        child: Text('notifications'.i18n(),
+        child: Text('chatbot'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 16,
@@ -258,12 +258,12 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('notifications', arguments: widget.profile);
+          Modular.to.pushNamed('chatbot', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
           width: 175,
-          child: Image.asset('lib/assets/images/notificacao.png',
+          child: Image.asset('lib/assets/images/chat.png',
             width: 104,
             height: 104,
             fit: BoxFit.scaleDown,
@@ -337,7 +337,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Card(child: _map),
-                      Card(child: _notifications),
+                      Card(child: _chatbot),
                     ],
                   ),
                 ],

@@ -5,6 +5,7 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../domain/model/profile.dart';
 import '../../viewmodel/register_viewmodel.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,7 +18,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   late ThemeData _theme;
   XFile? _photo;
-
+  late int? _response;
+  late Profile _profile;
+  
   Widget get _messagePhoto => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 20,
@@ -188,7 +191,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     ),
   );
 
-    Widget get _dateBirth => Container(
+  Widget get _dateBirth => Container(
     alignment: Alignment.center,
     margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
     height: 70,
@@ -306,25 +309,29 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     )],
   );
 
-  Widget get _registerButton => Center(child: Container(
-    margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
-    width: 128,
-    height: 41,
-    child: ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+  Widget get _registerButton => Center(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
+      width: 128,
+      height: 41,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
         ),
+        onPressed: () async {
+          _response = await _register(_photo);
+          _profile = await store.getSavedUser();
+          _showDialog(_profile);
+        },
+        child: Text('register_button'.i18n()),
       ),
-      onPressed: () {
-        store.isLoading ? null : _register(_photo);
-      },
-      child: Text('register_button'.i18n()),
-    ),
-  ));
+    )
+  );
 
   void _selectPhoto(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
@@ -339,8 +346,63 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     }
   }
 
-  void _register(XFile? photo) async {
-    int? response = await store.register(photo);
+  Future<int?> _register(XFile? photo) async {
+    int? _response = await store.register(photo);
+    return _response;
+  }  
+
+  Future<void> _showDialog(Profile? profile) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (profile != null) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (profile != null) ?
+            Text('register_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('register_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: (profile != null) ?           
+          <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () { 
+                Navigator.pop(context);
+                Modular.to.pushNamed('/home', arguments: profile);
+              },  
+            ),
+          ] :          
+          <Widget>[ TextButton(
+              child: Text('cancel'.i18n().toString()),
+              onPressed: () async {
+                Navigator.pop(context);
+                Modular.to.pushNamed('/auth');
+              },  
+            ),
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Navigator.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
   }
 
   @override

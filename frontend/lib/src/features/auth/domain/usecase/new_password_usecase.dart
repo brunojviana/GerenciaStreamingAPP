@@ -48,7 +48,7 @@ class NewPasswordUseCase {
     return null;
   }
 
-  Future<User> setNewPassword(String code, String newPassword) {
+  Future<int?> setNewPassword(String code, String newPassword) {
     return repository.setNewPassword(UserDto(code, newPassword));
   }
 }

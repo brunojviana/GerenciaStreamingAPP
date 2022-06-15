@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/auth/data/dto/user_register_dto.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localization/localization.dart';
+import '../model/profile.dart';
 import '../repository/register_interface.dart';
 
 class RegisterUseCase {

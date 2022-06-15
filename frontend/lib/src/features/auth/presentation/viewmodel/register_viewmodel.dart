@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../domain/model/profile.dart';
 import '../../domain/usecase/register_usecase.dart';
-
 part 'register_viewmodel.g.dart';
 
 class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
@@ -61,6 +63,21 @@ abstract class _RegisterViewModelBase with Store {
     error.confirmedPassword = _usecase.validateConfirmedPassword(password, confirmedPassword);
   }
 
+  void saveUser(Profile profile) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString(
+      "profile", json.encode(profile.toJson())
+    );
+  }
+
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
+  }
+
   Future<int?> register(XFile? photo) async {
     error.clear();
 
@@ -72,19 +89,28 @@ abstract class _RegisterViewModelBase with Store {
     validateConfirmedPassword();
 
     if (!error.hasErrors) {
-      isLoading = true;
-      
+      isLoading = true;      
       int? res = await _usecase.register(photo, cpf, name, email, dateBirth, password);
 
-      if (res == 201) {
+      if (res != null) {
+        saveUser(Profile(
+          id: res,
+          photo: photo,
+          cpf: cpf,
+          name: name,
+          email: email,
+          dateBirth: dateBirth,
+          password: password,
+          )
+        );
         Modular.to.pushNamedAndRemoveUntil('/login', (p0) => false);
         isLoading = false;
       }
-
       return res;
-    } else {
-        print("Erro");
-        return null;
+    } 
+    else 
+    {
+      return null;
     }
   }
 }

@@ -64,9 +64,15 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
     ),
   );
 
+  Future<List<Subscription>> _loadSubscriptions(int userId) async {
+    List<Subscription> response = await store.loadSubscriptions(userId);
+    return response;
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     _theme = Theme.of(context);
+    //_subscriptions = _loadSubscriptions(widget.profile.id!) as List<Subscription>;
 
 //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
     _subscriptions = [
@@ -83,7 +89,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
         screens: 4,
         maxResolution: 'Full HD',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0002,
@@ -98,7 +104,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
         screens: 2,
         maxResolution: 'Full HD',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0003,
@@ -113,7 +119,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
         screens: 4,
         maxResolution: '4K',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0004,
@@ -128,7 +134,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
         screens: 0,
         maxResolution: 'other',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
     ];
 
@@ -161,7 +167,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('newsubscription');
+          Modular.to.pushNamed('newsubscription', arguments: widget.profile);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
