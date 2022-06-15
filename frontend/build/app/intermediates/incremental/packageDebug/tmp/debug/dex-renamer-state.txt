@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#Mon Jun 13 06:35:50 BRT 2022
-=======
-#Wed Jun 15 04:54:09 BRT 2022
->>>>>>> 7e45128d474f53c115b010fe8186a284ce966f7b
-base.0=/home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Wed Jun 15 17:58:34 BRT 2022
+base.0=C\:\\Users\\Diego\\Documents\\GitHub\\GerenciaStreamingAPP\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
