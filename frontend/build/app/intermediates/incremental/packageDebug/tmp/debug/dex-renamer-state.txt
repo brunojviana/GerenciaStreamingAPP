@@ -1,4 +1,4 @@
-#Sun Jun 12 23:42:07 BRT 2022
+#Wed Jun 15 04:54:09 BRT 2022
 base.0=/home/bruno/Documentos/IESB/6Semestre/PDM/GerenciaStreamingApp/frontend/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

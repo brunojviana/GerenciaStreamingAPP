@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/src/features/subscription/domain/model/subscription.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
@@ -69,70 +68,87 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
     //Lista declarada apenas para carregar a tela. Deve ser carregada da API.
     _providers = [
       const Provider(
+        id: 1,
         pathLogo: 'lib/assets/images/apple.png',
         name: 'Apple TV',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 2,
         pathLogo: 'lib/assets/images/apple music.png',
         name: 'Apple Music',
         category: 'cat_songs'),
       const Provider(
+        id: 3,
         pathLogo: 'lib/assets/images/comebol.png',
         name: 'Commebol TV',
         category: 'cat_sports'),
       const Provider(
+        id: 4,
         pathLogo: 'lib/assets/images/crunchroll.png',
         name:  'Crunchroll',
         category: 'cat_anime'),
       const Provider(
+        id: 5,
         pathLogo: 'lib/assets/images/dazn.png',
         name: "DAZN",
         category: 'cat_sports'),
       const Provider(
+        id: 6,
         pathLogo: 'lib/assets/images/deezer.png',
         name: 'Deezer',
         category: 'cat_songs'),
       const Provider(
+        id: 7,
         pathLogo: 'lib/assets/images/disney.png',
         name: 'Disney +',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 8,
         pathLogo: 'lib/assets/images/globo.png',
         name: 'GloboPlay',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 9,
         pathLogo: 'lib/assets/images/hbo.png',
         name: 'HBO Max',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 10,
         pathLogo: 'lib/assets/images/nba.png',
         name: 'NBA League Pass',
         category: 'cat_sports'),
       const Provider(
+        id: 11,
         pathLogo: 'lib/assets/images/paramount.png',
         name: 'Paramount +',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 12,
         pathLogo: 'lib/assets/images/premiere.png',
         name: 'Premiere',
         category: 'cat_sports'),
       const Provider(
+        id: 13,
         pathLogo: 'lib/assets/images/prime music.png',
         name: 'Amazon Prime Music',
         category: 'cat_songs'),
       const Provider(
+        id: 14,
         pathLogo: 'lib/assets/images/prime.png',
         name: 'Amazon Prime Video',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 15,
         pathLogo: 'lib/assets/images/spotify.png',
         name: 'Spotify',
         category: 'cat_songs'),
       const Provider(
+        id: 15,
         pathLogo: 'lib/assets/images/starz.png',
         name: 'Starz Play',
         category: 'cat_movies_and_series'),
       const Provider(
+        id: 16,
         pathLogo: 'lib/assets/images/tidal.png',
         name: 'Tidal',
         category: 'cat_songs')

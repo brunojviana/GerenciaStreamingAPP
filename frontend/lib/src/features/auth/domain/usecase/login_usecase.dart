@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import '../../data/dto/user_dto.dart';
+import '../model/profile.dart';
 import '../repository/login_interface.dart';
 
 class LoginUseCase {
@@ -37,7 +38,7 @@ class LoginUseCase {
     return null;
   }
 
-  Future<int?> login(String usermail, String password) {
+  Future<Profile?> login(String usermail, String password) {
     return repository.login(UserDto(usermail, password));
   }
 }

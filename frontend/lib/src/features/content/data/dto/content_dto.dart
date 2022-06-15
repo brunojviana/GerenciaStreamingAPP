@@ -1,12 +1,19 @@
-import '../../../auth/domain/model/user.dart';
-import '../../../subscription/domain/model/provider.dart';
-
 class ContentDto {
-  const ContentDto(this.user, this.subscriptionId, this.provider, this.name, this.category);
+  const ContentDto(
+    this.id, 
+    this.subscriptionId, 
+    this.name, 
+    this.category,
+    this.startDate,
+    this.lastAccess,
+    this.status,
+    );
   
-  final User user;
+  final int id;
   final int subscriptionId;
-  final Provider provider;
   final String name;
   final String category;
+  final DateTime startDate;
+  final DateTime lastAccess;
+  final int status;
 }

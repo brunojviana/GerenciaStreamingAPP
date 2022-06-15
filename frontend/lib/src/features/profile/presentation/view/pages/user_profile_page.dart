@@ -139,7 +139,7 @@ class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileVie
     ),
     child: widget.createFormField(
       theme: _theme,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       hint: widget.profile.cpf,
     ),
@@ -171,7 +171,7 @@ class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileVie
     ),
     child: widget.createFormField(
       theme: _theme,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       hint: widget.profile.name,
     ),
@@ -202,7 +202,7 @@ class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileVie
     ),
     child: widget.createFormField(
       theme: _theme,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.datetime,
       textInputAction: TextInputAction.next,
       hint: widget.profile.dateBirth,
     ),

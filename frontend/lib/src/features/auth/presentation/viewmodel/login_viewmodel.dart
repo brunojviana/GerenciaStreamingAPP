@@ -39,7 +39,7 @@ abstract class _LoginViewModelBase with Store {
     );
   }
 
-  Future<int?> login() async {
+  Future<Profile?> login() async {
     error.clear();
 
     validateUsermail();
@@ -47,21 +47,18 @@ abstract class _LoginViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
+      Profile? res = await _usecase.login(usermail, password);
 
-      int? res = await _usecase.login(usermail, password);
-
-      print(res);
-
-      if (res == 201) {
-        //saveUser(res.body);
+      if (res != null) {
+        saveUser(res);
         Modular.to.pushNamedAndRemoveUntil('/reset', (p0) => false);
         isLoading = false;
       }
-
       return res;
-    } else {
-        print("Erro");
-        return null;
+    } 
+    else
+    {
+      return null;
     }
   }
 }

@@ -9,7 +9,8 @@ import '../../../domain/model/content.dart';
 
 class ListContentsPage extends StatefulWidget {
   final Profile profile;
-  const ListContentsPage({Key? key, required this.profile}) : super(key: key);
+  final int category;
+  const ListContentsPage({Key? key, required this.profile, required this.category}) : super(key: key);
 
   @override
   State<ListContentsPage> createState() => _ListContentsPageState();
@@ -42,20 +43,20 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
               ),
             ),
             subtitle: Text(content.category!.i18n() + '\n' +
-                           content.provider!.name! + '\n' +
-                           'last_access'.i18n() + ': ' + 
-                           content.lastAccess!.day.toString() + '/' +
-                           content.lastAccess!.month.toString() + '/' +
-                           content.lastAccess!.year.toString() + '\n' +
-                           'status'.i18n() + ': ' +
-                           _verifyStatus(content.status!),
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text, 
-                ),
+              content.provider!.name! + '\n' +
+              'last_access'.i18n() + ': ' + 
+              content.lastAccess!.day.toString() + '/' +
+              content.lastAccess!.month.toString() + '/' +
+              content.lastAccess!.year.toString() + '\n' +
+              'status'.i18n() + ': ' +
+              _verifyStatus(content.status!),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppColors.text, 
               ),
+            ),
             minLeadingWidth: 80,
             leading: Image.asset(content.provider!.pathLogo!,
               width: 80,
@@ -67,6 +68,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
       },
     )
   );
+
+  Future<List<Content>> _loadContents(int userId, int category) async {
+    List<Content> _contents = await store.loadContents(userId, category);
+    return _contents;
+  }
 
   String _verifyStatus(int status) {
     if (status == 0) {
@@ -80,6 +86,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    //_contents = _loadContents(widget.profile.id!, widget.category) as List<Content>;
     
     //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
     _contents = [

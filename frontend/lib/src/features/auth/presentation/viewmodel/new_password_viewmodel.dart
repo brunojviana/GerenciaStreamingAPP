@@ -36,7 +36,7 @@ abstract class _NewPasswordViewModelBase with Store {
     error.confirmedNewPassword = _usecase.validateConfirmedNewPassword(confirmedNewPassword);
   }
 
-  void setNewPassword() async {
+  Future<int?> setNewPassword() async {
     error.clear();
 
     validateCode();
@@ -45,14 +45,12 @@ abstract class _NewPasswordViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
-      try {
-        await _usecase.setNewPassword(code, newPassword);
-      } on UnimplementedError {
-        // TODO: Fix!!!
-        error.setNewPassword = 'Função não implementada!';
-      } finally {
-        isLoading = false;
-      }
+      int? res = await _usecase.setNewPassword(code, newPassword);
+      return res;
+    }
+    else {
+      isLoading = false;
+      return null;
     }
   }
 }

@@ -225,7 +225,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
           const Icon(Icons.access_time, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('use_time'.i18n() + ': ' +
-                      widget.subscription.time!.inHours.toString() + 'hours'.i18n(),
+                      widget.subscription.useTime!.toString() + 'hours'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -264,7 +264,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
       IconButton(
         iconSize: 30,
         onPressed: () {
-          Modular.to.pushNamed('editsubscription');
+          Modular.to.pushNamed('editsubscription', arguments: widget.subscription);
         },
         icon: const Icon(Icons.edit),
       ),

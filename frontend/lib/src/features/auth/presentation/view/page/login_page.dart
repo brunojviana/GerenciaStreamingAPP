@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
   late Profile _profile;
+  late Profile? _response;
 
   Widget get _images => Center(
     child: Container(
@@ -138,14 +139,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ),
             ),
         ),
-        onPressed: store.isLoading ? null : () {
+        onPressed: () async {
+        store.isLoading ? null : 
+        /*_response = await _login();
+        _showDialog(_response);*/
           _profile = const Profile(
-            pathProfilePhoto: '',
+            id: 1,
+            photo: null,
             cpf: '000.000.000-00',
             name: 'Bruno',
             email: 'bruno@email.com',
-            dateBirth: '01/01/1990',
-            password: '123456');
+            dateBirth: '01-01-1990',
+            password: '12345');
           store.saveUser(_profile);
           Modular.to.pushNamed('home', arguments: _profile);
         },
@@ -166,7 +171,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           ),
         ),
       ),
-      onPressed: store.isLoading ? null : () {
+      onPressed: () async {
+        store.isLoading ? null : 
         Modular.to.pushNamed('register');
       },
       child: Text('register_link'.i18n(),
@@ -180,8 +186,34 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
     ),
   );
 
-  void _login() async {
-    int? response = await store.login();
+  Future<Profile?> _login() async {
+    Profile? _response = await store.login();
+    return _response;
+  }  
+
+  Future<void> _showDialog(Profile? _profile) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Icon(Icons.error, size: 40, color: Colors.red),
+          content: Text('login_error'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+            onPressed: () {
+              Navigator.pop(context);
+            },  
+          )],
+        );
+      }
+    );
   }
 
   @override

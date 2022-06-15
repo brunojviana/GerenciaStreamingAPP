@@ -55,7 +55,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
 	);
 
   Widget get _messageProvider => Container(
-    margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
     height: 20,
     width: double.infinity,
     child: Text('name_logo'.i18n(),
@@ -69,19 +69,29 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
     ),
   );
 
-  Widget get _provider => widget.createFormField(
-    theme: _theme,
-    keyboardType: TextInputType.name,
-    textInputAction: TextInputAction.next,
-    hint: 'name_logo_hint'.i18n(),
-    enabled: !store.isLoading,
-    errorText: store.error.name,
-    onChange: (value) => store.name = value,
-  );
+  Widget get _provider => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.next,
+      hint: 'name_logo_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.name,
+      onChange: (value) => store.name = value,
+    ),
+  );  
 
   Widget get _messageCategory => Container(
-    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-    height: 40,
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 20,
     width: double.infinity,
     child: Text('provider_category'.i18n(),
       style: const TextStyle(
@@ -258,12 +268,13 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           label: Container(
             alignment: Alignment.center,
-            width: 130.0,
-            height: 40.0,
+            width: 150.0,
+            height: 55.0,
             child: Text(item,
               style: const TextStyle(
               fontFamily: 'Nunito',
-              fontSize: 14,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: AppColors.textLight,
               ),
             ),

@@ -20,7 +20,7 @@ class ResetPasswordUseCase {
     return null;
   }
 
-  Future<String> resetPassword(String usermail) {
+  Future<int> resetPassword(String usermail) {
     return repository.resetPassword(usermail);
   }
 }
