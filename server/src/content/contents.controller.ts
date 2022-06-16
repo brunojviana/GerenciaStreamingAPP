@@ -8,7 +8,7 @@ import { ContentService } from "./content.service";
 
 @Controller('contents')
 export class ContentsController {
-    constructor(private contentsService: ContentService, private signaturesController: SignaturesController) {}
+    constructor(private contentsService: ContentService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get()
@@ -46,10 +46,11 @@ export class ContentsController {
         let diffTime: number = Math.abs(stp.getTime() - str.getTime());
         let duration: number = Math.ceil(diffTime / 3600000);
         let content: Content = await this.contentsService.findId(id);
+        let sig: SignaturesController;
         
         content.watch_time = content.watch_time + duration;
         content.last_acess = stop;
         content.save();
-        this.signaturesController.calcUseTime(content.signature_id, start, stop);
+        sig.calcUseTime(content.signature_id, start, stop);
     }
 }

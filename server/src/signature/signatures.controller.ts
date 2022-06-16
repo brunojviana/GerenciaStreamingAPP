@@ -44,7 +44,7 @@ export class SignaturesController {
         }
     }
 
-    async calcUseTime(id: number, start, stop) {
+    async calcUseTime(id, start, stop) {
         const str: Date = new Date(start);
         const stp: Date = new Date(stop);
         let diffTime: number = Math.abs(stp.getTime() - str.getTime());
