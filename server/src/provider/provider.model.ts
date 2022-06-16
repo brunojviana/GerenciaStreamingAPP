@@ -1,10 +1,7 @@
 import { Blob } from "buffer";
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
-import { Content } from "src/content/content.model";
 import { File } from "src/file/file.model";
 import { Signature } from "src/signature/signature.model";
-import { User_Signature } from "src/user-signature/user-signature.model";
-import { User } from "src/user/user.model";
 
 
 @Table({

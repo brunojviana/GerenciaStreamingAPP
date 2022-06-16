@@ -1,4 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { Calendar } from "src/calendar/calendar.model";
 import { Content } from "src/content/content.model";
 import { Provider } from "src/provider/provider.model";
 import { User } from "src/user/user.model";
@@ -10,7 +11,7 @@ import { User } from "src/user/user.model";
 })
 export class Signature extends Model {
     @Column({
-        type: DataType.DATEONLY
+        type: DataType.DATE
     })
     date_signature: Date;
     
@@ -37,12 +38,12 @@ export class Signature extends Model {
     @Column({
         type:DataType.INTEGER
     })
-    contents: number;
+    num_content: number;
 
     @Column({
-        type:DataType.STRING
+        type:DataType.BIGINT
     })
-    time: string;
+    time: number;
 
     @Column({
         type:DataType.INTEGER
@@ -68,6 +69,9 @@ export class Signature extends Model {
 
     @HasMany(() => Content)
     content: Content;
+
+    @HasMany(() => Calendar)
+    calendar: Calendar;
 
     @BelongsTo(() => Provider)
     provider: Provider;

@@ -22,7 +22,7 @@ export class ContentService {
     }
 
     async add(content) {
-        this.contentsModel.create(content);
+        return this.contentsModel.create(content);
     }
 
     async delete(id: number) {
