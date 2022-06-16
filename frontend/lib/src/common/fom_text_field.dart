@@ -37,7 +37,7 @@ extension CoreFormTextField on Widget {
     );
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,25 +51,34 @@ extension CoreFormTextField on Widget {
             obscureText: obscureText,
             enabled: enabled,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-              constraints: const BoxConstraints(maxHeight: 48),
+              contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+              constraints: const BoxConstraints(maxHeight: 40),
               isDense: true,
               hintText: hint,
+              hintStyle: const TextStyle(
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: AppColors.textLight,
+              ),
               errorText: errorText,
               disabledBorder: border,
               enabledBorder: border,
               focusedBorder: border,
               errorBorder: border,
               focusedErrorBorder: border,
-              fillColor: AppColors.accent,
-              focusColor: AppColors.accent,
-              hoverColor: AppColors.accent,
             ),
             validator: validator,
             onChanged: onChange,
             onEditingComplete: onEditingComplete,
             onFieldSubmitted: onFieldSubmitted,
             onSaved: onSaved,
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: AppColors.textLight,
+            ),
           )
         ],
       ),

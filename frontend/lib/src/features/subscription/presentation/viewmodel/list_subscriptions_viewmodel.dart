@@ -10,8 +10,6 @@ class ListSubscriptionsViewModel = _ListSubscriptionsViewModelBase with _$ListSu
 abstract class _ListSubscriptionsViewModelBase with Store {
   final _usecase = Modular.get<ListSubscriptionsUseCase>();
 
-  List<Subscription> listSubscriptions = [];
-
     Future<List<Subscription>> loadSubscriptions(UserDto user) async {
     
     List<Subscription> res = await _usecase.loadSubscriptions(user);

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:frontend/src/features/subscription/domain/usecase/register_provider_usecase.dart';
 
@@ -29,7 +30,7 @@ abstract class _RegisterProviderViewModelBase with Store {
     error.category = _usecase.validateCategory(category);
   }
 
-  Future<int?> registerProvider() async {
+  Future<int?> registerProvider(XFile? logo) async {
     
     error.clear();
     validateName();
@@ -37,6 +38,7 @@ abstract class _RegisterProviderViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
+      int? res = await _usecase.registerProvider(logo, name, category);
     } 
     else {
       print("Erro");

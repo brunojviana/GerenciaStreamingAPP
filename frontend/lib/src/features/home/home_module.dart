@@ -8,7 +8,7 @@ import 'domain/repository/profile_interface.dart';
 import 'domain/usecase/home_usecase.dart';
 import 'presentation/view/pages/home_page.dart';
 import 'presentation/viewmodel/home_viewmodel.dart';
-
+import '../chatbot/chatboat_module.dart';
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
@@ -24,9 +24,9 @@ class HomeModule extends Module {
         ModuleRoute('/map', module: MapModule()),
         ModuleRoute('/movies', module: ContentModule()),
         ModuleRoute('/otherContents', module: ContentModule()),
-        //ModuleRoute('/profile', module: ProfileModule()), 
+        ModuleRoute('/profile', module: ProfileModule()), 
         //ModuleRoute('/spendings', module: SpendingsModule()),
         //ModuleRoute('/recommendations', module: RecommendationsModule()),
-        //ModuleRoute('/notifications', module: NotificationsModule()),
+        ModuleRoute('/chatbot', module: ChatBotModule()),
       ];
 }

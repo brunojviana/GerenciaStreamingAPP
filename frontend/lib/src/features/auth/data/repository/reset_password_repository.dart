@@ -2,7 +2,7 @@ import 'package:frontend/src/features/auth/domain/repository/reset_password_inte
 
 class ResetPasswordRepository implements IReset {
   @override
-  Future<String> resetPassword(String usermail) {
+  Future<int> resetPassword(String usermail) {
     throw UnimplementedError();
   }
 }

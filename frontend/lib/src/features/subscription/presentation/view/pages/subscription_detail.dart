@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/subscription.dart';
 import '../../viewmodel/subscription_detail_viewmodel.dart';
 
@@ -15,6 +16,7 @@ class SubscriptionDetailPage extends StatefulWidget {
 
 class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, SubscriptionDetailViewModel> {
   late ThemeData _theme;
+  late Profile _profile;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -67,17 +69,23 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('signature_date'.i18n() + ': ' +
-                  widget.subscription.signatureDate!.day.toString() + '/' +
-                  widget.subscription.signatureDate!.month.toString() + '/' +
-                  widget.subscription.signatureDate!.year.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.calendar_month, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('signature_date'.i18n() + ': ' +
+                      widget.subscription.signatureDate!.day.toString() + '/' +
+                      widget.subscription.signatureDate!.month.toString() + '/' +
+                      widget.subscription.signatureDate!.year.toString(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     ); 
 
@@ -85,14 +93,20 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('subscription_time'.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.timelapse, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('subscription_time'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     ); 
 
@@ -100,14 +114,20 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('screens'.i18n() + ': ' + widget.subscription.screens.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.screen_share_outlined, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('screens'.i18n() + ': ' + widget.subscription.screens.toString(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -115,14 +135,20 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('resolution'.i18n() + ': ' + widget.subscription.maxResolution.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.hd, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('resolution'.i18n() + ': ' + widget.subscription.maxResolution.toString(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -130,15 +156,21 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('price'.i18n() + ': ' + 'currency'.i18n() +
-                  widget.subscription.price.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.monetization_on, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('price'.i18n() + ': ' + 'currency'.i18n() +
+                      widget.subscription.price.toString(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -146,14 +178,20 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment!.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.payment, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('frequency'.i18n() + ': ' + widget.subscription.periodPayment!.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -161,14 +199,20 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('consumedContent'.i18n() + ': ' + widget.subscription.content.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.live_tv, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('consumedContent'.i18n() + ': ' + widget.subscription.content.toString(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -176,15 +220,21 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('use_time'.i18n() + ': ' +
-                  widget.subscription.time!.inHours.toString() + 'hours'.i18n(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.access_time, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('use_time'.i18n() + ': ' +
+                      widget.subscription.useTime!.toString() + 'hours'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
@@ -192,44 +242,65 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
     height: 25,
     width: double.infinity,
-      child: Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status!),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
-        textAlign: TextAlign.left,
+      child: Row(
+        children: [
+          const Icon(Icons.offline_pin, color: AppColors.accent),
+          const SizedBox(width: 10),
+          Text('status'.i18n() + ': ' + _verifyStatus(widget.subscription.status!),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
       ),
     );
 
-  Widget get _editButton => IconButton(
-    iconSize: 40,
-    onPressed: () {
-      Modular.to.pushNamed('editsubscription');
-    },
-    icon: const Icon(Icons.edit),
+  Widget get _editButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () {
+          Modular.to.pushNamed('editsubscription', arguments: widget.subscription);
+        },
+        icon: const Icon(Icons.edit),
+      ),
+      Text('edit'.i18n()),
+    ],
   );
 
-  Widget get _concludeButton => IconButton(
-    iconSize: 40,
-    onPressed: () {
-      if (widget.subscription.status == 0){
-        store.switchStatus(1);  
-      }
-      else {
-        store.switchStatus(0);
-      } 
-    },
-    icon: const Icon(Icons.done),
+  Widget get _cancelButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () {
+          if (widget.subscription.status == 0){
+            store.switchStatus(1);  
+          }
+          else {
+            store.switchStatus(0);
+          } 
+        },
+        icon: const Icon(Icons.cancel, color: Colors.red),
+      ),
+      Text('cancel'.i18n()),
+    ],
   );
 
-  Widget get _deleteButton => IconButton(
-    iconSize: 40,
-    onPressed: () { 
-      store.deleteSubscription(widget.subscription.id!);
-    },
-    icon: const Icon(Icons.delete),
+  Widget get _deleteButton => Column(
+    children: [
+      IconButton(
+        iconSize: 30,
+        onPressed: () { 
+          store.deleteSubscription(widget.subscription.id!);
+        },
+        icon: const Icon(Icons.delete),
+      ),
+      Text('delete'.i18n()),
+    ],
   );
 
   String _verifyStatus(int status) {
@@ -257,43 +328,61 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
-      body: Column(
-        children: [
-          _provider,
-          _subscriptionDate,
-          _subscriptionTime,
-          _screens,
-          _maxResolution,
-          _price,
-          _paymentFrequency,
-          _content,
-          _useTime,
-          _status,
-        ],
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Card(child: _provider),
+              Card(child: _subscriptionDate),
+              Card(child: _subscriptionTime),
+              Card(child: _screens),
+              Card(child: _maxResolution),
+              Card(child: _price),
+              Card(child: _paymentFrequency),
+              Card(child: _content),
+              Card(child: _useTime),
+              Card(child: _status),
+            ],
+          ),
+        ),
       ),
       persistentFooterButtons: [
         _editButton,
-        _concludeButton,
+        _cancelButton,
         _deleteButton
       ],
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/home');
+                iconSize: 35,
+                onPressed: () async {
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: _profile);
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

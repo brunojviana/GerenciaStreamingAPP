@@ -1,47 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/src/features/auth/domain/model/profile.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import '../../viewmodel/list_contents_viewmodel.dart';
-//import '../../../../subscription/domain/model/provider.dart';
-//import '../../../domain/model/content.dart';
-
-//Classe declarada apenas para carregar a tela. Deve ser utilizada a model.
-class Content {
-  int id;
-  Provider provider;
-  String name;
-  String category;
-  DateTime startDate;
-  DateTime lastAccess;
-  Duration time;
-  int status;
-
-  Content(
-    {required this.id,
-     required this.provider,
-     required this.name,
-     required this.category,
-     required this.startDate,
-     required this.lastAccess,
-     required this.time,
-     required this.status
-    });
-}
-
-class Provider {
-  String pathLogo;
-  String name;
-
-  Provider(
-    {
-      required this.pathLogo,
-      required this.name,
-    });
-}
+import '../../../../subscription/domain/model/provider.dart';
+import '../../../domain/model/content.dart';
 
 class ListContentsPage extends StatefulWidget {
-  const ListContentsPage({Key? key}) : super(key: key);
+  final Profile profile;
+  final int category;
+  const ListContentsPage({Key? key, required this.profile, required this.category}) : super(key: key);
 
   @override
   State<ListContentsPage> createState() => _ListContentsPageState();
@@ -55,6 +24,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
     height: double.infinity,
     width: double.infinity,
     child: ListView.builder(
+      padding: const EdgeInsets.all(10),
       itemCount: _contents.length,
       itemBuilder: (context, index) {
         final content = _contents[index];
@@ -62,17 +32,9 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         return Card(
           child: ListTile(
             onTap: () {
-              Modular.to.pushNamed('detailcontent', arguments: Content(
-                id: _contents[index].id,
-                provider: _contents[index].provider,
-                name: _contents[index].name,
-                category: _contents[index].category,
-                startDate: _contents[index].startDate,
-                lastAccess: _contents[index].lastAccess,
-                time: _contents[index].time,
-                status: _contents[index].status));
+              Modular.to.pushNamed('detailcontent', arguments: _contents[index]);
             },
-            title: Text(content.name,
+            title: Text(content.name!,
               style: const TextStyle(
                 fontFamily: 'Nunito',
                 fontSize: 20,
@@ -80,20 +42,23 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
                 color: AppColors.text, 
               ),
             ),
-            subtitle: Text(content.category.i18n() + '\n' +
-                           content.provider.name + '\n' +
-                           'last_access'.i18n() + ': ' + 
-                           content.lastAccess.day.toString() + '/' +
-                           content.lastAccess.month.toString() + '/' +
-                           content.lastAccess.year.toString(),
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text, 
-                ),
+            subtitle: Text(content.category!.i18n() + '\n' +
+              content.provider!.name! + '\n' +
+              'last_access'.i18n() + ': ' + 
+              content.lastAccess!.day.toString() + '/' +
+              content.lastAccess!.month.toString() + '/' +
+              content.lastAccess!.year.toString() + '\n' +
+              'status'.i18n() + ': ' +
+              _verifyStatus(content.status!),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppColors.text, 
               ),
-            leading: Image.asset(content.provider.pathLogo,
+            ),
+            minLeadingWidth: 80,
+            leading: Image.asset(content.provider!.pathLogo!,
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -104,17 +69,34 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
     )
   );
 
+  Future<List<Content>> _loadContents(int userId, int category) async {
+    List<Content> _contents = await store.loadContents(userId, category);
+    return _contents;
+  }
+
+  String _verifyStatus(int status) {
+    if (status == 0) {
+      return 'concluded'.i18n();
+    }
+    else {
+      return 'paused'.i18n();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    //_contents = _loadContents(widget.profile.id!, widget.category) as List<Content>;
     
     //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
     _contents = [
       Content(
         id: 0001,
-        provider: Provider(
+        provider: const Provider(
           pathLogo: 'lib/assets/images/netflix.png',
-          name: 'Netflix'),
+          name: 'Netflix',
+          category: 'cat_movies_and_series',
+        ),
         name: 'Onde os Fracos Não tem Vez',
         category: 'cat_movies',
         startDate: DateTime(2022, 05, 11),
@@ -123,9 +105,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         status: 0),
       Content(
         id: 0002,
-        provider: Provider(
+        provider: const Provider(
           pathLogo: 'lib/assets/images/hbo.png',
-          name: 'HBO Max'),
+          name: 'HBO Max',
+          category: 'cat_movies_and_series',
+        ),
         name: 'Band of Brothers',
         category: 'cat_series',
         startDate: DateTime(2022, 03, 05),
@@ -134,9 +118,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         status: 1),
       Content(
         id: 0003,
-        provider: Provider(
+        provider: const Provider(
           pathLogo: 'lib/assets/images/prime.png',
-          name: 'Amazon Prime Video'),
+          name: 'Amazon Prime Video',
+          category: 'cat_movies_and_series',
+        ),
         name: 'The Boys',
         category: 'cat_series',
         startDate: DateTime(2021, 01, 28),
@@ -145,9 +131,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         status: 0),
       Content(
         id: 0004,
-        provider: Provider(
+        provider: const Provider(
           pathLogo: 'lib/assets/images/starplus.png',
-          name: 'Star +'),
+          name: 'Star +',
+          category: 'cat_movies_and_series',
+        ),
         name: 'O Oitavo Passageiro',
         category: 'cat_movies',
         startDate: DateTime(2022, 03, 07),
@@ -168,6 +156,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: _dataContent, 
       floatingActionButton: FloatingActionButton(
@@ -176,27 +165,38 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('selectsubscription');
+          Modular.to.pushNamed('selectsubscription', arguments: widget.profile);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () async {
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                  }
+                ),
+              ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/auth');
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

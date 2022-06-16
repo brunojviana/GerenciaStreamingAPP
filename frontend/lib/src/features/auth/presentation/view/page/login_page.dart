@@ -5,7 +5,6 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-
 import '../../viewmodel/login_viewmodel.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,31 +15,34 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
   late Profile _profile;
+  late Profile? _response;
 
   Widget get _images => Center(
     child: Container(
-      margin: const EdgeInsets.fromLTRB(130, 0, 130, 0),
-      height: 50,
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 5),
+      height: 80,
       width: double.infinity,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 80,
+            width: 80,
             child: Image.asset('lib/assets/images/fones-de-ouvido.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.scaleDown,
+              width: 80,
+              height: 80,
+              fit: BoxFit.contain,
               ),
           ),
           const SizedBox(width: 20),
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 80,
+            width: 80,
             child: Image.asset('lib/assets/images/camera.png',
-              width: 46,
-              height: 46,
-              fit: BoxFit.scaleDown,
+              width: 80,
+              height: 80,
+              fit: BoxFit.contain,
               ),
             ),
           ],
@@ -49,130 +51,174 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   );
   
   Widget get _messenger => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 20,
-        width: double.infinity,
-        child: Text('messenger'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.center,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
+    height: 20,
+    width: double.infinity,
+    child: Text('messenger'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.center,
+    ),
+    );
 
-  Widget get _usermail => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        hint: 'usermail_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.usermail,
-        onChange: (value) => store.usermail = value,
-      );
+  Widget get _usermail => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'usermail_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.usermail,
+      onChange: (value) => store.usermail = value,
+    ),
+  );
 
-  Widget get _password => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        hint: 'password_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.password,
-        onChange: (value) => store.password = value,
-      );
+  Widget get _password => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.password,
+      onChange: (value) => store.password = value,
+    ),
+  );
 
   Widget get _forgotPasswordButton => Container(
-        margin: const EdgeInsets.fromLTRB(30, 30, 30, 20),
-        width: double.infinity,
-        height: 35,
-        child: TextButton(
-          style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
-          onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('reset');
-                },
-          child: Text('forgot_password'.i18n(),
-            style: const TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondary, 
-            ),
+    margin: const EdgeInsets.fromLTRB(30, 30, 30, 5),
+    width: double.infinity,
+    height: 35,
+    child: TextButton(
+      style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
+        onPressed: store.isLoading ? null : () {
+          Modular.to.pushNamed('reset');
+        },
+        child: Text('forgot_password'.i18n(),
+          style: const TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: AppColors.secondary, 
           ),
         ),
-      );
+      ),
+    );
 
-  Widget get _loginButton => Center(child: Container(
-        margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
-        width: 128,
-        height: 41,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
+  Widget get _loginButton => Center(
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
+      width: 128,
+      height: 41,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryLight),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-          ),
-          onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('home', arguments: Profile(
-                    pathProfilePhoto: _profile.pathProfilePhoto,
-                    cpf: _profile.cpf,
-                    name: _profile.name,
-                    email: _profile.email,
-                    dateBirth: _profile.dateBirth,
-                    password: _profile.password
-                  ));
-                },
-          child: Text('login'.i18n()),
         ),
+        onPressed: () async {
+        store.isLoading ? null : 
+        /*_response = await _login();
+        _showDialog(_response);*/
+          _profile = const Profile(
+            id: 1,
+            photo: null,
+            cpf: '000.000.000-00',
+            name: 'Bruno',
+            email: 'bruno@email.com',
+            dateBirth: '01-01-1990',
+            password: '12345');
+          store.saveUser(_profile);
+          Modular.to.pushNamed('home', arguments: _profile);
+        },
+        child: Text('login'.i18n()),
       ),
+    ),
   );
 
   Widget get _register => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 35,
-        width: double.infinity,
-        child: TextButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-          ),
-          onPressed: store.isLoading ? null : () {
-                  Modular.to.pushNamed('register');
-                },
-          child: Text('register_link'.i18n(),
-            style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: AppColors.secondary, 
-            ),
+    margin: const EdgeInsets.fromLTRB(30, 15, 30, 30),
+    height: 35,
+    width: double.infinity,
+    child: TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
           ),
         ),
-      );
+      ),
+      onPressed: () async {
+        store.isLoading ? null : 
+        Modular.to.pushNamed('register');
+      },
+      child: Text('register_link'.i18n(),
+        style: const TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+          color: AppColors.secondary, 
+        ),
+      ),
+    ),
+  );
 
-  void _login() async {
-    int? response = await store.login();
+  Future<Profile?> _login() async {
+    Profile? _response = await store.login();
+    return _response;
+  }  
+
+  Future<void> _showDialog(Profile? _profile) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Icon(Icons.error, size: 40, color: Colors.red),
+          content: Text('login_error'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+            onPressed: () {
+              Navigator.pop(context);
+            },  
+          )],
+        );
+      }
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-
-  //Declação apenas para carregar a página:
-  _profile = const Profile(
-    pathProfilePhoto: '',
-    cpf: '000.000.000-00',
-    name: 'Bruno',
-    email: 'bruno@email.com',
-    dateBirth: '01/01/1990',
-    password: '123456');
 
     return Scaffold(
       appBar: AppBar(
@@ -205,6 +251,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
           child: Observer(builder: (_) {
             return Form(
               child: Column(
@@ -229,7 +276,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: Container(height: 47.0),
+        child: Container(height: 45.0, color: AppColors.primary),
       ),
     );
   }

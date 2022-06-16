@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:frontend/src/features/subscription/domain/usecase/register_subscription_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../auth/domain/model/profile.dart';
+import '../../domain/model/subscription.dart';
 
 part 'register_subscription_viewmodel.g.dart';
 
@@ -28,6 +32,10 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
   @observable
   bool isLoading = false;
 
+  int content = 0;
+  double useTime = 0;
+  int status = 1;
+
   @action
   void validateDate() {
     error.date = _usecase.validateDate(date);
@@ -53,8 +61,15 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
     error.resolution = _usecase.validateResolution(resolution);
   }
   
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
+  }
 
-  Future<int?> registerSubscription() async {
+  Future<Subscription?> registerSubscription(int userId, int idProvider) async {
     
     error.clear();
 
@@ -66,9 +81,20 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
+      Subscription? res = await _usecase.registerSubscription(
+        userId, 
+        idProvider, 
+        date, 
+        value, 
+        payment, 
+        screens, 
+        resolution, 
+        content
+        useTime,
+        status);
+      return res;
     } 
     else {
-      print("Erro");
       return null;
     }
   }

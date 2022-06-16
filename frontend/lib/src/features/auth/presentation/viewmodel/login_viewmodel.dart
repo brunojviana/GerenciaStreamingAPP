@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import '../../domain/model/profile.dart';
 import '../../domain/usecase/login_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_viewmodel.g.dart';
 
@@ -28,7 +31,14 @@ abstract class _LoginViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
-  Future<int?> login() async {
+  void saveUser(Profile profile) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString(
+      "profile", json.encode(profile.toJson())
+    );
+  }
+
+  Future<Profile?> login() async {
     error.clear();
 
     validateUsermail();
@@ -36,20 +46,18 @@ abstract class _LoginViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
+      Profile? res = await _usecase.login(usermail, password);
 
-      int? res = await _usecase.login(usermail, password);
-
-      print(res);
-
-      if (res == 201) {
+      if (res != null) {
+        saveUser(res);
         Modular.to.pushNamedAndRemoveUntil('/reset', (p0) => false);
         isLoading = false;
       }
-
       return res;
-    } else {
-        print("Erro");
-        return null;
+    } 
+    else
+    {
+      return null;
     }
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import '../../../auth/data/dto/user_dto.dart';
 import '../../../subscription/domain/model/subscription.dart';
 import '../../domain/usecase/select_subscription_usecase.dart';
 
@@ -10,11 +9,9 @@ class SelectSubscriptionViewModel = _SelectSubscriptionViewModelBase with _$Sele
 abstract class _SelectSubscriptionViewModelBase with Store {
   final _usecase = Modular.get<SelectSubscriptionUseCase>();
 
-  List<Subscription> listSubscriptions = [];
-
-    Future<List<Subscription>> loadSubscriptions(UserDto user) async {
+  Future<List<Subscription>> loadSubscriptions(int userId) async {
     
-    List<Subscription> res = await _usecase.loadSubscriptions(user);
+    List<Subscription> res = await _usecase.loadSubscriptions(userId);
     return res;
-    }
+  }
 }

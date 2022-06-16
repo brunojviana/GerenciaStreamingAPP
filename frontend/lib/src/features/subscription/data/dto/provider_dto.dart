@@ -1,7 +1,9 @@
+import 'package:image_picker/image_picker.dart';
+
 class ProviderDto {
-  const ProviderDto(this.pathLogo, this.name, this.category);
+  const ProviderDto(this.logo, this.name, this.category);
   
-  final String pathLogo;
+  final XFile? logo;
   final String name;
   final String category;
 }

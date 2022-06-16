@@ -3,11 +3,13 @@ import 'package:frontend/src/features/subscription/domain/model/subscription.dar
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/provider.dart';
 import '../../viewmodel/list_subscriptions_viewmodel.dart';
 
 class ListSubscriptionsPage extends StatefulWidget {
-  const ListSubscriptionsPage({Key? key}) : super(key: key);
+  final Profile profile;
+  const ListSubscriptionsPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<ListSubscriptionsPage> createState() => _ListSubscriptionsPageState();
@@ -17,61 +19,67 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
   late ThemeData _theme;
   late List<Subscription> _subscriptions;
 
-  Widget get _dataSubscription => SizedBox(
-    height: double.infinity,
-    width: double.infinity,
-    child: ListView.builder(
-      itemCount: _subscriptions.length,
-      itemBuilder: (context, index) {
-        final subscription = _subscriptions[index];
-        
-        return Card(
-          child: ListTile(
-            onTap: () {
-              Modular.to.pushNamed('detailsubscription', arguments: Subscription(
-                id: _subscriptions[index].id,
-                provider: _subscriptions[index].provider,
-                signatureDate: _subscriptions[index].signatureDate,
-                price: _subscriptions[index].price,
-                periodPayment: _subscriptions[index].periodPayment,
-                screens: _subscriptions[index].screens,
-                maxResolution: _subscriptions[index].maxResolution,
-                content: _subscriptions[index].content,
-                time: _subscriptions[index].time,
-                status: _subscriptions[index].status));
-            },
-            title: Text(subscription.provider!.name!,
-              style: const TextStyle(
-                fontFamily: 'Nunito',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text, 
-              ),
-            ),
-            subtitle: Text(subscription.provider!.category!.i18n() + '\n' +
-                           'signature_date'.i18n() + ': ' + 
-                           subscription.signatureDate!.day.toString() + '/' +
-                           subscription.signatureDate!.month.toString() + '/' +
-                           subscription.signatureDate!.year.toString() + '\n' +
-                           'price'.i18n() + ': ' + 'currency'.i18n() +
-                           subscription.price.toString(),
+  Widget get _dataSubscription => Center(
+    child: SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: _subscriptions.length,
+        itemBuilder: (context, index) {
+          final subscription = _subscriptions[index];
+          
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Modular.to.pushNamed('detailsubscription', arguments: _subscriptions[index]);
+              },
+              title: Text(subscription.provider!.name!,
                 style: const TextStyle(
                   fontFamily: 'Nunito',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: AppColors.text, 
                 ),
               ),
-            leading: Image.asset(subscription.provider!.pathLogo!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.contain,
+              subtitle: Text(
+                subscription.provider!.category!.i18n() + '\n' +
+                'signature_date'.i18n() + ': ' + 
+                subscription.signatureDate!.day.toString() + '/' +
+                subscription.signatureDate!.month.toString() + '/' +
+                subscription.signatureDate!.year.toString() + '\n' +
+                'price'.i18n() + ': ' + 'currency'.i18n() +
+                subscription.price.toString() + '\n' +
+                'status'.i18n() + ': ' +
+                _verifyStatus(subscription),
+                  style: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text, 
+                  ),
+                ),
+              minLeadingWidth: 80,
+              leading: Image.asset(subscription.provider!.pathLogo!,
+                width: 80,
+                height: 80,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-        );
-      },
-    )
+          );
+        },
+      )
+    ),
   );
+
+  String _verifyStatus(Subscription subscription) {
+    if (subscription.status == 0) {
+      return 'status_inactive'.i18n();
+    }
+    else {
+      return 'status_active'.i18n();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +90,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
       Subscription(
         id: 0001,
         provider: const Provider(
+          id: 1,
           pathLogo: 'lib/assets/images/netflix.png',
           name: 'Netflix',
           category: 'cat_movies_and_series',
@@ -92,11 +101,12 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         screens: 4,
         maxResolution: 'Full HD',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0002,
         provider: const Provider(
+          id: 2,
           pathLogo: 'lib/assets/images/prime.png',
           name: 'Amazon Prime Video',
           category: 'cat_movies_and_series',
@@ -107,11 +117,12 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         screens: 2,
         maxResolution: 'Full HD',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0003,
         provider: const Provider(
+          id: 3,
           pathLogo: 'lib/assets/images/hbo.png',
           name: 'HBO Max',
           category: 'cat_movies_and_series',
@@ -122,11 +133,12 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         screens: 4,
         maxResolution: '4K',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
       Subscription(
         id: 0004,
         provider: const Provider(
+          id: 4,
           pathLogo: 'lib/assets/images/spotify.png',
           name: 'Spotify',
           category: 'cat_songs',
@@ -137,7 +149,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         screens: 0,
         maxResolution: 'other',
         content: 0,
-        time: const Duration(hours: 0, minutes: 0, seconds: 0),
+        useTime: 0,
         status: 1),
     ];
 
@@ -153,6 +165,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: _dataSubscription, 
       floatingActionButton: FloatingActionButton(
@@ -161,27 +174,38 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('selectprovider');
+          Modular.to.pushNamed('selectprovider', arguments: widget.profile);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 45.0,
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
+                iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home');
+                  Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
-              ),  
-            )
-          ),
+              ),
+            ),
+            SizedBox(
+              height: 45.0,
+              child: IconButton(
+                icon: const Icon(Icons.logout, color: AppColors.textLight),
+                iconSize: 35,
+                onPressed: () {
+                  Modular.to.pushNamed('/auth');
+                }
+              ),
+            ),
+          ],
         ),
       ),
     );

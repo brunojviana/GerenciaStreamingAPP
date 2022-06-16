@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:frontend/src/features/subscription/data/dto/provider_dto.dart';
 import 'package:frontend/src/features/subscription/data/dto/subscription_dto.dart';
 import 'package:localization/localization.dart';
+import '../model/subscription.dart';
 import '../repository/register_subscription_interface.dart';
 
 class SubscriptionUseCase {
@@ -43,7 +43,10 @@ class SubscriptionUseCase {
     return null;
   }
 
-  Future<SubscriptionDto?> registerSubscription(ProviderDto provider, String signatureDate, String price, String periodPayment, String screens, final String maxResolution) {
-    return repository.registerSubscription(SubscriptionDto(provider, signatureDate, price, periodPayment, screens, maxResolution ));
+  Future<Subscription?> registerSubscription(int userId, int idProvider, String signatureDate,
+                          String price, String periodPayment, String screens, String maxResolution,
+                          int content, double useTime, int status) {
+    return repository.registerSubscription(SubscriptionDto(userId, idProvider, signatureDate, 
+                        price, periodPayment, screens, maxResolution, content, useTime, status));
   }
 }

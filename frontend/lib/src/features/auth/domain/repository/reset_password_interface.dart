@@ -1,3 +1,3 @@
 abstract class IReset {
-  Future<String> resetPassword(String usermail);
+  Future<int> resetPassword(String usermail);
 }

@@ -15,6 +15,6 @@ class MapModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const MapPage()),
+        ChildRoute('/', child: (_, args) => MapPage(profile: args.data)),
       ];
 }

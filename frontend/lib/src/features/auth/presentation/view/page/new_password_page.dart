@@ -4,7 +4,6 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-
 import '../../viewmodel/new_password_viewmodel.dart';
 
 class NewPasswordPage extends StatefulWidget {
@@ -15,88 +14,118 @@ class NewPasswordPage extends StatefulWidget {
 }
 class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordViewModel> {
   late ThemeData _theme;
-
+  late int? _response;
+  
   Widget get _image => Center(
     child: Container(
-      margin: const EdgeInsets.fromLTRB(140, 0, 140, 0),
-      height: 50,
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 5),
+      height: 80,
       width: double.infinity,
       child: SizedBox(
-        height: 50,
-        width: 50,
+        height: 80,
+        width: 80,
         child: Image.asset('lib/assets/images/senha.png',
-          width: 46,
-          height: 46,
-          fit: BoxFit.scaleDown,
+          width: 80,
+          height: 80,
+          fit: BoxFit.contain,
         ),
       )
     ),
   );
 
   Widget get _messengerCode => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 20,
-        width: double.infinity,
-        child: Text('messenger_code'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.left,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(15, 40, 20, 10),
+    height: 20,
+    width: double.infinity,
+    child: Text('messenger_code'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
 
-  Widget get _code => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        hint: 'code_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.code,
-        onChange: (value) => store.code = value,
-      );
-
+  Widget get _code => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      hint: 'code_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.code,
+      onChange: (value) => store.code = value,
+    ),
+  );
 
   Widget get _messengerNewPassword => Container(
-        margin: const EdgeInsets.fromLTRB(30, 40, 30, 30),
-        height: 20,
-        width: double.infinity,
-        child: Text('messenger_new_password'.i18n(),
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-          ),
-          textAlign: TextAlign.left,
-        ),
-      );
+    margin: const EdgeInsets.fromLTRB(15, 20, 30, 10),
+    height: 20,
+    width: double.infinity,
+    child: Text('messenger_new_password'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
 
-  Widget get _newPassword => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        hint: 'create_password_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.newPassword,
-        onChange: (value) => store.newPassword = value,
-      );
+  Widget get _newPassword => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'create_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.newPassword,
+      onChange: (value) => store.newPassword = value,
+    ),
+  );
 
-  Widget get _confirmedNewpassword => widget.createFormField(
-        theme: _theme,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        hint: 'confirmPassword_hint'.i18n(),
-        enabled: !store.isLoading,
-        errorText: store.error.confirmedNewPassword,
-        onChange: (value) => store.confirmedNewPassword = value,
-      );
+  Widget get _confirmedNewpassword => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 20),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      theme: _theme,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      hint: 'confirm_password_hint'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.confirmedNewPassword,
+      onChange: (value) => store.confirmedNewPassword = value,
+    ),
+  );
 
   Widget get _validationPassword => Column(
-    children: [Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+    children: [
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_lenght'.i18n(),
@@ -104,13 +133,12 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
             fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w500,
-            color: AppColors.secondary, 
+            color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
         ),
       ),
-      Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_alphanumeric'.i18n(),
@@ -118,13 +146,12 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
             fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w500,
-            color: AppColors.secondary, 
+            color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
         ),
       ),
-      Container(
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+      SizedBox(
         height: 18,
         width: double.infinity,
         child: Text('validation_special_character'.i18n(),
@@ -132,7 +159,7 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
             fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w500,
-            color: AppColors.secondary, 
+            color: AppColors.text, 
           ),
           textAlign: TextAlign.center,
         ),
@@ -157,7 +184,10 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
                 ),
               ),
             ),
-            onPressed: store.isLoading ? null : store.setNewPassword,
+            onPressed: () async {
+              _response = await _setNewPassword();
+              _showDialog(_response);
+            },
             child: Text('send'.i18n(),
               style: const TextStyle(
                 fontFamily: 'Nunito',
@@ -172,6 +202,64 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
     ),
   );
 
+  Future<int?> _setNewPassword() async {
+    int? _response = await store.setNewPassword();
+    return _response;
+  }  
+
+  Future<void> _showDialog(int? response) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (response != null) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (response != null) ?
+            Text('change_password_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('change_password_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: (response != null) ?           
+          <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () { 
+                Navigator.pop(context);
+                Modular.to.pushNamed('/auth');
+              },  
+            ),
+          ] :          
+          <Widget>[TextButton(
+              child: Text('cancel'.i18n().toString()),
+              onPressed: () async {
+                Navigator.pop(context);
+                Modular.to.pushNamed('/auth');
+              },  
+            ),
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Navigator.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,12 +277,13 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
               color: AppColors.textLight, 
             ),
           ),
+        centerTitle: true,
         ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
           child: Observer(builder: (_) {
-            return Form(
-              
+            return Form(            
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -218,22 +307,19 @@ class _NewPasswordPageState extends ModularState<NewPasswordPage, NewPasswordVie
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
-              child: IconButton(
-                icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/auth');
-                }
-              ),  
-            )
+        child: 
+          Container(
+            alignment: Alignment.center,
+            height: 45.0,
+            child: IconButton(
+              icon: const Icon(Icons.logout, color: AppColors.textLight),
+              iconSize: 35,
+              onPressed: () {
+                Modular.to.pushNamed('/auth');
+              }
+            ),
           ),
         ),
-      ),
     );
   }
 }

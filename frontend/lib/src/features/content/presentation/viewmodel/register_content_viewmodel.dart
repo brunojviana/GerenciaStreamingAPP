@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import '../../../auth/domain/model/user.dart';
-import '../../../subscription/domain/model/subscription.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../auth/domain/model/profile.dart';
+import '../../../subscription/domain/model/provider.dart';
+import '../../domain/model/content.dart';
 import '../../domain/usecase/register_content_usecase.dart';
 
 part 'register_content_viewmodel.g.dart';
@@ -21,6 +24,12 @@ abstract class _RegisterContentViewModelBase with Store {
   @observable
   bool isLoading = false;
 
+  int id = 0;
+
+  DateTime startDate = DateTime.now();
+
+  int status = 1;
+
   @action
   void validateName() {
     error.name = _usecase.validateName(name);
@@ -31,7 +40,15 @@ abstract class _RegisterContentViewModelBase with Store {
     error.category = _usecase.validateCategory(category);
   }
 
-  Future<int?> registerContent(User user, Subscription subscription) async {
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
+  }
+
+  Future<Content?> registerContent(int subscriptionId) async {
     
     error.clear();
 
@@ -40,13 +57,17 @@ abstract class _RegisterContentViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
-
-      int? res = await _usecase.registerContent(user, subscription.id!, subscription.provider!, name, category);
-      
+      Content? res = await _usecase.registerContent(
+        id,
+        subscriptionId,
+        name, 
+        category,
+        startDate,
+        startDate,
+        status);
       return res;
     } 
     else {
-      print("Erro");
       return null;
     }
   }

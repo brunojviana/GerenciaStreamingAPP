@@ -1,8 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import '../../../auth/domain/model/user.dart';
-import '../../../subscription/domain/model/provider.dart';
 import '../../data/dto/content_dto.dart';
+import '../model/content.dart';
 import '../repository/register_content_interface.dart';
 
 class RegisterContentUseCase {
@@ -23,7 +22,22 @@ class RegisterContentUseCase {
     return null;
   }
 
-  Future<int> registerContent(User user, int subscriptionId, Provider provider, String name, String category) {
-    return repository.registerContent(ContentDto(user, subscriptionId, provider, name, category));
+  Future<Content?> registerContent(
+    int id,
+    int subscriptionId,
+    String name,
+    String category,
+    DateTime startDate,
+    DateTime lastAccess,
+    int status) {
+    return repository.registerContent(ContentDto(
+      id,
+      subscriptionId,
+      name,
+      category,
+      startDate,
+      lastAccess,
+      status)
+    );
   }
 }

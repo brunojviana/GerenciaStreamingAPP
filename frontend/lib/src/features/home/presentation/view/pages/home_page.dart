@@ -21,11 +21,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('my_data'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -34,11 +34,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('profile');
+          Modular.to.pushNamed('profile', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/perfil.png',
             width: 104,
             height: 104,
@@ -53,11 +53,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('my_subscriptions'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -65,19 +65,12 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
           ),
         ),      
       GestureDetector(
-        onTap: () {
-          Modular.to.pushNamed('subscriptions', arguments: Profile(
-            pathProfilePhoto: widget.profile.pathProfilePhoto,
-            cpf: widget.profile.cpf,
-            name: widget.profile.name,
-            email: widget.profile.email,
-            dateBirth: widget.profile.dateBirth,
-            password: widget.profile.password,
-          ));
+        onTap: () async {
+          Modular.to.pushNamed('subscriptions', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/streaming-online.png',
             width: 104,
             height: 104,
@@ -92,11 +85,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('my_movies'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -105,11 +98,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('movies');
+          Modular.to.pushNamed('movies:1', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/aplicativo-de-streaming-de-tv.png',
             width: 104,
             height: 104,
@@ -124,11 +117,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('my_other_contents'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -137,11 +130,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('otherContents');
+          Modular.to.pushNamed('otherContents:2', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/musica.png',
             width: 104,
             height: 104,
@@ -156,11 +149,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('my_spending_history'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -169,11 +162,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('spendings');
+          Modular.to.pushNamed('spendings', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/aumentando.png',
             width: 104,
             height: 104,
@@ -188,11 +181,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('recommendations'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -201,11 +194,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('recommendations');
+          Modular.to.pushNamed('recommendations', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/recomendacao.png',
             width: 104,
             height: 104,
@@ -220,11 +213,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     children: [
       SizedBox(
         height: 30,
-        width: 190,
+        width: 175,
         child: Text('map'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -233,11 +226,11 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('map');
+          Modular.to.pushNamed('map', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
+          height: 110,
+          width: 175,
           child: Image.asset('lib/assets/images/mapa.png',
             width: 104,
             height: 104,
@@ -248,15 +241,15 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
     ],
   );
 
-  Widget get _notifications => Column(
+  Widget get _chatbot => Column(
     children: [
       SizedBox(
         height: 30,
-        width: 190,
-        child: Text('notifications'.i18n(),
+        width: 175,
+        child: Text('chatbot'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.text, 
             ),
@@ -265,12 +258,12 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('notifications');
+          Modular.to.pushNamed('chatbot', arguments: widget.profile);
         },
         child: SizedBox(
-          height: 104,
-          width: 190,
-          child: Image.asset('lib/assets/images/notificacao.png',
+          height: 110,
+          width: 175,
+          child: Image.asset('lib/assets/images/chat.png',
             width: 104,
             height: 104,
             fit: BoxFit.scaleDown,
@@ -286,22 +279,26 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('welcome'.i18n() + widget.profile.name! + '!', 
-            style: const TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textLight, 
+        title: Center(
+          child: Text('welcome'.i18n() + widget.profile.name! + '!', 
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textLight, 
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
+        ),
         ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(5.0),
           child: Observer(builder: (_) {
             return Form(
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -309,30 +306,38 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
                 children: [
                   const SizedBox(height: 5),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _myData,
-                      _mySubscriptions,
+                      Card(child: _myData),
+                      Card(child: _mySubscriptions),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _myMovies,
-                      _myOtherContents,
+                      Card(child: _myMovies),
+                      Card(child: _myOtherContents),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _mySpendings,
-                      _recommendations,
+                      Card(child: _mySpendings),
+                      Card(child: _recommendations),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _map,
-                      _notifications,
+                      Card(child: _map),
+                      Card(child: _chatbot),
                     ],
                   ),
                 ],
@@ -345,18 +350,13 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
         child: SizedBox(
-          height: 47.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Positioned(
-              bottom: 20,
-              child: IconButton(
-                icon: const Icon(Icons.home, color: AppColors.textLight),
-                onPressed: () {
-                  Modular.to.pushNamed('/auth');
-                }
-              ),  
-            )
+          height: 45.0,
+          child: IconButton(
+            icon: const Icon(Icons.logout, color: AppColors.textLight),
+            iconSize: 35,
+            onPressed: () {
+              Modular.to.pushNamed('/auth');
+            }
           ),
         ),
       ),

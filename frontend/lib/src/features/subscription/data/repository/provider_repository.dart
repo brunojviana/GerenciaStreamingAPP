@@ -3,7 +3,7 @@ import 'package:frontend/src/features/subscription/domain/repository/provider_in
 
 class ProviderRepository implements IProvider {
   @override
-  Future<ProviderDto> registerProvider(ProviderDto provider) async {
+  Future<int> registerProvider(ProviderDto provider) async {
     throw UnimplementedError();
   }
 }

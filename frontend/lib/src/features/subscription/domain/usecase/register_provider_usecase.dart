@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/subscription/data/dto/provider_dto.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:localization/localization.dart';
 import '../repository/provider_interface.dart';
 
@@ -20,7 +21,7 @@ class RegisterProviderUseCase {
     return null;
   }
 
-  Future<ProviderDto> registerProvider(String pathLogo, String name, String category) {
-    return repository.registerProvider(ProviderDto(pathLogo, name, category));
+  Future<int> registerProvider(XFile? logo, String name, String category) {
+    return repository.registerProvider(ProviderDto(logo, name, category));
   }
 }
