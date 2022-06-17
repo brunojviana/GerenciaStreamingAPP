@@ -22,6 +22,7 @@
     "change_password_success": "Password has been changed.",
     "change_password_error": "Failed to change password. Please, try again.",
     "chatbot": "Chatbot",
+    "chatbot_hint": "Type your message here...",
     "code_hint": "Code",
     "code_required": "Code sent to your e-mail is required!",
     "conclude": "Conclude",
