@@ -339,14 +339,6 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     try{
       XFile? file = await picker.pickImage(source: source);
       if (file != null) {
-        final bytes = await File(file.path).readAsBytes();
-        print('TESTE AQUI ----------------------------------');
-        print(file.path);
-        print(file.readAsBytes());
-        print(file.length());
-        print(file.name);
-        print(bytes);
-        print('nada');
         setState(() => _photo = file);
       } 
     } catch (e) {
@@ -391,7 +383,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
             child: Text('ok'.i18n().toString()),
               onPressed: () { 
                 Navigator.pop(context);
-                Modular.to.pushNamed('/home', arguments: profile);
+                Modular.to.pushNamed('/auth', arguments: profile);
               },  
             ),
           ] :          

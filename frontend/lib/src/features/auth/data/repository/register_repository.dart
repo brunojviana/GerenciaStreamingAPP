@@ -19,8 +19,7 @@ class RegisterRepository implements IRegister {
         "path_image": userRegister.path_image
         }
       );
-      print(res.body);
-      return int.parse(res.body);
+      return res.statusCode;
     } on Error catch (e) {
       print(e);
       return null;

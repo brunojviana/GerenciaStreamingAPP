@@ -91,19 +91,9 @@ abstract class _RegisterViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;      
       int? res = await _usecase.register(path_image, cpf, name, email, dateBirth, password, null);
+      print(res);
 
-      if (res != null) {
-        saveUser(Profile(
-          id: res,
-          path_image: path_image,
-          cpf: cpf,
-          name: name,
-          email: email,
-          dateBirth: dateBirth,
-          password: password,
-          )
-        );
-        Modular.to.pushNamedAndRemoveUntil('/login', (p0) => false);
+      if (res == 201) {
         isLoading = false;
       }
       return res;
