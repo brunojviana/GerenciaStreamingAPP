@@ -48,7 +48,7 @@ abstract class _UserProfileViewModelBase with Store {
     error.dateBirth = _usecase.validateBirthDate(dateBirth);
   }
 
-  Future<int?> editProfile(XFile? photo, String password) async {
+  Future<int?> editProfile(String? path_image, String password) async {
     error.clear();
 
     validateCpf();
@@ -59,7 +59,7 @@ abstract class _UserProfileViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;
       
-      int? res = await _usecase.editProfile(photo, cpf, name, email, dateBirth, password);
+      int? res = await _usecase.editProfile(path_image, cpf, name, email, dateBirth, password, null);
 
       if (res == 201) {
         isLoading = false;

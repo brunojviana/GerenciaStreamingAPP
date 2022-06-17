@@ -47,10 +47,8 @@ abstract class _LoginViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;
       Profile? res = await _usecase.login(usermail, password);
-
+      
       if (res != null) {
-        saveUser(res);
-        Modular.to.pushNamedAndRemoveUntil('/reset', (p0) => false);
         isLoading = false;
       }
       return res;

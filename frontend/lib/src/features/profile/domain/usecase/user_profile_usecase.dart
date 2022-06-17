@@ -47,7 +47,7 @@ class UserProfileUseCase {
     return null;
   }
 
-  Future<int?> editProfile(XFile? photo, String cpf, String name, String email, String dateBirth, String password) {
-    return repository.editProfile(UserRegisterDto(photo, cpf, name, email, dateBirth, password));
+  Future<int?> editProfile(String? path_image, String cpf, String name, String email, String dateBirth, String password, String? access_token) {
+    return repository.editProfile(UserRegisterDto(path_image, cpf, name, email, dateBirth, password, access_token));
   }
 }

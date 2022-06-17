@@ -339,6 +339,14 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
     try{
       XFile? file = await picker.pickImage(source: source);
       if (file != null) {
+        final bytes = await File(file.path).readAsBytes();
+        print('TESTE AQUI ----------------------------------');
+        print(file.path);
+        print(file.readAsBytes());
+        print(file.length());
+        print(file.name);
+        print(bytes);
+        print('nada');
         setState(() => _photo = file);
       } 
     } catch (e) {
@@ -347,7 +355,8 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   }
 
   Future<int?> _register(XFile? photo) async {
-    int? _response = await store.register(photo);
+    print('aqui');
+    int? _response = await store.register(photo?.path);
     return _response;
   }  
 

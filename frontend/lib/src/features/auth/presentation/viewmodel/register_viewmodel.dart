@@ -78,7 +78,7 @@ abstract class _RegisterViewModelBase with Store {
     return _profile;    
   }
 
-  Future<int?> register(XFile? photo) async {
+  Future<int?> register(String? path_image) async {
     error.clear();
 
     validateCpf();
@@ -90,12 +90,12 @@ abstract class _RegisterViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;      
-      int? res = await _usecase.register(photo, cpf, name, email, dateBirth, password);
+      int? res = await _usecase.register(path_image, cpf, name, email, dateBirth, password, null);
 
       if (res != null) {
         saveUser(Profile(
           id: res,
-          photo: photo,
+          path_image: path_image,
           cpf: cpf,
           name: name,
           email: email,

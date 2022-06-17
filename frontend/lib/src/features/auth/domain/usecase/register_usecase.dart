@@ -85,7 +85,7 @@ class RegisterUseCase {
     return null;
   }
 
-  Future<int?> register(XFile? photo, String cpf, String name, String email, String dateBirth, String password) {
-    return repository.register(UserRegisterDto(photo, cpf, name, email, dateBirth, password));
+  Future<int?> register(String? path_image, String cpf, String name, String email, String dateBirth, String password, String? access_token) {
+    return repository.register(UserRegisterDto(path_image, cpf, name, email, dateBirth, password, access_token));
   }
 }

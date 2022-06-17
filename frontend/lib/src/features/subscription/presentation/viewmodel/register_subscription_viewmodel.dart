@@ -89,7 +89,7 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
         payment, 
         screens, 
         resolution, 
-        content
+        content,
         useTime,
         status);
       return res;

@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   late ThemeData _theme;
-  late Profile _profile;
+  late Profile? _profile;
   late Profile? _response;
 
   Widget get _images => Center(
@@ -140,19 +140,12 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
             ),
         ),
         onPressed: () async {
-        store.isLoading ? null : 
-        /*_response = await _login();
-        _showDialog(_response);*/
-          _profile = const Profile(
-            id: 1,
-            photo: null,
-            cpf: '000.000.000-00',
-            name: 'Bruno',
-            email: 'bruno@email.com',
-            dateBirth: '01-01-1990',
-            password: '12345');
-          store.saveUser(_profile);
-          Modular.to.pushNamed('home', arguments: _profile);
+        
+        _profile = await _login();
+        print(_profile?.toJson());
+        _showDialog(_profile);
+        store.saveUser(_profile!);
+        Modular.to.pushNamed('home', arguments: _profile);
         },
         child: Text('login'.i18n()),
       ),

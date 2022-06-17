@@ -260,7 +260,7 @@ class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileVie
       IconButton(
         iconSize: 30,
         onPressed: () async {
-          int? res = await store.editProfile(_photo, widget.profile.password!);
+          int? res = await store.editProfile(_photo?.path, widget.profile.password!);
         },
         icon: const Icon(Icons.save, color: Colors.blue),
       ),
