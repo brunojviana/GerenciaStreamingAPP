@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize-typescript"
 import { Calendar } from "src/calendar/calendar.model";
 import { Content } from "src/content/content.model";
-import { File } from "src/file/file.model";
 import { Provider } from "src/provider/provider.model";
 import { Signature } from "src/signature/signature.model";
 import { User } from "src/user/user.model";
@@ -24,7 +23,6 @@ export const databaseProviders = [
                 Signature,
                 Content,
                 Provider,
-                File,
                 Calendar
             ]);
             await sequelize.sync();

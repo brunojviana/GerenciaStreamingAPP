@@ -2,6 +2,7 @@ import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { randomBytes } from "crypto";
+import path from "path";
 import { UserModule } from "src/user/user.module";
 import { UserService } from "src/user/user.service";
 
@@ -18,9 +19,9 @@ export class AuthService {
         const user = await this.userService.findEmail(email);
 
         if (user && user.password === password) {
-            const { id, name, cpf, email } = user;
+            const { id, name, cpf, email, path_image } = user;
 
-            return { id: id, name, cpf, email };
+            return { id: id, name, cpf, email, path_image };
         }
 
         return null;
@@ -31,10 +32,19 @@ export class AuthService {
             id: user.id,
             username: user.name,
             cpf: user.cpf,
-            email: user.email
+            email: user.email,
+            path_image: user.path_image
         };
 
-        return { access_token: this.jwtService.sign(payload), payload: payload };
+        console.log(payload);
+
+        return { 
+            id: payload.id,
+            path_image: payload.path_image,
+            cpf: payload.cpf,
+            name: payload.username,
+            email: payload.email,
+            access_token: this.jwtService.sign(payload)};
     }
 
     async sendRecoverPasswordEmail(emailUser: string) {
@@ -71,4 +81,5 @@ export class User {
     name: string;
     cpf: string;
     email: string;
+    path_image: string;
 }

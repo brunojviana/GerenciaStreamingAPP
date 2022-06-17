@@ -1,5 +1,4 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
-import { File } from "src/file/file.model";
 import { Signature } from "src/signature/signature.model";
 
 
@@ -46,15 +45,11 @@ export class User extends Model {
     })
     reset_password: string;
 
-    @ForeignKey(() => File)
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         allowNull: false
     })
-    file_id: number;
-
-    @BelongsTo(() => File)
-    file: File;
+    path_image: string;
 
     @HasMany(() => Signature)
     signature: Signature;

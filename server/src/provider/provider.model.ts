@@ -1,6 +1,5 @@
 import { Blob } from "buffer";
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
-import { File } from "src/file/file.model";
 import { Signature } from "src/signature/signature.model";
 
 
@@ -21,15 +20,11 @@ export class Provider extends Model {
     })
     category: string;
 
-    @ForeignKey(() => File)
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         allowNull: false
     })
-    file_id: number;
-
-    @BelongsTo(() => File)
-    file: File;
+    path_image: string;
 
     @HasMany(() => Signature)
     signature: Signature;

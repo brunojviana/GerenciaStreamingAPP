@@ -8,7 +8,6 @@ import { ContentModule } from './content/content.module';
 import { SignatureModule } from './signature/signature.module';
 import { UserModule } from './user/user.module';
 import { ProviderModule } from './provider/provider.module';
-import { FileModule } from './file/file.module';
 import { CalendarModule } from './calendar/calendar.module';
 
 @Module({
@@ -19,7 +18,6 @@ import { CalendarModule } from './calendar/calendar.module';
     SignatureModule,
     ContentModule,
     ProviderModule,
-    FileModule,
     AuthModule,
     CalendarModule,
     MailerModule.forRoot(mailConfig)

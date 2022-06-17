@@ -1,4 +1,4 @@
-#Wed Jun 15 17:58:34 BRT 2022
-base.0=C\:\\Users\\Diego\\Documents\\GitHub\\GerenciaStreamingAPP\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Fri Jun 17 10:26:40 BRT 2022
+base.0=C\:\\Users\\QG834AL\\Documents\\projects\\GerenciaStreamingAPP\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
