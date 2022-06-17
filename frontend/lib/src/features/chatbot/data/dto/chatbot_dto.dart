@@ -1,13 +1,17 @@
-import 'package:frontend/src/features/chatbot/domain/model/chat_model.dart';
+import 'package:frontend/src/features/chatbot/domain/model/chatbot_model.dart';
+class ChatBotDto{
+  const ChatBotDto(this.text,this.email,this.sessionId);
 
-class Message{
   final String text;
-  final bool sent;
+  final String? email;
+  final String? sessionId;
 
-  const Message({
-    required this.text,
-    required this.sent,
-  });
+ factory ChatBotDto.fromDomain(ChatBotDto chatbot) {
+    return ChatBotDto(chatbot.text, chatbot.email, chatbot.sessionId);
+  }
 
+  factory ChatBotDto.fromJson(Map<String, dynamic> json) =>
+      ChatBotDto(json['text'], json['email'], json['sessionId']);
+
+  Map<String, dynamic> toJson() => {'text': text, 'email': email, 'sessionId': sessionId}; 
 }
-
