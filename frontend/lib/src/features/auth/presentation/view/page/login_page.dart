@@ -140,12 +140,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
             ),
         ),
         onPressed: () async {
-        
-        _profile = await _login();
-        print(_profile?.toJson());
-        _showDialog(_profile);
-        store.saveUser(_profile!);
-        Modular.to.pushNamed('home', arguments: _profile);
+          _profile = await _login();
+          print(_profile?.toJson());
+          if (_profile == null) {
+            _showDialog(_profile);
+          }
+          else
+          {
+            store.saveUser(_profile!);
+            Modular.to.pushNamed('home', arguments: _profile);
+          }
         },
         child: Text('login'.i18n()),
       ),

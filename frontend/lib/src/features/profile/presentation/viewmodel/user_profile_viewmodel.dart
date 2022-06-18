@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../auth/domain/model/profile.dart';
 import '../../domain/usecase/user_profile_usecase.dart';
 
 part 'user_profile_viewmodel.g.dart';
@@ -46,6 +48,21 @@ abstract class _UserProfileViewModelBase with Store {
   @action
   void validateBirthDate() {
     error.dateBirth = _usecase.validateBirthDate(dateBirth);
+  }
+
+  void saveUser(Profile profile) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString(
+      "profile", json.encode(profile.toJson())
+    );
+  }
+
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
   }
 
   Future<int?> editProfile(String? path_image, String password) async {

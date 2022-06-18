@@ -8,19 +8,25 @@ import '../../domain/model/profile.dart';
 class LoginRepository implements ILogin {
   @override
   Future<Profile?> login(UserDto user) async {
-    late Profile _profile;
+    late Profile? _profile;
 
     try {
       final res = await http.post(
-        Uri.http('192.168.0.137:3000', '/login'),
+        Uri.http('192.168.122.1:3000', '/login'),
         body: {
           "email": user.usermail,
           "password": user.password
         }
       );
-      final Map<String, dynamic> data = jsonDecode(res.body);
-      _profile = Profile.fromJson(data);
-      return _profile;
+      if (res.statusCode == 201) {
+        final Map<String, dynamic> data = jsonDecode(res.body);
+        _profile = Profile.fromJson(data);
+        return _profile;
+      }
+      else
+      {
+        return null;
+      }
     } on Error catch (e) {
       print(e);
       return null;

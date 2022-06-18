@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import '../../domain/model/content.dart';
@@ -10,7 +9,7 @@ class ListContentsViewModel = _ListContentsViewModelBase with _$ListContentsView
 abstract class _ListContentsViewModelBase with Store {
   final _usecase = Modular.get<ListContentsUseCase>();
 
-    Future<List<Content>> loadContents(int userId, int category) async {
+    Future<List<Content>> loadContents(int userId, String category) async {
       
       List<Content> res = await _usecase.loadContents(userId);
       List<Content> moviesAndSeries = [];
@@ -28,7 +27,7 @@ abstract class _ListContentsViewModelBase with Store {
         }  
       }
 
-      if (category == 1)
+      if (category == 'movies')
       {
         return moviesAndSeries;
       }

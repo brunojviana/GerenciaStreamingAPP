@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../content/content_module.dart';
 import '../map/map_module.dart';
 import '../profile/profile_module.dart';
+import '../spending/spending_module.dart';
 import '../subscription/subscription_module.dart';
 import 'data/repository/home_repository.dart';
 import 'domain/repository/profile_interface.dart';
@@ -25,7 +26,7 @@ class HomeModule extends Module {
         ModuleRoute('/movies', module: ContentModule()),
         ModuleRoute('/otherContents', module: ContentModule()),
         ModuleRoute('/profile', module: ProfileModule()), 
-        //ModuleRoute('/spendings', module: SpendingsModule()),
+        ModuleRoute('/spendings', module: SpendingModule()),
         //ModuleRoute('/recommendations', module: RecommendationsModule()),
         ModuleRoute('/chatbot', module: ChatBotModule()),
       ];

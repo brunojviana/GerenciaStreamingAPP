@@ -9,7 +9,7 @@ class RegisterRepository implements IRegister {
   Future<int?> register(UserRegisterDto userRegister) async {
     try {
       final res = await http.post(
-        Uri.http('192.168.0.137:3000', '/users'), 
+        Uri.http('192.168.122.1:3000', '/users'), 
         body: {
         "name": userRegister.name,
         "email": userRegister.email,

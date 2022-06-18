@@ -50,6 +50,8 @@
     "delete": "Delete",
     "different_password": "The informed passwords are different.",
     "edit": "Edit",
+    "edit_profile_success": "Your data has been updated.",
+    "edit_profile_error": "Data upddate failed. Please, try again.",
     "edit_subscription": "Edit Subscription",
     "e-mail": "E-mail",
     "email_hint": "Type your e-mail",

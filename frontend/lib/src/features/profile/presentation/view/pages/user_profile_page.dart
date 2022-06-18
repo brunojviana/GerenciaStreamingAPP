@@ -20,6 +20,8 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileViewModel> {
   late ThemeData _theme;
   XFile? _photo;
+  late int? _response;
+  late Profile _profile;
 
   Widget get _messagePhoto => Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -260,13 +262,73 @@ class _UserProfilePageState extends ModularState<UserProfilePage, UserProfileVie
       IconButton(
         iconSize: 30,
         onPressed: () async {
-          int? res = await store.editProfile(_photo?.path, widget.profile.password!);
+          _response = await _editProfile(_photo!.path, widget.profile.password!);
+          _showDialog(_response);
         },
         icon: const Icon(Icons.save, color: Colors.blue),
       ),
       Text('save_changes'.i18n()),
     ],
   );
+
+  Future<int?> _editProfile(String pathPhoto, String password) async {
+    int? _response = await store.editProfile(pathPhoto, password);
+    return _response;
+  }
+
+  Future<void> _showDialog(int? _response) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (_response != null) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (_response != null) ?
+            Text('edit_profile_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('edit_profile_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: (_response != null) ?           
+          <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () { 
+                Navigator.pop(context);
+                Modular.to.pushNamed('/profile', arguments: widget.profile);
+              },  
+            ),
+          ] :          
+          <Widget>[ TextButton(
+              child: Text('cancel'.i18n().toString()),
+              onPressed: () async {
+                Navigator.pop(context);
+                Modular.to.pushNamed('/profile', arguments: widget.profile);
+              },  
+            ),
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Navigator.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
+  }
 
   void _selectPhoto(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
