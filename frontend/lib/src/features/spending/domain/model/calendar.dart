@@ -9,7 +9,7 @@ class SubscriptionCalendar {
   );
 
   final int? subscriptionId;
-  final int? month;
+  final String? month;
   final int? year;
   final double? spending;
   final double? useTime;

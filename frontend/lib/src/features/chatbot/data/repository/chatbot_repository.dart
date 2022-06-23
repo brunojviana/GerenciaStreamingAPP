@@ -11,7 +11,7 @@ class ChatRepository implements IChatRepository{
   Future<ChatBotModel> message(ChatBotDto chatbot) async {   
     final dto = ChatBotDto.fromDomain(chatbot);
     final response = await Dio().post(
-      'http://192.168.1.89:3000/message/text/send',
+      'http://192.168.122.1:3000/message/text/send',
       data: dto.toJson(),
     );
     
