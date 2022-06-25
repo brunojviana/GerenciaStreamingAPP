@@ -50,6 +50,8 @@
     "delete": "Excluir",
     "different_password": "A senhas informadas são diferentes.",
     "edit": "Editar",
+    "edit_profile_success": "Seus dados foram atualizados.",
+    "edit_profile_error": "Falha na atualização dos dados. Por favor, tente novamente.",
     "edit_subscription": "Editar Assinatura",
     "e-mail": "E-mail",
     "email_hint": "Informe seu e-mail",

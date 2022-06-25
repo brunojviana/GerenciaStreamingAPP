@@ -18,7 +18,7 @@ class UserProfileUseCase {
 
   String? validateName(String name) {
     
-    if(name.contains(RegExp(r'[0-9]') , 1)){
+    if(name.contains(RegExp(r'[a-z]'))){
       return 'name_required'.i18n();
     }
 

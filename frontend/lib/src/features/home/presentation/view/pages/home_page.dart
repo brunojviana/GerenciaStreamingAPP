@@ -98,7 +98,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('movies:1', arguments: widget.profile);
+          Modular.to.pushNamed('movies/movies', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,
@@ -130,7 +130,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('otherContents:2', arguments: widget.profile);
+          Modular.to.pushNamed('otherContents/other', arguments: widget.profile);
         },
         child: SizedBox(
           height: 110,

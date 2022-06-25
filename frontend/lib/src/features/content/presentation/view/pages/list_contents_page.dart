@@ -9,7 +9,7 @@ import '../../../domain/model/content.dart';
 
 class ListContentsPage extends StatefulWidget {
   final Profile profile;
-  final int category;
+  final String category;
   const ListContentsPage({Key? key, required this.profile, required this.category}) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
     )
   );
 
-  Future<List<Content>> _loadContents(int userId, int category) async {
+  Future<List<Content>> _loadContents(int userId, String category) async {
     List<Content> _contents = await store.loadContents(userId, category);
     return _contents;
   }

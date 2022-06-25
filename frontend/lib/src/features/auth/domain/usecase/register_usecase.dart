@@ -1,8 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/auth/data/dto/user_register_dto.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:localization/localization.dart';
-import '../model/profile.dart';
 import '../repository/register_interface.dart';
 
 class RegisterUseCase {
@@ -24,7 +22,7 @@ class RegisterUseCase {
     if (name.isEmpty) {
       return 'name_required'.i18n();
     }
-    else if(name.contains(RegExp(r'[0-9]') , 1)){
+    else if(name.contains(RegExp(r'[a-z]'))){
       return 'name_required'.i18n();
     }
 
@@ -64,10 +62,10 @@ class RegisterUseCase {
     else if(password.length < 8){
       return 'validation_lenght'.i18n();
     }
-    else if((!password.contains(RegExp(r'[0-9]') , 1)) || ((!password.contains(RegExp(r'[a-z]') , 1))) && (!password.contains(RegExp(r'[A-Z]') , 1))){
+    else if((!password.contains(RegExp(r'[0-9]'))) || ((!password.contains(RegExp(r'[a-z]')))) && (!password.contains(RegExp(r'[A-Z]')))){
         return 'validation_alphanumeric'.i18n();       
     }
-    else if(!password.contains(RegExp(r'[!@#\$&*~%^()]'), 1)){
+    else if(!password.contains(RegExp(r'[!@#\$&*~%^()]'))){
       return 'validation_special_character'.i18n();
     }
 
