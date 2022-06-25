@@ -58,7 +58,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
               ),
             ),
             minLeadingWidth: 80,
-            leading: Image.asset(content.provider!.pathLogo!,
+            leading: Image.asset(content.provider!.path_image!,
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -93,7 +93,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
       Content(
         id: 0001,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/netflix.png',
+          path_image: 'lib/assets/images/netflix.png',
           name: 'Netflix',
           category: 'cat_movies_and_series',
         ),
@@ -106,7 +106,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
       Content(
         id: 0002,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/hbo.png',
+          path_image: 'lib/assets/images/hbo.png',
           name: 'HBO Max',
           category: 'cat_movies_and_series',
         ),
@@ -119,7 +119,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
       Content(
         id: 0003,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/prime.png',
+          path_image: 'lib/assets/images/prime.png',
           name: 'Amazon Prime Video',
           category: 'cat_movies_and_series',
         ),
@@ -132,7 +132,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
       Content(
         id: 0004,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/starplus.png',
+          path_image: 'lib/assets/images/starplus.png',
           name: 'Star +',
           category: 'cat_movies_and_series',
         ),

@@ -18,6 +18,7 @@ class ListSubscriptionsPage extends StatefulWidget {
 class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, ListSubscriptionsViewModel> {
   late ThemeData _theme;
   late List<Subscription> _subscriptions;
+  late List<Provider> providers;
 
   Widget get _dataSubscription => Center(
     child: SizedBox(
@@ -60,7 +61,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                   ),
                 ),
               minLeadingWidth: 80,
-              leading: Image.asset(subscription.provider!.pathLogo!,
+              leading: Image.asset(subscription.provider!.path_image!,
                 width: 80,
                 height: 80,
                 fit: BoxFit.contain,
@@ -81,6 +82,11 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
     }
   }
 
+  Future<void> _load() async {
+    final res = await store.loadProviders();
+    providers = res;
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
@@ -91,7 +97,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         id: 0001,
         provider: const Provider(
           id: 1,
-          pathLogo: 'lib/assets/images/netflix.png',
+          path_image: 'lib/assets/images/netflix.png',
           name: 'Netflix',
           category: 'cat_movies_and_series',
         ),  
@@ -107,7 +113,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         id: 0002,
         provider: const Provider(
           id: 2,
-          pathLogo: 'lib/assets/images/prime.png',
+          path_image: 'lib/assets/images/prime.png',
           name: 'Amazon Prime Video',
           category: 'cat_movies_and_series',
         ),
@@ -123,7 +129,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         id: 0003,
         provider: const Provider(
           id: 3,
-          pathLogo: 'lib/assets/images/hbo.png',
+          path_image: 'lib/assets/images/hbo.png',
           name: 'HBO Max',
           category: 'cat_movies_and_series',
         ),
@@ -139,7 +145,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
         id: 0004,
         provider: const Provider(
           id: 4,
-          pathLogo: 'lib/assets/images/spotify.png',
+          path_image: 'lib/assets/images/spotify.png',
           name: 'Spotify',
           category: 'cat_songs',
         ),
@@ -173,8 +179,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           size: 40,
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
-        onPressed: () {
-          Modular.to.pushNamed('selectprovider', arguments: widget.profile);
+        onPressed: () async {
+          await _load();
+          Modular.to.pushNamed('selectprovider', arguments: providers);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -41,7 +41,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.provider.pathLogo!,
+          child: Image.asset(widget.provider.path_image!,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,

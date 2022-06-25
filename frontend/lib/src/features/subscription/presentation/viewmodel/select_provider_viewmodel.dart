@@ -9,11 +9,12 @@ class SelectProviderViewModel = _SelectProviderViewModelBase with _$SelectProvid
 abstract class _SelectProviderViewModelBase with Store {
   final _usecase = Modular.get<SelectProviderUseCase>();
 
-  List<Provider> listProviders = [];
+  List<Provider>? listProviders = [];
 
-    Future<List<Provider>> loadProviders() async {
+  Future <List<Provider>?> loadProviders() async {
     
-    List<Provider> res = await _usecase.loadProviders();
+    List<Provider>? res = await _usecase.loadProviders();
+    
     return res;
-    }
+  }
 }

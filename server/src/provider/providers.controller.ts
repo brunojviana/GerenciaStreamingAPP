@@ -7,7 +7,7 @@ import { ProviderService } from "./provider.service";
 export class ProvidersController {
     constructor(private providersService: ProviderService) {}
 
-    @UseGuards(JwtAuthGuard)
+    
     @Get()
     async findAll(): Promise<Provider[] | Error> {
         try {

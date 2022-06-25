@@ -40,7 +40,7 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.content.provider!.pathLogo!,
+          child: Image.asset(widget.content.provider!.path_image!,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,

@@ -283,7 +283,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
         title: Center(
-          child: Text('welcome'.i18n() + widget.profile.name! + '!', 
+          child: Text('welcome'.i18n() + widget.profile.name + '!', 
               style: const TextStyle(
                 fontFamily: 'Nunito',
                 fontSize: 20,

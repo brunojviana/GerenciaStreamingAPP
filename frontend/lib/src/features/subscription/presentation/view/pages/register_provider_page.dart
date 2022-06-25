@@ -133,7 +133,7 @@ class _RegisterProviderPageState extends ModularState<RegisterProviderPage, Regi
             _registerProvider(_image);
             Modular.to.pushNamed('newsubscription', arguments: Subscription(
               provider: Provider(
-                pathLogo: _image!.path,
+                path_image: _image!.path,
                 name: store.name,
                 category: store.category),
               ));

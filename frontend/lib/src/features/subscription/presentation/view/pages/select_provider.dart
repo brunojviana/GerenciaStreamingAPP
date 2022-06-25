@@ -7,8 +7,8 @@ import '../../../domain/model/provider.dart';
 import '../../viewmodel/select_provider_viewmodel.dart';
 
 class SelectProviderPage extends StatefulWidget {
-  final Profile profile;
-  const SelectProviderPage({Key? key, required this.profile}) : super(key: key);
+  final List<Provider> providers;
+  const SelectProviderPage({Key? key, required this.providers}) : super(key: key);
 
   @override
   State<SelectProviderPage> createState() => _SelectProviderPageState();
@@ -16,7 +16,6 @@ class SelectProviderPage extends StatefulWidget {
 
 class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectProviderViewModel> {
   late ThemeData _theme;
-  late List<Provider> _providers;
 
   Widget get _message => Container(
     margin: const EdgeInsets.fromLTRB(10, 30, 10, 30),
@@ -40,17 +39,17 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
       crossAxisSpacing: 5,
       mainAxisSpacing: 5),
     padding: const EdgeInsets.all(5),
-    itemCount: _providers.length,
+    itemCount: widget.providers.length,
     itemBuilder: (context,index) {
-      final provider = _providers[index];
+      final provider = widget.providers[index];
               
       return GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('newsubscription', arguments: _providers[index]);
+          Modular.to.pushNamed('newsubscription', arguments: widget.providers[index]);
         },
         child: GridTile(
           child: Center(
-            child: Image.asset(provider.pathLogo!,
+            child: Image.asset(provider.path_image ?? 'lib/assets/images/perfil.png',
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -65,94 +64,99 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
     
-    //Lista declarada apenas para carregar a tela. Deve ser carregada da API.
-    _providers = [
+    /* //Lista declarada apenas para carregar a tela. Deve ser carregada da API.
+    widget.providers = [
       const Provider(
         id: 1,
-        pathLogo: 'lib/assets/images/apple.png',
+        path_image: 'lib/assets/images/apple.png',
         name: 'Apple TV',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 2,
-        pathLogo: 'lib/assets/images/apple music.png',
+        path_image: 'lib/assets/images/apple music.png',
         name: 'Apple Music',
         category: 'cat_songs'),
       const Provider(
         id: 3,
-        pathLogo: 'lib/assets/images/comebol.png',
+        path_image: 'lib/assets/images/comebol.png',
         name: 'Commebol TV',
         category: 'cat_sports'),
       const Provider(
         id: 4,
-        pathLogo: 'lib/assets/images/crunchroll.png',
+        path_image: 'lib/assets/images/crunchroll.png',
         name:  'Crunchroll',
         category: 'cat_anime'),
       const Provider(
         id: 5,
-        pathLogo: 'lib/assets/images/dazn.png',
+        path_image: 'lib/assets/images/dazn.png',
         name: "DAZN",
         category: 'cat_sports'),
       const Provider(
         id: 6,
-        pathLogo: 'lib/assets/images/deezer.png',
+        path_image: 'lib/assets/images/deezer.png',
         name: 'Deezer',
         category: 'cat_songs'),
       const Provider(
         id: 7,
-        pathLogo: 'lib/assets/images/disney.png',
+        path_image: 'lib/assets/images/disney.png',
         name: 'Disney +',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 8,
-        pathLogo: 'lib/assets/images/globo.png',
+        path_image: 'lib/assets/images/globo.png',
         name: 'GloboPlay',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 9,
-        pathLogo: 'lib/assets/images/hbo.png',
+        path_image: 'lib/assets/images/hbo.png',
         name: 'HBO Max',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 10,
-        pathLogo: 'lib/assets/images/nba.png',
+        path_image: 'lib/assets/images/nba.png',
         name: 'NBA League Pass',
         category: 'cat_sports'),
       const Provider(
         id: 11,
-        pathLogo: 'lib/assets/images/paramount.png',
+        path_image: 'lib/assets/images/paramount.png',
         name: 'Paramount +',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 12,
-        pathLogo: 'lib/assets/images/premiere.png',
+        path_image: 'lib/assets/images/premiere.png',
         name: 'Premiere',
         category: 'cat_sports'),
       const Provider(
         id: 13,
-        pathLogo: 'lib/assets/images/prime music.png',
+        path_image: 'lib/assets/images/prime music.png',
         name: 'Amazon Prime Music',
         category: 'cat_songs'),
       const Provider(
         id: 14,
-        pathLogo: 'lib/assets/images/prime.png',
+        path_image: 'lib/assets/images/prime.png',
         name: 'Amazon Prime Video',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 15,
-        pathLogo: 'lib/assets/images/spotify.png',
+        path_image: 'lib/assets/images/spotify.png',
         name: 'Spotify',
         category: 'cat_songs'),
       const Provider(
         id: 15,
-        pathLogo: 'lib/assets/images/starz.png',
+        path_image: 'lib/assets/images/starz.png',
         name: 'Starz Play',
         category: 'cat_movies_and_series'),
       const Provider(
         id: 16,
-        pathLogo: 'lib/assets/images/tidal.png',
+        path_image: 'lib/assets/images/tidal.png',
         name: 'Tidal',
-        category: 'cat_songs')
-    ];
+        category: 'cat_songs'),
+      const Provider(
+        id: 17,
+        path_image: 'lib/assets/images/starplus.png',
+        name: 'Star +',
+        category: 'cat_sports')
+    ]; */
 
     return Scaffold(
       appBar: AppBar(
@@ -183,7 +187,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Modular.to.pushNamed('newprovider', arguments: widget.profile);
+          Modular.to.pushNamed('newprovider');
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -200,7 +204,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                  Modular.to.pushNamed('/home');
                 }
               ),
             ),

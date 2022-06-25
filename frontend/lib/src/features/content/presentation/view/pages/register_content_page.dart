@@ -42,7 +42,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.subscription.provider!.pathLogo!,
+          child: Image.asset(widget.subscription.provider!.path_image!,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,

@@ -5,7 +5,7 @@ class Profile {
     this.id, 
     this.path_image, 
     this.cpf, 
-    this.name, 
+    required this.name, 
     this.email, 
     this.dateBirth, 
     this.password,
@@ -14,7 +14,7 @@ class Profile {
   final int? id;
   final String? path_image;
   final String? cpf;
-  final String? name;
+  final String name;
   final String? email;
   final String? dateBirth;
   final String? password;

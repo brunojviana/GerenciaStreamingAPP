@@ -52,7 +52,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
           },
           child: GridTile(
             child: Center(
-              child: Image.asset(subscription.provider!.pathLogo!,
+              child: Image.asset(subscription.provider!.path_image!,
                 width: 100,
                 height: 100,
                 fit: BoxFit.contain,
@@ -79,7 +79,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
       Subscription(
         id: 0001,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/netflix.png',
+          path_image: 'lib/assets/images/netflix.png',
           name: 'Netflix',
           category: 'cat_movies_and_series',
         ),  
@@ -94,7 +94,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
       Subscription(
         id: 0002,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/prime.png',
+          path_image: 'lib/assets/images/prime.png',
           name: 'Amazon Prime Video',
           category: 'cat_movies_and_series',
         ),
@@ -109,7 +109,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
       Subscription(
         id: 0003,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/hbo.png',
+          path_image: 'lib/assets/images/hbo.png',
           name: 'HBO Max',
           category: 'cat_movies_and_series',
         ),
@@ -124,7 +124,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
       Subscription(
         id: 0004,
         provider: const Provider(
-          pathLogo: 'lib/assets/images/spotify.png',
+          path_image: 'lib/assets/images/spotify.png',
           name: 'Spotify',
           category: 'cat_songs',
         ),
