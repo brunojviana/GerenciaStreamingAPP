@@ -39,21 +39,6 @@ mixin _$ChatBotViewModel on _ChatBotViewModelBase, Store {
     });
   }
 
-  final _$messageListAtom = Atom(name: '_ChatBotViewModelBase.messageList');
-
-  @override
-  ObservableList<ChatMessage> get messageList {
-    _$messageListAtom.reportRead();
-    return super.messageList;
-  }
-
-  @override
-  set messageList(ObservableList<ChatMessage> value) {
-    _$messageListAtom.reportWrite(value, super.messageList, () {
-      super.messageList = value;
-    });
-  }
-
   final _$_ChatBotViewModelBaseActionController =
       ActionController(name: '_ChatBotViewModelBase');
 
@@ -69,22 +54,10 @@ mixin _$ChatBotViewModel on _ChatBotViewModelBase, Store {
   }
 
   @override
-  void addMessage(ChatMessage messageChat) {
-    final _$actionInfo = _$_ChatBotViewModelBaseActionController.startAction(
-        name: '_ChatBotViewModelBase.addMessage');
-    try {
-      return super.addMessage(messageChat);
-    } finally {
-      _$_ChatBotViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 text: ${text},
-isLoading: ${isLoading},
-messageList: ${messageList}
+isLoading: ${isLoading}
     ''';
   }
 }
@@ -134,6 +107,44 @@ mixin _$ChatBotError on _ChatBotErrorBase, Store {
 text: ${text},
 message: ${message},
 hasErrors: ${hasErrors}
+    ''';
+  }
+}
+
+mixin _$ChatBotList on _ChatBotListBase, Store {
+  final _$messageListAtom = Atom(name: '_ChatBotListBase.messageList');
+
+  @override
+  List<ChatMessage> get messageList {
+    _$messageListAtom.reportRead();
+    return super.messageList;
+  }
+
+  @override
+  set messageList(List<ChatMessage> value) {
+    _$messageListAtom.reportWrite(value, super.messageList, () {
+      super.messageList = value;
+    });
+  }
+
+  final _$_ChatBotListBaseActionController =
+      ActionController(name: '_ChatBotListBase');
+
+  @override
+  void addMessage(String name, String text, ChatMessageType type) {
+    final _$actionInfo = _$_ChatBotListBaseActionController.startAction(
+        name: '_ChatBotListBase.addMessage');
+    try {
+      return super.addMessage(name, text, type);
+    } finally {
+      _$_ChatBotListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+messageList: ${messageList}
     ''';
   }
 }

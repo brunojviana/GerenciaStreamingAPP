@@ -11,7 +11,7 @@ class ChatBotDto{
   }
 
   factory ChatBotDto.fromJson(Map<String, dynamic> json) =>
-      ChatBotDto(json['text'], json['email'], json['sessionId']);
+    ChatBotDto(json['text'], json['email'], json['sessionId']);
 
   Map<String, dynamic> toJson() => {'text': text, 'email': email, 'sessionId': sessionId}; 
 }

@@ -13,7 +13,6 @@ import '../../../../auth/presentation/viewmodel/login_viewmodel.dart';
 import '../../../../auth/presentation/viewmodel/new_password_viewmodel.dart';
 import '../../../domain/model/chatbot_message.dart';
 
-
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({Key? key}) : super(key: key);
 
@@ -22,12 +21,9 @@ class ChatBotPage extends StatefulWidget {
 }
 
 class _ChatBotPageState extends ModularState<ChatBotPage, ChatBotViewModel>{ 
-  
-  ChatBotViewModel chatbot = ChatBotViewModel();
-  final _messageList = <ChatMessage>[];
+   
   late ThemeData _theme;
-  
-  
+
   @override
   Widget build(BuildContext context) {
   _theme = Theme.of(context);
@@ -35,7 +31,7 @@ class _ChatBotPageState extends ModularState<ChatBotPage, ChatBotViewModel>{
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('chat'.i18n(), 
+        title: Text('chatbot'.i18n(), 
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 20,
@@ -44,39 +40,28 @@ class _ChatBotPageState extends ModularState<ChatBotPage, ChatBotViewModel>{
           ),
         ),
       ),
-      body: Column(
-        children: <Widget>[
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
           Flexible(    
-            child: Observer( //TODO: fix state management 
-              builder:(_){
-                return ListView.builder(
-                  padding: EdgeInsets.all(8.0),
-                  reverse: true,
-                  itemCount: chatbot.messageList.length,
-                  itemBuilder: (_, int index) => ChatMessageListItem(chatMessage: chatbot.messageList[index]),
-                );
-              }
+            child: Observer( 
+              builder:(_) => ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                reverse: true,
+                itemCount: store.chatBotList.messageList.length,
+                itemBuilder: (_, int index) => ChatMessageListItem(chatMessage: store.chatBotList.messageList[index]),
+              ),
             ),
           ),
           Divider(height: 1.0),
           _buildUserInput
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 
-  Widget _buildList() { 
-    return Flexible(
-      child: ListView.builder(
-        padding: EdgeInsets.all(8.0),
-        reverse: true,
-        itemBuilder: (_, int index) => ChatMessageListItem(chatMessage: _messageList[index]),
-        itemCount: _messageList.length,
-      ),
-    );
-  }
 
- 
   Widget get _button_send => ElevatedButton(
     child: Icon(Icons.send, color: AppColors.accent, ), 
     style: ElevatedButton.styleFrom(
@@ -84,7 +69,7 @@ class _ChatBotPageState extends ModularState<ChatBotPage, ChatBotViewModel>{
       padding: EdgeInsets.all(15),
       primary: Colors.white,
     ),
-    onPressed: store.isLoading ? null :  store.message  
+    onPressed: store.isLoading ? null : store.message,
   );
 
   Widget get _message_chat => Container(
@@ -121,36 +106,56 @@ class _ChatBotPageState extends ModularState<ChatBotPage, ChatBotViewModel>{
 
 class ChatMessageListItem extends StatelessWidget {  
   final ChatMessage chatMessage;
-
-   ChatMessageListItem({required this.chatMessage});
+  
+  ChatMessageListItem({required this.chatMessage});
 
   @override
   Widget build(BuildContext context) {
     return chatMessage.type == ChatMessageType.sent
-        ? _showSentMessage()
-        : _showReceivedMessage();
+        ? _showSentMessage: _showReceivedMessage;
   }
 
-  Widget _showSentMessage() {
-    return ListTile(
-      contentPadding: EdgeInsets.fromLTRB(64.0, 0.0, 8.0, 0.0),
-      trailing: CircleAvatar(child: Text(chatMessage.name.toUpperCase()[0])),
-      title: Text(chatMessage.name, textAlign: TextAlign.right),
-      subtitle: Text(chatMessage.text, textAlign: TextAlign.right),
-    );
-  }
-
-  Widget _showReceivedMessage() {
-    return ListTile(
-      contentPadding: EdgeInsets.fromLTRB(8.0, 0.0, 64.0, 0.0),
-      leading: CircleAvatar(
-        radius: 20, 
-        backgroundImage: AssetImage('lib/assets/images/perfil.png'),
+  Widget get _showSentMessage => ListTile(
+    contentPadding: EdgeInsets.fromLTRB(64.0, 0.0, 8.0, 0.0),
+    trailing: CircleAvatar(child: Text(chatMessage.text.toUpperCase()[0])),
+    title: Text(chatMessage.name,  textAlign: TextAlign.right,
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
       ),
-      title: Text(chatMessage.name, textAlign: TextAlign.left),
-      subtitle: Text(chatMessage.text, textAlign: TextAlign.left),
-    );
-  }
-}
+    ),
+    subtitle: Text(chatMessage.text, textAlign: TextAlign.right,
+      style: const TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 10,
+          color: AppColors.text, 
+        ),
+    ),
+  );
+  
 
-      
+  Widget get _showReceivedMessage => ListTile(
+    contentPadding: EdgeInsets.fromLTRB(8.0, 0.0, 64.0, 0.0),
+    leading: CircleAvatar(
+      radius: 20, 
+      backgroundImage: AssetImage('lib/assets/images/perfil.png'),
+    ),
+    title: Text(chatMessage.name, textAlign: TextAlign.left,
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+        ),
+      ),
+    subtitle: Text(chatMessage.text, textAlign: TextAlign.left,
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 10,
+        color: AppColors.text, 
+      ),
+    ),
+  );
+}     

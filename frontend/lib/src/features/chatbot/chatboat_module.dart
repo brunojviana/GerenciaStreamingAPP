@@ -10,11 +10,11 @@ class ChatBotModule extends Module {
   List<Bind<Object>> get binds => [
     Bind.factory((i) => ChatBotViewModel()),
     Bind.factory((i) => ChatBotUseCase()),
-     Bind.factory<IChatRepository>((i) => ChatRepository()),
+    Bind.factory<IChatRepository>((i) => ChatRepository()),
   ];
 
   @override
   List<ModularRoute> get routes => [
-      ChildRoute('/', child: (_, __) => const ChatBotPage()),
+    ChildRoute('/', child: (_, __) => const ChatBotPage()),
   ];
 }

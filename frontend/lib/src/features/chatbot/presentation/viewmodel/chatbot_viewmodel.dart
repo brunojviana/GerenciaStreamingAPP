@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:isolate';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/model/chatbot_model.dart';
 import '../../domain/model/chatbot_message.dart';
 import '../../domain/usecase/chatbot_usecase.dart';
+import 'package:localization/localization.dart';
 
 part 'chatbot_viewmodel.g.dart';
 
@@ -15,6 +17,7 @@ abstract class _ChatBotViewModelBase with Store {
   
   final error = ChatBotError();
   final _usecase = Modular.get<ChatBotUseCase>();
+  final chatBotList = ChatBotList();
     
   @observable 
   String text = '';
@@ -22,47 +25,40 @@ abstract class _ChatBotViewModelBase with Store {
   @observable
   bool isLoading = false;
 
-  @observable
-  ObservableList<ChatMessage> messageList = <ChatMessage>[].asObservable();
-
   @action
   void validateText() {
     error.text = _usecase.validateText(text);
   }
 
-  @action 
-  void addMessage(ChatMessage messageChat) {
-    messageList..insert(0,messageChat);
-    print(messageList);
-    print(text);
-  }
-   
   void message() async {
     
     error.clear();
     validateText();
 
+    String name = "";
+    String message = "";
+
     if (!error.hasErrors) {
       
-      String name = "Usuário";//teste
-      ChatMessageType type = ChatMessageType.sent;
-      var messageObj = ChatMessage(text, name, type);
-      addMessage(messageObj);
+      name = 'chatbot_name'.i18n();
+      chatBotList.addMessage(name, text, ChatMessageType.sent);
 
       isLoading = true;
+     
       String email = "teste@gmail.com";//teste
       String sessionId = "sessao07";//teste
 
-      try {
+      name = "Streament";
+  
+      try { 
         final response = await _usecase.message(text, email, sessionId);
-        String test = response.fulfillmentText.toString();
-        print('O valor de FulfillmentText: $test');
-
-      } on UnimplementedError {
-       
-      } finally {
-        isLoading = false;
+        message = response.fulfillmentText.toString();              
+      } 
+      on Exception {
+        message = 'chatbot_error'.i18n();
       }
+        chatBotList.addMessage(name, message, ChatMessageType.received);
+        isLoading = false;
     }
   }
 }
@@ -83,5 +79,20 @@ abstract class _ChatBotErrorBase with Store {
     text = null;
     message = null;
   }
+}
+
+class ChatBotList = _ChatBotListBase with _$ChatBotList;
+
+abstract class _ChatBotListBase with Store{
+
+  @observable
+  List<ChatMessage> messageList = [];
+
+  @action
+  void addMessage(String name, String text, ChatMessageType type){
+    var message = ChatMessage(text, name, type); 
+    messageList = List.from(messageList..insert(0, message));
+  }
+  
 }
 

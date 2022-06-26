@@ -207,6 +207,21 @@ mixin _$RegisterError on _RegisterErrorBase, Store {
               name: '_RegisterErrorBase.hasErrors'))
           .value;
 
+  final _$path_imageAtom = Atom(name: '_RegisterErrorBase.path_image');
+
+  @override
+  String? get path_image {
+    _$path_imageAtom.reportRead();
+    return super.path_image;
+  }
+
+  @override
+  set path_image(String? value) {
+    _$path_imageAtom.reportWrite(value, super.path_image, () {
+      super.path_image = value;
+    });
+  }
+
   final _$cpfAtom = Atom(name: '_RegisterErrorBase.cpf');
 
   @override
@@ -316,6 +331,7 @@ mixin _$RegisterError on _RegisterErrorBase, Store {
   @override
   String toString() {
     return '''
+path_image: ${path_image},
 cpf: ${cpf},
 name: ${name},
 email: ${email},

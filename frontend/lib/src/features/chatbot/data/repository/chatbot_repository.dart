@@ -11,18 +11,17 @@ class ChatRepository implements IChatRepository{
   Future<ChatBotModel> message(ChatBotDto chatbot) async {   
     final dto = ChatBotDto.fromDomain(chatbot);
     final response = await Dio().post(
-      'http://192.168.1.89:3000/message/text/send',
+      'https://api-streaming-chatbot.herokuapp.com/message/text/send',
       data: dto.toJson(),
     );
     
     if (response.statusCode == 200) {
       final domain = ChatBotModel.fromJson(response.data) ;
-      return domain;
+      return Future.value(domain);
     } else {
-      throw Exception("Não conectou no Servidor!");
+      throw Exception("Não conectou ao Servidor!");
     }
   }  
 }
-  
   
   
