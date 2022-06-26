@@ -8,9 +8,9 @@ import '../../../domain/model/provider.dart';
 import '../../viewmodel/list_subscriptions_viewmodel.dart';
 
 class ListSubscriptionsPage extends StatefulWidget {
-  final Profile profile;
-  const ListSubscriptionsPage({Key? key, required this.profile}) : super(key: key);
-
+  final List<Subscription> subscriptions;
+  const ListSubscriptionsPage({Key? key, required this.subscriptions}) : super(key: key);
+  
   @override
   State<ListSubscriptionsPage> createState() => _ListSubscriptionsPageState();
 }
@@ -19,6 +19,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
   late ThemeData _theme;
   late List<Subscription> _subscriptions;
   late List<Provider> providers;
+  late DateTime data;
 
   Widget get _dataSubscription => Center(
     child: SizedBox(
@@ -26,14 +27,15 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
       width: double.infinity,
       child: ListView.builder(
         padding: const EdgeInsets.all(10),
-        itemCount: _subscriptions.length,
+        itemCount: widget.subscriptions.length,
         itemBuilder: (context, index) {
-          final subscription = _subscriptions[index];
+          final subscription = widget.subscriptions[index];
+          data = DateTime.parse(subscription.signatureDate!);
           
           return Card(
             child: ListTile(
               onTap: () {
-                Modular.to.pushNamed('detailsubscription', arguments: _subscriptions[index]);
+                Modular.to.pushNamed('detailsubscription', arguments: widget.subscriptions[index]);
               },
               title: Text(subscription.provider!.name!,
                 style: const TextStyle(
@@ -46,9 +48,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
               subtitle: Text(
                 subscription.provider!.category!.i18n() + '\n' +
                 'signature_date'.i18n() + ': ' + 
-                subscription.signatureDate!.day.toString() + '/' +
-                subscription.signatureDate!.month.toString() + '/' +
-                subscription.signatureDate!.year.toString() + '\n' +
+                data.day.toString() + '/' +
+                data.month.toString() + '/' +
+                data.year.toString() + '\n' +
                 'price'.i18n() + ': ' + 'currency'.i18n() +
                 subscription.price.toString() + '\n' +
                 'status'.i18n() + ': ' +
@@ -90,74 +92,6 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    
-    //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
-    _subscriptions = [
-      Subscription(
-        id: 0001,
-        provider: const Provider(
-          id: 1,
-          path_image: 'lib/assets/images/netflix.png',
-          name: 'Netflix',
-          category: 'cat_movies_and_series',
-        ),  
-        signatureDate: DateTime(2020, 11, 11),
-        price: 39.90,
-        periodPayment: 'monthly',
-        screens: 4,
-        maxResolution: 'Full HD',
-        content: 0,
-        useTime: 0,
-        status: 1),
-      Subscription(
-        id: 0002,
-        provider: const Provider(
-          id: 2,
-          path_image: 'lib/assets/images/prime.png',
-          name: 'Amazon Prime Video',
-          category: 'cat_movies_and_series',
-        ),
-        signatureDate: DateTime(2018, 05, 15),
-        price: 89.90,
-        periodPayment: 'yearly',
-        screens: 2,
-        maxResolution: 'Full HD',
-        content: 0,
-        useTime: 0,
-        status: 1),
-      Subscription(
-        id: 0003,
-        provider: const Provider(
-          id: 3,
-          path_image: 'lib/assets/images/hbo.png',
-          name: 'HBO Max',
-          category: 'cat_movies_and_series',
-        ),
-        signatureDate: DateTime(2021, 09, 01),
-        price: 23.50,
-        periodPayment: 'monthly',
-        screens: 4,
-        maxResolution: '4K',
-        content: 0,
-        useTime: 0,
-        status: 1),
-      Subscription(
-        id: 0004,
-        provider: const Provider(
-          id: 4,
-          path_image: 'lib/assets/images/spotify.png',
-          name: 'Spotify',
-          category: 'cat_songs',
-        ),
-        signatureDate: DateTime(2019, 08, 01),
-        price: 9.90,
-        periodPayment: 'monthly',
-        screens: 0,
-        maxResolution: 'other',
-        content: 0,
-        useTime: 0,
-        status: 1),
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -198,7 +132,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () {
-                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                  Modular.to.pushNamed('/home', arguments: widget.subscriptions[0].userId);
                 }
               ),
             ),

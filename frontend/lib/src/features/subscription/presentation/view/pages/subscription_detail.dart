@@ -17,6 +17,7 @@ class SubscriptionDetailPage extends StatefulWidget {
 class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, SubscriptionDetailViewModel> {
   late ThemeData _theme;
   late Profile _profile;
+  late DateTime data;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -74,9 +75,9 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
           const Icon(Icons.calendar_month, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('signature_date'.i18n() + ': ' +
-                      widget.subscription.signatureDate!.day.toString() + '/' +
-                      widget.subscription.signatureDate!.month.toString() + '/' +
-                      widget.subscription.signatureDate!.year.toString(),
+                      data.day.toString() + '/' +
+                      data.month.toString() + '/' +
+                      data.year.toString(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -315,6 +316,7 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    data = DateTime.parse(widget.subscription.signatureDate!);
 
     return Scaffold(
       appBar: AppBar(

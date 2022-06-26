@@ -11,7 +11,7 @@ class SelectProviderRepository implements IListProviders {
     Provider provider;
 
     final res = await http.get(
-      Uri.http('192.168.0.137:3000', '/providers')
+      Uri.http('192.168.0.136:3000', '/providers')
     );
 
     if (res.body.isNotEmpty) {

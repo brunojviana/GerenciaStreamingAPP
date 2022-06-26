@@ -1,4 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/subscription/data/repository/list_subscriptions_repository.dart';
+import 'package:frontend/src/features/subscription/domain/repository/list_subscriptions_interface.dart';
+import 'package:frontend/src/features/subscription/domain/usecase/list_subscriptions_usecase.dart';
 import '../content/content_module.dart';
 import '../map/map_module.dart';
 import '../profile/profile_module.dart';
@@ -15,6 +18,8 @@ class HomeModule extends Module {
   List<Bind<Object>> get binds => [
         Bind.factory((i) => HomeViewModel()),
         Bind.factory((i) => HomeUseCase()),
+        Bind.factory((i) => ListSubscriptionsUseCase()),
+        Bind.factory<IListSubscriptions>((i) => ListSubsciptionsRepository()),
         Bind.factory<IProfile>((i) => HomeRepository()),
       ];
 

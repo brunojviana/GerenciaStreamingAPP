@@ -1,6 +1,7 @@
-import 'package:frontend/src/features/auth/data/dto/user_dto.dart';
+import 'package:localization/colored_print/print_color.dart';
+
 import '../model/subscription.dart';
 
 abstract class IListSubscriptions {
-  Future<List<Subscription>> loadSubscriptions(UserDto user);
+  Future<List<Subscription>> loadSubs(int idUser);
 }

@@ -22,9 +22,6 @@ class RegisterUseCase {
     if (name.isEmpty) {
       return 'name_required'.i18n();
     }
-    else if(name.contains(RegExp(r'[a-z]'))){
-      return 'name_required'.i18n();
-    }
 
     return null;
   }

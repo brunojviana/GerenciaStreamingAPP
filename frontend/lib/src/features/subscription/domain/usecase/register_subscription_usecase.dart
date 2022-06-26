@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/subscription/data/dto/subscription_dto.dart';
 import 'package:localization/localization.dart';
@@ -44,7 +46,7 @@ class SubscriptionUseCase {
   }
 
   Future<Subscription?> registerSubscription(int userId, int idProvider, String signatureDate,
-                          String price, String periodPayment, String screens, String maxResolution,
+                          double price, String periodPayment, int screens, String maxResolution,
                           int content, double useTime, int status) {
     return repository.registerSubscription(SubscriptionDto(userId, idProvider, signatureDate, 
                         price, periodPayment, screens, maxResolution, content, useTime, status));

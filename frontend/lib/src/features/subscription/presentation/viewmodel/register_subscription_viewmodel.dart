@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:frontend/src/features/subscription/domain/usecase/register_subscription_usecase.dart';
@@ -33,7 +34,7 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
   bool isLoading = false;
 
   int content = 0;
-  double useTime = 0;
+  double useTime = 0.15;
   int status = 1;
 
   @action
@@ -81,18 +82,32 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
+
+      List ret = date.split('/');
+      String dateFormat;
+      dateFormat = "${ret[2]}-${ret[1]}-${ret[0]}";
+
+      var telas = int.parse(screens);
+      var preco = double.parse(value);
+
       Subscription? res = await _usecase.registerSubscription(
         userId, 
         idProvider, 
-        date, 
-        value, 
+        dateFormat, 
+        preco, 
         payment, 
-        screens, 
+        telas, 
         resolution, 
         content,
         useTime,
-        status);
-      return res;
+        status
+      );
+      
+      if (res != null) {
+        return res;
+      }
+
+      return null;
     } 
     else {
       return null;

@@ -6,7 +6,7 @@ import '../repository/list_subscriptions_interface.dart';
 class ListSubscriptionsUseCase {
   final repository = Modular.get<IListSubscriptions>();
 
-  Future<List<Subscription>> loadSubscriptions(UserDto user) {
-    return repository.loadSubscriptions(user);
+  Future<List<Subscription>> loadSubs(int idUser) {
+    return repository.loadSubs(idUser);
   }
 }

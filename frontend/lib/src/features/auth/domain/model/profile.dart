@@ -27,7 +27,7 @@ class Profile {
       cpf: json['cpf'],
       name: json['name'], 
       email: json['email'], 
-      dateBirth: json['dateBirth'],
+      dateBirth: json['date_birth'],
       password: json['password'],
       access_token: json['access_token']
     );

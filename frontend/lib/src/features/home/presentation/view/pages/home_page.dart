@@ -4,6 +4,7 @@ import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../../../../subscription/domain/model/subscription.dart';
 import '../../viewmodel/home_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   late ThemeData _theme;
+  late List<Subscription> _response;
 
   Widget get _myData => Column(
     children: [
@@ -66,7 +68,10 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () async {
-          Modular.to.pushNamed('subscriptions', arguments: widget.profile);
+          print(widget.profile.id!);
+          _response = await store.getSubs(widget.profile.id!);
+          print(_response);
+          Modular.to.pushNamed('subscriptions', arguments: _response);
         },
         child: SizedBox(
           height: 110,

@@ -75,7 +75,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
     //_subscriptions = _loadSubscriptions(widget.profile.id!) as List<Subscription>;
 
 //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
-    _subscriptions = [
+    /* _subscriptions = [
       Subscription(
         id: 0001,
         provider: const Provider(
@@ -136,7 +136,7 @@ class _SelectSubscriptionPageState extends ModularState<SelectSubscriptionPage, 
         content: 0,
         useTime: 0,
         status: 1),
-    ];
+    ]; */
 
     return Scaffold(
       appBar: AppBar(

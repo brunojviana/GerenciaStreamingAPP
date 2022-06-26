@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
@@ -78,7 +79,7 @@ abstract class _RegisterViewModelBase with Store {
     return _profile;    
   }
 
-  Future<int?> register(String? path_image) async {
+  Future<int?> register(XFile? path_image) async {
     error.clear();
 
     validateCpf();
@@ -89,14 +90,14 @@ abstract class _RegisterViewModelBase with Store {
     validateConfirmedPassword();
 
     if (!error.hasErrors) {
-      isLoading = true;      
-      int? res = await _usecase.register(path_image, cpf, name, email, dateBirth, password, null);
-      print(res);
-
+      isLoading = true;     
+      int? res = await _usecase.register(path_image?.path, cpf, name, email, dateBirth, password, null);
+      
       if (res == 201) {
         isLoading = false;
+        return res;
       }
-      return res;
+      return null;
     } 
     else 
     {
@@ -108,6 +109,9 @@ abstract class _RegisterViewModelBase with Store {
 class RegisterError = _RegisterErrorBase with _$RegisterError;
 
 abstract class _RegisterErrorBase with Store {
+  @observable
+  String? path_image;
+
   @observable
   String? cpf;
   
@@ -134,6 +138,7 @@ abstract class _RegisterErrorBase with Store {
                         password != null || confirmedPassword != null || register != null;
 
   void clear() {
+    path_image = null;
     cpf = null;
     name = null;
     email = null;

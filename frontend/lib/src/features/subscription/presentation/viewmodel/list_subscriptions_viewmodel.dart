@@ -13,10 +13,9 @@ abstract class _ListSubscriptionsViewModelBase with Store {
   final _usecase = Modular.get<ListSubscriptionsUseCase>();
   final _usecaseProvider = Modular.get<SelectProviderUseCase>();
 
-  Future<List<Subscription>> loadSubscriptions(UserDto user) async {
-  
-  List<Subscription> res = await _usecase.loadSubscriptions(user);
-    return res;
+  Future<List<Subscription>> loadSubscriptions(idUser) async {
+    List<Subscription> res = await _usecase.loadSubs(idUser);
+      return res;
   }
 
   Future<List<Provider>> loadProviders() async {

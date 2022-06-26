@@ -18,8 +18,8 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   late ThemeData _theme;
   XFile? _photo;
-  late int? _response;
-  late Profile _profile;
+  int? _response;
+  Profile? _profile;
   
   Widget get _messagePhoto => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -325,7 +325,9 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
         ),
         onPressed: () async {
           _response = await _register(_photo);
-          _profile = await store.getSavedUser();
+          if (_response != null) {
+            _profile = await store.getSavedUser();
+          }
           _showDialog(_profile);
         },
         child: Text('register_button'.i18n()),
@@ -347,8 +349,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterViewModel> {
   }
 
   Future<int?> _register(XFile? photo) async {
-    print('aqui');
-    int? _response = await store.register(photo?.path);
+    int? _response = await store.register(photo);
     return _response;
   }  
 

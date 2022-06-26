@@ -106,9 +106,9 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
       theme: _theme,
       keyboardType: TextInputType.datetime,
       textInputAction: TextInputAction.next,
-      hint: widget.subscription.signatureDate!.day.toString() + '/' +
-            widget.subscription.signatureDate!.month.toString() + '/' +
-            widget.subscription.signatureDate!.year.toString(),
+      hint: 'widget.subscription.signatureDate!.day.toString()' + '/' +
+            'widget.subscription.signatureDate!.month.toString()' + '/' +
+            'widget.subscription.signatureDate!.year.toString()',
       enabled: !store.isLoading,
       errorText: store.error.date,
       onChange: (value) => store.date = value,

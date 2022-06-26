@@ -55,7 +55,7 @@ class SubscriptionModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, args) => ListSubscriptionsPage(profile: args.data)),
+        ChildRoute('/', child: (_, args) => ListSubscriptionsPage(subscriptions: args.data)),
         ChildRoute('/selectprovider', child: (_, args) => SelectProviderPage(providers: args.data)),
         ChildRoute('/newprovider', child: (_, args) => RegisterProviderPage(profile: args.data)),
         ChildRoute('/newsubscription', child: (_, args) => 

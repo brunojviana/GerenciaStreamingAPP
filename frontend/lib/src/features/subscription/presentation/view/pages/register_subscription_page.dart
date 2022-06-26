@@ -104,6 +104,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
       borderRadius: BorderRadius.circular(5),
     ),
     child: widget.createFormField(
+      mask: "##/##/####",
       theme: _theme,
       keyboardType: TextInputType.datetime,
       textInputAction: TextInputAction.next,
@@ -170,7 +171,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
         spacing: 20.0,
         runSpacing: 20.0,
         children: <Widget>[
-          ChoiceChipWidget(paymentFrequency),
+          ChoiceChipWidget(paymentFrequency, store),
         ],
       )
   );
@@ -230,7 +231,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
       spacing: 20.0,
       runSpacing: 20.0,
       children: <Widget>[
-        ChoiceChipWidget(resolutionMax),
+        ChoiceChipWidget(resolutionMax, store),
       ],
     )
   );
@@ -262,7 +263,11 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
   Future<Subscription?> _registerSubscription(int userId, int idProvider) async {
     Subscription? response = await store.registerSubscription(userId, idProvider);
     return response;
-  }  
+  }
+
+  void registro(int userId, int idProvider) {
+    store.registerSubscription(userId, idProvider);
+  }
 
   Future<void> _showDialog(Subscription? subscription) async {
     return showDialog(
@@ -403,7 +408,8 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
 
 class ChoiceChipWidget extends StatefulWidget {
   final List<String> listChoice;
-  const ChoiceChipWidget(this.listChoice, {Key? key}) : super(key: key);
+  final RegisterSubscriptionViewModel stor;
+  const ChoiceChipWidget(this.listChoice, this.stor,{Key? key}) : super(key: key);
 
   @override
   _ChoiceChipWidgetState createState() => _ChoiceChipWidgetState();
@@ -439,6 +445,11 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
             setState(() {
               selectedChoice = item;
             });
+            if ((selectedChoice == 'Monthly') || (selectedChoice == 'Yearly')) {
+              widget.stor.payment = selectedChoice;
+            } else {
+              widget.stor.resolution = selectedChoice;
+            }
           },
         ),
       ));

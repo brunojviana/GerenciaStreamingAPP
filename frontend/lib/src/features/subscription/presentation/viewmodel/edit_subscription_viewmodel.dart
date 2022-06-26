@@ -77,8 +77,13 @@ abstract class _EditSubscriptionViewModelBase with Store {
 
     if (!error.hasErrors) {
       isLoading = true;
-      Subscription? res = await _usecase.editSubscription(userId, idProvider, date, value,
-                                          payment, screens, resolution, content, useTime, status);
+
+      var telas = int.parse(screens);
+
+      var preco = double.parse(value);
+
+      Subscription? res = await _usecase.editSubscription(userId, idProvider, date, preco,
+                                          payment, telas, resolution, content, useTime, status);
       return res;
     } 
     else {
