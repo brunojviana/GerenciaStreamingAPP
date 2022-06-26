@@ -13,17 +13,17 @@ export class SignaturesController {
         private calendarsService: CalendarService
     ) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Get()
-    async findAll(): Promise<Signature[] | Error> {
+    //@UseGuards(JwtAuthGuard)
+    @Get('/all/:id_user')
+    async findAll(@Param() param): Promise<Signature[] | Error> {
         try {
-            return this.signaturesService.findAll();
+            return this.signaturesService.findAll(param.id_user);
         } catch (error) {
             return error;
         }
     }
 
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     @Get(':id')
     async findId(@Param() param): Promise<Signature | Error> {
         try {
@@ -34,11 +34,24 @@ export class SignaturesController {
     }
 
     @Post()
-    async add(@Body() signature: Signature): Promise<Signature | Error> {
+    async add(@Body() signature: Signature): Promise<any | Error> {
         try {
-            await this.signaturesService.add(signature);
-            this.registerSpending(signature);
-            return signature;
+            var ret: Signature = await this.signaturesService.add(signature);
+            /* var new_sub = {
+                id: ret.id,
+                date_signature: ret.date_signature,
+                screens: ret.screens,
+                max_resolution: ret.max_resolution,
+                price: ret.price,
+                period_payment: ret.period_payment,
+                num_content: ret.num_content,
+                time: ret.time,
+                status: ret.status,
+                provider_id: ret.provider_id,
+                user_id: ret.user_id    
+            }; */
+            console.log(ret);
+            return ret;
         } catch (error) {
             return error;
         }

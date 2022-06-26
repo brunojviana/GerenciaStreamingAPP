@@ -11,12 +11,12 @@ import { User } from "src/user/user.model";
 })
 export class Signature extends Model {
     @Column({
-        type: DataType.DATE
+        type: DataType.DATEONLY
     })
     date_signature: Date;
     
     @Column({
-        type: DataType.INTEGER
+        type: DataType.TINYINT
     })
     screens: number;
     
@@ -26,7 +26,7 @@ export class Signature extends Model {
     max_resolution: string;
 
     @Column({
-        type: DataType.FLOAT
+        type: DataType.DOUBLE
     })
     price: number;
     
@@ -41,12 +41,12 @@ export class Signature extends Model {
     num_content: number;
 
     @Column({
-        type:DataType.BIGINT
+        type:DataType.DOUBLE
     })
     time: number;
 
     @Column({
-        type:DataType.INTEGER
+        type:DataType.TINYINT
     })
     status: number;
 
