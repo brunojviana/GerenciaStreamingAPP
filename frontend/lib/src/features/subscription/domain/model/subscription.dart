@@ -3,7 +3,7 @@ import 'package:frontend/src/features/auth/domain/model/user.dart';
 import 'package:frontend/src/features/subscription/domain/model/provider.dart';
 
 class Subscription {
-  const Subscription({
+  Subscription({
     this.id, 
     this.provider,
     this.user, 
@@ -21,11 +21,11 @@ class Subscription {
   final int? id;
   final Provider? provider;
   final Profile? user;
-  final String? signatureDate;
-  final double? price;
-  final String? periodPayment;
-  final int? screens;
-  final String? maxResolution;
+  late String? signatureDate;
+  late double? price;
+  late String? periodPayment;
+  late int? screens;
+  late String? maxResolution;
   final int? content;
   final double? useTime;
   final int? status;

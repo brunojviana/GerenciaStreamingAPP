@@ -43,10 +43,7 @@ class EditSubscriptionUseCase {
     return null;
   }
 
-  Future<Subscription?> editSubscription(int userId, int idProvider, String signatureDate, 
-                          double price, String periodPayment, int screens, String maxResolution,
-                          int content, double useTime, int status) {
-    return repository.editSubscription(SubscriptionDto(userId, idProvider, signatureDate, price, 
-                        periodPayment, screens, maxResolution, content, useTime, status));
+  Future<Subscription?> editSubscription(Subscription subscription) {
+    return repository.editSubscription(subscription);
   }
 }

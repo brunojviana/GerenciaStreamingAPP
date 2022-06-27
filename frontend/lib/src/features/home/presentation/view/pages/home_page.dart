@@ -68,9 +68,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () async {
-          print(widget.profile.id!);
           _response = await store.getSubs(widget.profile.id!);
-          print(_response);
           Modular.to.pushNamed('subscriptions', arguments: _response);
         },
         child: SizedBox(

@@ -16,6 +16,7 @@ class SelectProviderPage extends StatefulWidget {
 
 class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectProviderViewModel> {
   late ThemeData _theme;
+  late Profile _profile;
 
   Widget get _message => Container(
     margin: const EdgeInsets.fromLTRB(10, 30, 10, 30),
@@ -100,8 +101,9 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
-                onPressed: () {
-                  Modular.to.pushNamed('/home');
+                onPressed: () async {
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: _profile);;
                 }
               ),
             ),

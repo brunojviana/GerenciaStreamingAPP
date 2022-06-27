@@ -20,6 +20,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
   late List<Subscription> _subscriptions;
   late List<Provider> providers;
   late DateTime data;
+  late Profile _profile;
 
   Widget get _dataSubscription => Center(
     child: SizedBox(
@@ -131,8 +132,9 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
               child: IconButton(
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
-                onPressed: () {
-                  Modular.to.pushNamed('/home', arguments: widget.subscriptions[0].userId);
+                onPressed: () async {
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: widget.subscriptions.isNotEmpty ? widget.subscriptions[0].user : _profile);
                 }
               ),
             ),

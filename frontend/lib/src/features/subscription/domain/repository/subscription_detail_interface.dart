@@ -1,4 +1,6 @@
+import '../model/subscription.dart';
+
 abstract class ISubscriptionDetail {
-  Future<int> switchStatus(int status);
+  Future<Subscription> switchStatus(Subscription sub, int status);
   Future<int> deleteSubscription(int id);
 }

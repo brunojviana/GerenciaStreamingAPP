@@ -65,8 +65,8 @@ abstract class _EditSubscriptionViewModelBase with Store {
     return _profile;    
   }
 
-  Future<Subscription?> editSubscription(int userId, int idProvider, int content, double useTime, int status) async {
-    
+  Future<Subscription?> editSubscription(Subscription sub) async {
+    print(screens);
     error.clear();
 
     validateDate();
@@ -75,15 +75,27 @@ abstract class _EditSubscriptionViewModelBase with Store {
     validatePayment();
     validateResolution();
 
+    print(screens);
+
     if (!error.hasErrors) {
       isLoading = true;
 
-      var telas = int.parse(screens);
+      List ret = date.split('/');
+      String dateFormat;
+      dateFormat = "${ret[2]}-${ret[1]}-${ret[0]}";
 
+      var telas = int.parse(screens);
       var preco = double.parse(value);
 
-      Subscription? res = await _usecase.editSubscription(userId, idProvider, date, preco,
-                                          payment, telas, resolution, content, useTime, status);
+      print(telas);
+
+      sub.signatureDate = dateFormat;
+      sub.screens = telas;
+      sub.maxResolution = resolution;
+      sub.price = preco;
+      sub.periodPayment = payment;
+      
+      Subscription? res = await _usecase.editSubscription(sub);
       return res;
     } 
     else {

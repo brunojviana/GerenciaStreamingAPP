@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from "@nestjs/common";
+import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { Calendar } from "src/calendar/calendar.model";
 import { CalendarService } from "src/calendar/calendar.service";
@@ -37,21 +38,27 @@ export class SignaturesController {
     async add(@Body() signature: Signature): Promise<any | Error> {
         try {
             var ret: Signature = await this.signaturesService.add(signature);
-            /* var new_sub = {
-                id: ret.id,
-                date_signature: ret.date_signature,
-                screens: ret.screens,
-                max_resolution: ret.max_resolution,
-                price: ret.price,
-                period_payment: ret.period_payment,
-                num_content: ret.num_content,
-                time: ret.time,
-                status: ret.status,
-                provider_id: ret.provider_id,
-                user_id: ret.user_id    
-            }; */
-            console.log(ret);
             return ret;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    @Put()
+    async update(@Body() signature: Signature): Promise<Signature | Error> {
+        try {
+            return this.signaturesService.update(signature.id, signature);
+        } catch (error) {
+            return error;
+        }
+    }
+
+    @Delete(':id_sub')
+    async delete(@Param() param, @Res() res: Response): Promise<Response<any, Record<string, any>> | Error>{
+        try {
+            await this.signaturesService.delete(param.id_sub);
+            console.log(res.statusCode);
+            return res.status(HttpStatus.OK).json();
         } catch (error) {
             return error;
         }

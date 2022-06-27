@@ -6,6 +6,7 @@ import 'package:frontend/src/features/subscription/domain/usecase/register_subsc
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../auth/domain/model/profile.dart';
 import '../../domain/model/subscription.dart';
+import '../../domain/usecase/list_subscriptions_usecase.dart';
 
 part 'register_subscription_viewmodel.g.dart';
 
@@ -14,6 +15,7 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
   
   final error = RegisterSubscriptionError();
   final _usecase = Modular.get<SubscriptionUseCase>();
+  final _usecaseSubs = Modular.get<ListSubscriptionsUseCase>();
 
   @observable
   String date = '';
@@ -112,6 +114,11 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
     else {
       return null;
     }
+  }
+
+  Future<List<Subscription>> getSubs(int idUser) async {
+    List<Subscription> res = await _usecaseSubs.loadSubs(idUser);
+    return res;
   }
 }
 

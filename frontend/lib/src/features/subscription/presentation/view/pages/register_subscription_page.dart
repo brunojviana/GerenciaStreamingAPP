@@ -31,6 +31,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
   ];
   late ThemeData _theme;
   late Subscription? _response;
+  late List<Subscription> _subs;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -253,6 +254,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
           store.isLoading ? null :
           _profile = await store.getSavedUser(); 
           _response = await _registerSubscription(_profile.id!, widget.provider.id!);
+          _subs = await store.getSubs(_response!.userId!);
           _showDialog(_response);
         },
         child: Text('store'.i18n()),
@@ -298,9 +300,10 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
           actions: (subscription != null) ?           
           <Widget>[TextButton(
             child: Text('ok'.i18n().toString()),
-              onPressed: () { 
+              onPressed: () async {
                 Navigator.pop(context);
-                Modular.to.pushNamed('detailsubscription', arguments: subscription);
+                //Navigator.of(context).pushNamedAndRemoveUntil('/home/subscriptions', (Route<dynamic> route) => true, arguments: _subs);
+                Modular.to.pushNamed('/subscriptions/', arguments: _subs);
               },  
             ),
           ] :          

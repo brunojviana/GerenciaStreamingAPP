@@ -30,6 +30,9 @@ export class SignatureService {
             where: {
                 user_id: user_id
             },
+            order: [
+                ['id', 'DESC']
+            ],
             include: [{
                 model: Provider
             },
@@ -45,9 +48,20 @@ export class SignatureService {
         return sub;
     }
 
+    async update(id: number, signature: Signature) {
+        return this.signaturesModel.update(signature, {
+            where: {
+                id: id
+            },
+            returning: true
+        }).then(() => {
+            return this.find(id);
+        });
+    }
+
     async delete(id: number) {
         const signature: Signature = await this.find(id);
-        signature.destroy();
+        await signature.destroy();
     }
 
 }

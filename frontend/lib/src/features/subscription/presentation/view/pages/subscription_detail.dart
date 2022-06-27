@@ -18,6 +18,9 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
   late ThemeData _theme;
   late Profile _profile;
   late DateTime data;
+  Subscription? sub;
+  late List<Subscription> subs = [];
+
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -277,13 +280,13 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     children: [
       IconButton(
         iconSize: 30,
-        onPressed: () {
-          if (widget.subscription.status == 0){
-            store.switchStatus(1);  
+        onPressed: () async {
+          if (sub == null && (widget.subscription.status == 1)){
+            sub = await store.switchStatus(widget.subscription, 0);
+            _showDialog(1);
+          } else {
+            _showDialog(0);
           }
-          else {
-            store.switchStatus(0);
-          } 
         },
         icon: const Icon(Icons.cancel, color: Colors.red),
       ),
@@ -295,8 +298,12 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     children: [
       IconButton(
         iconSize: 30,
-        onPressed: () { 
-          store.deleteSubscription(widget.subscription.id!);
+        onPressed: () async {
+          int res = await store.deleteSubscription(widget.subscription.id!);
+          subs = await store.loadSubscriptions(widget.subscription.userId);
+          Navigator.pop(context);
+          //Navigator.of(context).pushNamedAndRemoveUntil('/home/subscriptions/', (Route<dynamic> route) => false, arguments: subs);
+          Modular.to.pushNamed('/subscriptions/', arguments: subs);
         },
         icon: const Icon(Icons.delete),
       ),
@@ -311,6 +318,45 @@ class _SubscriptionDetailPageState extends ModularState<SubscriptionDetailPage, 
     else {
       return 'status_active'.i18n();
     }
+  }
+  
+  Future<void> _showDialog(int res) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (res == 1) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.error, size: 40, color: Colors.red),
+          content: (res == 1) ?
+            Text('subscription_update_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('subscription_update_error'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('ok'.i18n().toString()),
+              onPressed: () {
+                Navigator.pop(context);
+              },  
+            )
+          ],
+        );
+      }
+    );
   }
 
   @override

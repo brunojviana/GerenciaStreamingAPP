@@ -30,6 +30,7 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
   ];
   late ThemeData _theme;
   late Subscription? response;
+  late DateTime data;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -103,12 +104,13 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
       borderRadius: BorderRadius.circular(5),
     ),
     child: widget.createFormField(
+      mask: "##/##/####",
       theme: _theme,
       keyboardType: TextInputType.datetime,
       textInputAction: TextInputAction.next,
-      hint: 'widget.subscription.signatureDate!.day.toString()' + '/' +
-            'widget.subscription.signatureDate!.month.toString()' + '/' +
-            'widget.subscription.signatureDate!.year.toString()',
+      hint: data.day.toString() + '/' +
+            data.month.toString() + '/' +
+            data.year.toString(),
       enabled: !store.isLoading,
       errorText: store.error.date,
       onChange: (value) => store.date = value,
@@ -171,7 +173,7 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
         spacing: 20.0,
         runSpacing: 20.0,
         children: <Widget>[
-          ChoiceChipWidget(paymentFrequency),
+          ChoiceChipWidget(paymentFrequency, store),
         ],
       )
   );
@@ -232,7 +234,7 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
       spacing: 20.0,
       runSpacing: 20.0,
       children: <Widget>[
-        ChoiceChipWidget(resolutionMax),
+        ChoiceChipWidget(resolutionMax, store),
       ],
     )
   );
@@ -253,12 +255,7 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
         onPressed: () async {
           store.isLoading ? null :
           _profile = await store.getSavedUser(); 
-          response = await _editSubscription(
-            _profile.id!,
-             widget.subscription.provider!.id!,
-             widget.subscription.content!,
-             widget.subscription.useTime!,
-             widget.subscription.status!);
+          response = await _editSubscription(widget.subscription);
           _showDialog(response);
         },
         child: Text('store'.i18n()),
@@ -266,23 +263,14 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
     ),
   );
 
-  Future<Subscription?> _editSubscription(
-    int userId, 
-    int idProvider, 
-    int content, 
-    double useTime, 
-    int status) async {
-    Subscription? response = await store.editSubscription(
-      userId, 
-      idProvider, 
-      content, 
-      useTime, 
-      status);
+  Future<Subscription?> _editSubscription(Subscription sub) async {
+    Subscription? response = await store.editSubscription(sub);
     return response;
   }
 
   Future<void> _showDialog(Subscription? subscription) async {
     //Subscription? subscription = widget.subscription;
+    print(subscription);
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -339,6 +327,7 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    data = DateTime.parse(widget.subscription.signatureDate!);
 
     return Scaffold(
       appBar: AppBar(
@@ -420,7 +409,8 @@ class _EditSubscriptionPageState extends ModularState<EditSubscriptionPage, Edit
 
 class ChoiceChipWidget extends StatefulWidget {
   final List<String> listChoice;
-  const ChoiceChipWidget(this.listChoice, {Key? key}) : super(key: key);
+  final EditSubscriptionViewModel stor;
+  const ChoiceChipWidget(this.listChoice, this.stor, {Key? key}) : super(key: key);
 
   @override
   _ChoiceChipWidgetState createState() => _ChoiceChipWidgetState();
@@ -456,6 +446,12 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
             setState(() {
               selectedChoice = item;
             });
+
+            if ((selectedChoice == 'Monthly') || (selectedChoice == 'Yearly')) {
+              widget.stor.payment = selectedChoice;
+            } else {
+              widget.stor.resolution = selectedChoice;
+            }
           },
         ),
       ));
