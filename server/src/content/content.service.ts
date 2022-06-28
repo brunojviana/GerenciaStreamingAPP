@@ -1,6 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Content } from "./content.model";
 import { CONTENT_REPOSITORY } from "./constants";
+import { Signature } from "src/signature/signature.model";
+import { Provider } from "src/provider/provider.model";
+import { User } from "src/user/user.model";
 
 @Injectable()
 export class ContentService {
@@ -13,16 +16,43 @@ export class ContentService {
         return this.contentsModel.findOne({
             where: {
                 id: id
-            }
+            },
+            include: [{
+                model: Signature,
+                include: [{ 
+                    model: Provider,
+                }, 
+                {
+                    model: User,
+                }]
+            }]
         });
     }
 
-    async findAll(): Promise<Content[]> {
-        return this.contentsModel.findAll();
+    async findAll(signature_id: number): Promise<Content[]> {
+        return this.contentsModel.findAll({
+            where: {
+                signature_id: signature_id
+            },
+            order: [
+                ['id', 'DESC']
+            ],
+            include: [{
+                model: Signature,
+                include: [{ 
+                    model: Provider,
+                }, 
+                {
+                    model: User,
+                }]
+            }]
+        });
     }
 
     async add(content) {
-        return this.contentsModel.create(content);
+        var ret = await this.contentsModel.create(content);
+        var cnt = this.findId(ret.id);
+        return cnt;
     }
 
     async delete(id: number) {

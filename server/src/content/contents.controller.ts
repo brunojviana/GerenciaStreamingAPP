@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res, UseGuards } from "@nestjs/common";
+import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { SignaturesController } from "src/signature/signatures.controller";
 import { ContentInterface } from "./content.interface";
@@ -10,11 +11,11 @@ import { ContentService } from "./content.service";
 export class ContentsController {
     constructor(private contentsService: ContentService) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Get()
-    async findAll(): Promise<Content[] | Error> {
+    //@UseGuards(JwtAuthGuard)
+    @Get('/all/:id_sub')
+    async findAll(@Param() param): Promise<Content[] | Error> {
         try {
-            return this.contentsService.findAll();
+            return this.contentsService.findAll(param.id_sub);
         } catch (error) {
             return error;
         }
@@ -32,9 +33,21 @@ export class ContentsController {
                 status: content.status,
                 signature_id: content.signature_id
             };
-            let cnt = await this.contentsService.add(contentAdd);
-            this.calcViewTime(cnt.id, content.param_start, content.param_stop);
+            let cnt: Content = await this.contentsService.add(contentAdd);
+            console.log(cnt);
+            //this.calcViewTime(cnt.id, content.param_start, content.param_stop);
             return cnt;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    @Delete(':id_content')
+    async delete(@Param() param, @Res() res: Response): Promise<Response<any, Record<string, any>> | Error>{
+        try {
+            await this.contentsService.delete(param.id_content);
+            console.log(res.statusCode);
+            return res.status(HttpStatus.OK).json();
         } catch (error) {
             return error;
         }

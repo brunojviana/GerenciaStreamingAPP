@@ -17,7 +17,7 @@ export class SignatureService {
                 id: id
             },
             include: [{
-                model: Provider
+                model: Provider,
             },
             {
                 model: User
