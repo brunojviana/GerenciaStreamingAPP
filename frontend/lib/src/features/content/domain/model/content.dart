@@ -1,34 +1,52 @@
 import '../../../subscription/domain/model/provider.dart';
+import '../../../subscription/domain/model/subscription.dart';
 
 class Content {
   const Content({
     this.id, 
-    this.provider, 
+    required this.subscriptionId, 
     this.name, 
     this.category, 
-    this.startDate, 
-    this.lastAccess, 
+    required this.startDate, 
+    required this.lastAccess, 
     this.time, 
-    this.status});
+    this.status,
+    this.subscription});
   
   final int? id;
-  final Provider? provider;
+  final int subscriptionId;
   final String? name;
   final String? category;
-  final DateTime? startDate;
-  final DateTime? lastAccess;
-  final Duration? time;
+  final String startDate;
+  final String lastAccess;
+  final int? time;
   final int? status;
+  final Subscription? subscription;
 
   factory Content.fromJson(Map<String, dynamic> json) =>
     Content(
       id: json['id'],
-      provider: json['provider'],
       name: json['name'],
       category: json['category'],
-      startDate: json['startDate'],
-      lastAccess: json['lastAccess'],
-      time: json['time'], 
-      status: json['status']
+      startDate: json['start'],
+      lastAccess: json['last_acess'],
+      time: json['watch_time'], 
+      status: json['status'],
+      subscriptionId: json['signature_id'],
+      subscription: Subscription.fromJson(json['signature'])
     );
+
+    Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['category'] = this.category;
+    data['start'] = this.startDate;
+    data['last_acess'] = this.lastAccess;
+    data['watch_time'] = this.time;
+    data['status'] = this.status;
+    data['signature_id'] = this.subscriptionId;
+    data['user'] = this.subscription?.toJson();
+    return data;
+  }
 }

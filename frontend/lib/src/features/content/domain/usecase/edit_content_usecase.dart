@@ -22,16 +22,14 @@ class EditContentUseCase {
     return null;
   }
 
-  Future<Content?> editContent(
-    int id, 
+  Future<Content?> editContent( 
     int subscriptionId, 
     String name, 
     String category,
-    DateTime startDate,
-    DateTime lastAccess,
+    String startDate,
+    String lastAccess,
     int status) {
-      return repository.editContent(ContentDto(
-        id, 
+      return repository.editContent(ContentDto( 
         subscriptionId,
         name, 
         category,

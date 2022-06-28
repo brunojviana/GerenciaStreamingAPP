@@ -44,8 +44,8 @@ abstract class _EditContentViewModelBase with Store {
   Future<Content?> editContent(
     int id, 
     int subscriptionId, 
-    DateTime startDate,
-    DateTime lastAccess,
+    String startDate,
+    String lastAccess,
     int status) async {
     
     error.clear();
@@ -55,7 +55,6 @@ abstract class _EditContentViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;
       Content? res = await _usecase.editContent(
-        id,
         subscriptionId,
         name, 
         category,

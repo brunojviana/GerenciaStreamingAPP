@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/subscription/domain/usecase/list_subscriptions_usecase.dart';
+import 'package:http/http.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../auth/domain/model/profile.dart';
+import '../../../subscription/domain/model/subscription.dart';
 import '../../domain/model/content.dart';
 import '../../domain/usecase/list_contents_usecase.dart';
 
@@ -8,32 +15,26 @@ part 'list_contents_viewmodel.g.dart';
 class ListContentsViewModel = _ListContentsViewModelBase with _$ListContentsViewModel;
 abstract class _ListContentsViewModelBase with Store {
   final _usecase = Modular.get<ListContentsUseCase>();
+  final _usecaseSub = Modular.get<ListSubscriptionsUseCase>();
 
-    Future<List<Content>> loadContents(int userId, String category) async {
-      
-      List<Content> res = await _usecase.loadContents(userId);
-      List<Content> moviesAndSeries = [];
-      List<Content> other = [];
+  Future<Profile> getSavedUser() async {
+    SharedPreferences _user = await SharedPreferences.getInstance();
+    String? jsonUser = _user.getString("profile");
+    Map<String, dynamic> mapUser = json.decode(jsonUser!);
+    Profile _profile = Profile.fromJson(mapUser);
+    return _profile;    
+  }
 
-      for (var i=0; i<res.length; i++)
-      {
-        if (res[i].category == 'cat_movies' || res[i].category == 'cat_series')
-        {
-          moviesAndSeries.add(res[i]);
-        }
-        else
-        {
-          other.add(res[i]);
-        }  
-      }
+  Future<List<Content>> loadContents(int idSub) async {
+    
+    List<Content> res = await _usecase.loadContents(idSub);
 
-      if (category == 'movies')
-      {
-        return moviesAndSeries;
-      }
-      else
-      {
-        return other;
-      }
-    }
+    return res;
+  }
+
+  Future<Subscription> loadSubscription(int idSub) async {
+    Subscription res = await _usecaseSub.loadSubscription(idSub);
+
+    return res;
+  }
 }

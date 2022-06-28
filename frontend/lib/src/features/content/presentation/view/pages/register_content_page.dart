@@ -32,6 +32,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
     'cat_songs'.i18n(),
     'cat_others'.i18n(),
   ];
+  late List<Content> _contents;
     
   Widget get _subscription => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -42,7 +43,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.subscription.provider!.path_image!,
+          child: Image.asset(widget.subscription.provider!.path_image,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,
@@ -114,7 +115,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
       errorText: store.error.name,
       onChange: (value) => store.name = value,
     ),
-  );  
+  ); 
 
   Widget get _messageCategory => Container(
     margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -137,10 +138,82 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
       spacing: 20.0,
       runSpacing: 20.0,
       children: <Widget>[
-          ChoiceChipWidget(listCategory),
+          ChoiceChipWidget(listCategory, store),
       ],
     )
-  );  
+  );
+
+  Widget get _messageDate => Container(
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
+    width: double.infinity,
+    child: Text('service_date'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
+
+  Widget get _date => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      mask: "##/##/#### ##:##",
+      theme: _theme,
+      keyboardType: TextInputType.datetime,
+      textInputAction: TextInputAction.next,
+      hint: 'DD/MM/AAAA hh:mm'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.date,
+      onChange: (value) => store.date = value,
+    ),
+  );
+
+  Widget get _messageLastAcess => Container(
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    height: 18,
+    width: double.infinity,
+    child: Text('service_date'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.left,
+    ),
+  );
+
+  Widget get _lastAcess => Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+    height: 70,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.accent,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: widget.createFormField(
+      mask: "##/##/#### ##:##",
+      theme: _theme,
+      keyboardType: TextInputType.datetime,
+      textInputAction: TextInputAction.next,
+      hint: 'DD/MM/AAAA hh:mm'.i18n(),
+      enabled: !store.isLoading,
+      errorText: store.error.lastAcess,
+      onChange: (value) => store.lastAcess = value,
+    ),
+  );
 
   Widget get _registerContentButton =>Container(
     margin: const EdgeInsets.fromLTRB(30, 15, 30, 5),
@@ -156,8 +229,8 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
         ),
       ),
       onPressed: () async {
-        store.isLoading ? null : 
-        _response = await _registerContent(widget.subscription.id!);
+        _response = await _registerContent(widget.subscription.id);
+        _contents = await store.loadContents(_response!.subscriptionId);
         _showDialog(_response);
       },
       child: Text('store'.i18n()),
@@ -202,7 +275,7 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
             child: Text('ok'.i18n().toString()),
               onPressed: () { 
                 Modular.to.pop(context);
-                Modular.to.pushNamed('detailcontent', arguments: content);
+                Modular.to.pushNamed('listcontents', arguments: _contents);
               },  
             ),
           ] :          
@@ -263,6 +336,10 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
                           _name,
                           _messageCategory,
                           _category,
+                          _messageDate,
+                          _date,
+                          _messageLastAcess,
+                          _lastAcess,
                           _registerContentButton,
                         ],
                       ),
@@ -311,7 +388,8 @@ class _RegisterContentPageState extends ModularState<RegisterContentPage, Regist
 
 class ChoiceChipWidget extends StatefulWidget {
   final List<String> listChoice;
-  const ChoiceChipWidget(this.listChoice, {Key? key}) : super(key: key);
+  final RegisterContentViewModel stor;
+  const ChoiceChipWidget(this.listChoice, this.stor, {Key? key}) : super(key: key);
 
   @override
   _ChoiceChipWidgetState createState() => _ChoiceChipWidgetState();
@@ -347,6 +425,7 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
             setState(() {
               selectedChoice = item;
             });
+            widget.stor.category = selectedChoice;
           },
         ),
       ));

@@ -9,4 +9,8 @@ class ListSubscriptionsUseCase {
   Future<List<Subscription>> loadSubs(int idUser) {
     return repository.loadSubs(idUser);
   }
+
+  Future<Subscription> loadSubscription(int idSub) {
+    return repository.loadSubscription(idSub);
+  }
 }

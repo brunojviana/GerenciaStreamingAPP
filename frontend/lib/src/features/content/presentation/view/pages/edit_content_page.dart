@@ -40,7 +40,7 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.content.provider!.path_image!,
+          child: Image.asset(widget.content.subscription!.provider!.path_image,
             width: 80,
             height: 80,
             fit: BoxFit.scaleDown,
@@ -53,7 +53,7 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.content.provider!.name!,
+              Text(widget.content.subscription!.provider!.name!,
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 25,
@@ -62,7 +62,7 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
                 ),
                 textAlign: TextAlign.left,
               ),
-              Text(widget.content.provider!.category!.i18n(),
+              Text(widget.content.subscription!.provider!.category!.i18n(),
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 20,
@@ -157,9 +157,9 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
         store.isLoading ? null : 
         _response = await _editContent(
           widget.content.id!, 
-          widget.content.provider!.id!,
-          widget.content.startDate!,
-          widget.content.lastAccess!,
+          widget.content.subscription!.provider!.id!,
+          widget.content.startDate,
+          widget.content.lastAccess,
           widget.content.status!);
         _showDialog(_response);
       },
@@ -170,8 +170,8 @@ class _EditContentPageState extends ModularState<EditContentPage, EditContentVie
   Future<Content?> _editContent(
     int id, 
     int subscriptionId,
-    DateTime startDate,
-    DateTime lastAccess,
+    String startDate,
+    String lastAccess,
     int status) async {
       Content? response = await store.editContent(
         id, 

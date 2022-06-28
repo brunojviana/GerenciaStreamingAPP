@@ -8,7 +8,8 @@ import '../../viewmodel/content_detail_viewmodel.dart';
 
 class ContentDetailPage extends StatefulWidget {
   final Content content;
-  const ContentDetailPage({Key? key, required this.content}) : super(key: key);
+  final String idSub;
+  const ContentDetailPage({Key? key, required this.content, required this.idSub}) : super(key: key);
 
   @override
   State<ContentDetailPage> createState() => _ContentDetailPageState();
@@ -17,6 +18,9 @@ class ContentDetailPage extends StatefulWidget {
 class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDetailViewModel> {
   late ThemeData _theme;
   late Profile _profile;
+  late DateTime lastDate;
+  late DateTime startDate;
+  late List<Content> _contents;
 
   Widget get _provider => Container(
     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -27,7 +31,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           height: 80,
           width: 80,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-          child: Image.asset(widget.content.provider!.path_image!,
+          child: Image.asset(widget.content.subscription!.provider!.path_image,
             width: 80,
             height: 80,
             fit: BoxFit.contain,
@@ -50,7 +54,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
                 textAlign: TextAlign.left,
               ),
               Text('category'.i18n() + ': ' + widget.content.category!.i18n() + '\n' +
-                       'provider'.i18n() + ': ' + widget.content.provider!.name!,
+                       'provider'.i18n() + ': ' + widget.content.subscription!.provider!.name!,
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 18,
@@ -75,9 +79,9 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.calendar_month, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('start_date'.i18n() + ': ' +
-                      widget.content.startDate!.day.toString() + '/' +
-                      widget.content.startDate!.month.toString() + '/' +
-                      widget.content.startDate!.year.toString(),
+                      startDate.day.toString() + '/' +
+                      startDate.month.toString() + '/' +
+                      startDate.year.toString(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -99,8 +103,8 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.access_time, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('start_time'.i18n() + ': ' +
-                      widget.content.startDate!.hour.toString() + ':' +
-                      widget.content.startDate!.minute.toString(),
+                      startDate.hour.toString() + ':' +
+                      startDate.minute.toString(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -122,9 +126,9 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.calendar_month, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('last_access_date'.i18n() + ': ' +
-                      widget.content.lastAccess!.day.toString() + '/' +
-                      widget.content.lastAccess!.month.toString() + '/' +
-                      widget.content.lastAccess!.year.toString(),
+                      lastDate.day.toString() + '/' +
+                      lastDate.month.toString() + '/' +
+                      lastDate.year.toString(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -146,8 +150,8 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.access_time, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('last_access_time'.i18n() + ': ' + 
-                      widget.content.lastAccess!.hour.toString() + ':' +
-                      widget.content.lastAccess!.minute.toString(),
+                      lastDate.hour.toString() + ':' +
+                      lastDate.minute.toString(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -169,7 +173,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.timelapse, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('entertainment_time'.i18n() + ': ' +
-                      widget.content.time!.inHours.toString() + 'hours'.i18n(),
+                      '10' + 'hours'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -250,8 +254,11 @@ Widget get _pauseButton => Column(
     children: [
       IconButton(
         iconSize: 30,
-        onPressed: () { 
-          store.deleteContent(widget.content.id!);
+        onPressed: () async { 
+          int res = await store.deleteContent(widget.content.id!);
+          _contents = await store.loadContents(int.parse(widget.idSub));
+          Navigator.pop(context);
+          Modular.to.pushNamed("listcontents/${widget.idSub}", arguments: _contents);
         },
         icon: const Icon(Icons.delete),
       ),
@@ -271,6 +278,8 @@ Widget get _pauseButton => Column(
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    lastDate = DateTime.parse(widget.content.lastAccess);
+    startDate = DateTime.parse(widget.content.startDate);
 
     return Scaffold(
       appBar: AppBar(

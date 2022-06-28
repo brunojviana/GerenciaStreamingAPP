@@ -5,7 +5,7 @@ import '../repository/list_contents_interface.dart';
 class ListContentsUseCase {
   final repository = Modular.get<IListContents>();
 
-  Future<List<Content>> loadContents(int userId) {
-    return repository.loadContents(userId);
+  Future<List<Content>> loadContents(int idSub) {
+    return repository.loadContents(idSub);
   }
 }

@@ -10,13 +10,10 @@ class ListSubsciptionsRepository implements IListSubscriptions {
   Future<List<Subscription>> loadSubs(int idUser) async {
     List<Subscription> subs = [];
     Subscription sub;
-    print('oi');
-    print(idUser);
-
+    
     final res = await http.get(
       Uri.http('192.168.0.136:3000', "/signatures/all/${idUser.toString()}")
     );
-    print(res.body);
 
     if (res.body.isNotEmpty) {
       final List<dynamic> data = jsonDecode(res.body);
@@ -28,5 +25,18 @@ class ListSubsciptionsRepository implements IListSubscriptions {
     }
 
     return subs;
+  }
+
+  @override
+  Future<Subscription> loadSubscription(int idSub) async {
+    Subscription _sub;
+    
+    final res = await http.get(
+      Uri.http('192.168.0.136:3000', "/signatures/${idSub.toString()}")
+    );
+
+    final Map<String, dynamic> data = jsonDecode(res.body);
+    _sub = Subscription.fromJson(data);
+    return _sub;
   }
 }

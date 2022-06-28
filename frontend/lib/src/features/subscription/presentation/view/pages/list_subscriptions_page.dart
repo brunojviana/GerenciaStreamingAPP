@@ -64,7 +64,7 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
                   ),
                 ),
               minLeadingWidth: 80,
-              leading: Image.asset(subscription.provider!.path_image!,
+              leading: Image.asset(subscription.provider!.path_image,
                 width: 80,
                 height: 80,
                 fit: BoxFit.contain,

@@ -4,7 +4,7 @@ import 'package:frontend/src/features/subscription/domain/model/provider.dart';
 
 class Subscription {
   Subscription({
-    this.id, 
+    required this.id, 
     this.provider,
     this.user, 
     this.signatureDate, 
@@ -18,7 +18,7 @@ class Subscription {
     this.providerId,
     this.userId});
   
-  final int? id;
+  final int id;
   final Provider? provider;
   final Profile? user;
   late String? signatureDate;

@@ -48,9 +48,9 @@ class ContentModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/:category', child: (_, args) => ListContentsPage(profile: args.data, category: args.params['category'])),
-        ChildRoute('/detailcontent', child: (_, args) => ContentDetailPage(content: args.data)),
-        ChildRoute('/selectsubscription', child: (_, args) => SelectSubscriptionPage(profile: args.data)),
+        ChildRoute('/', child: (_, args) => SelectSubscriptionPage(subs: args.data)),
+        ChildRoute('/detailcontent/:idSub', child: (_, args) => ContentDetailPage(content: args.data, idSub: args.params['idSub'])),
+        ChildRoute('/listcontents/:idSub', child: (_, args) => ListContentsPage(contents: args.data, idSub: args.params['idSub'])),
         ModuleRoute('/newsubscription', module: SubscriptionModule()),
         ChildRoute('/newcontent', child: (_, args) => RegisterContentPage(subscription: args.data)),
         ChildRoute('/editcontent', child: (_, args) => EditContentPage(content: args.data))

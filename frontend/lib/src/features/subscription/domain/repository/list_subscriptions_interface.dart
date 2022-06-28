@@ -4,4 +4,6 @@ import '../model/subscription.dart';
 
 abstract class IListSubscriptions {
   Future<List<Subscription>> loadSubs(int idUser);
+
+  Future<Subscription> loadSubscription(int idSub);
 }

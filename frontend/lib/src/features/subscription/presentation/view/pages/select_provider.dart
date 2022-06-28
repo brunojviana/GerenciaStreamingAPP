@@ -50,7 +50,7 @@ class _SelectProviderPageState extends ModularState<SelectProviderPage, SelectPr
         },
         child: GridTile(
           child: Center(
-            child: Image.asset(provider.path_image ?? 'lib/assets/images/perfil.png',
+            child: Image.asset(provider.path_image,
               width: 80,
               height: 80,
               fit: BoxFit.contain,

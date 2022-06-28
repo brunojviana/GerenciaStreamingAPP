@@ -1,6 +1,5 @@
 class ContentDto {
   const ContentDto(
-    this.id, 
     this.subscriptionId, 
     this.name, 
     this.category,
@@ -9,11 +8,10 @@ class ContentDto {
     this.status,
     );
   
-  final int id;
   final int subscriptionId;
   final String name;
   final String category;
-  final DateTime startDate;
-  final DateTime lastAccess;
+  final String startDate;
+  final String lastAccess;
   final int status;
 }

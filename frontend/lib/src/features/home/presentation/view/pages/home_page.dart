@@ -89,7 +89,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
       SizedBox(
         height: 30,
         width: 175,
-        child: Text('my_movies'.i18n(),
+        child: Text('My Contents'.i18n(),
             style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 16,
@@ -100,45 +100,14 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
           ),
         ),      
       GestureDetector(
-        onTap: () {
-          Modular.to.pushNamed('movies/movies', arguments: widget.profile);
+        onTap: () async {
+          _response = await store.getSubs(widget.profile.id!);
+          Modular.to.pushNamed('movies', arguments: _response);
         },
         child: SizedBox(
           height: 110,
           width: 175,
           child: Image.asset('lib/assets/images/aplicativo-de-streaming-de-tv.png',
-            width: 104,
-            height: 104,
-            fit: BoxFit.scaleDown,
-            ),
-          ),
-        ),
-    ],
-  );
-
-  Widget get _myOtherContents => Column(
-    children: [
-      SizedBox(
-        height: 30,
-        width: 175,
-        child: Text('my_other_contents'.i18n(),
-            style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: AppColors.text, 
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      GestureDetector(
-        onTap: () {
-          Modular.to.pushNamed('otherContents/other', arguments: widget.profile);
-        },
-        child: SizedBox(
-          height: 110,
-          width: 175,
-          child: Image.asset('lib/assets/images/musica.png',
             width: 104,
             height: 104,
             fit: BoxFit.scaleDown,
@@ -312,17 +281,8 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Card(child: _myData),
                       Card(child: _mySubscriptions),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
                       Card(child: _myMovies),
-                      Card(child: _myOtherContents),
                     ],
                   ),
                   const SizedBox(height: 5),
@@ -341,6 +301,14 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
                     children: [
                       Card(child: _map),
                       Card(child: _chatbot),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Card(child: _myData),
                     ],
                   ),
                 ],

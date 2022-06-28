@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/content/domain/usecase/list_contents_usecase.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../auth/domain/model/profile.dart';
@@ -14,12 +15,19 @@ abstract class _RegisterContentViewModelBase with Store {
   
   final error = RegisterContentError();
   final _usecase = Modular.get<RegisterContentUseCase>();
+  final _usecaseList = Modular.get<ListContentsUseCase>();
 
   @observable
   String name = '';
 
   @observable
   String category = '';
+
+  @observable
+  String date = '';
+
+  @observable
+  String lastAcess = '';
 
   @observable
   bool isLoading = false;
@@ -40,6 +48,16 @@ abstract class _RegisterContentViewModelBase with Store {
     error.category = _usecase.validateCategory(category);
   }
 
+  @action
+  void validateDate() {
+    error.date = _usecase.validateDate(date);
+  }
+
+  @action
+  void validateLastAcess() {
+    error.lastAcess = _usecase.validateLastAcess(lastAcess);
+  }
+
   Future<Profile> getSavedUser() async {
     SharedPreferences _user = await SharedPreferences.getInstance();
     String? jsonUser = _user.getString("profile");
@@ -54,22 +72,44 @@ abstract class _RegisterContentViewModelBase with Store {
 
     validateName();
     validateCategory();
+    validateDate();
+    validateLastAcess();
 
     if (!error.hasErrors) {
       isLoading = true;
+
+      List<String> dateFormat = date.split(' ');
+      final String dataFinal = "${dateFormat[0].split('/')[2]}-${dateFormat[0].split('/')[1]}-${dateFormat[0].split('/')[0]} ${dateFormat[1]}";
+
+      List<String> dateFormatLast = lastAcess.split(' ');
+      final String dataFinalLast = "${dateFormatLast[0].split('/')[2]}-${dateFormatLast[0].split('/')[1]}-${dateFormatLast[0].split('/')[0]} ${dateFormatLast[1]}";
+
       Content? res = await _usecase.registerContent(
-        id,
         subscriptionId,
         name, 
         category,
-        startDate,
-        startDate,
+        dataFinal,
+        dataFinalLast,
         status);
-      return res;
+
+        print(res);
+      
+      if (res != null) {
+        return res;
+      }
+      return null;
     } 
     else {
       return null;
     }
+  }
+
+  Future<List<Content>> loadContents(int idSub) async {
+
+    List<Content> res = await _usecaseList.loadContents(idSub);
+    print(res);
+
+    return res;
   }
 }
 
@@ -83,11 +123,19 @@ abstract class _RegisterContentErrorBase with Store {
   @observable
   String? category;
 
+  @observable
+  String? date;
+
+  @observable
+  String? lastAcess;
+
   @computed
-  bool get hasErrors => name != null || category != null;
+  bool get hasErrors => name != null || category != null || date != null || lastAcess != null;
 
   void clear() {
     name = null;
     category = null;
+    date = null;
+    lastAcess = null;
   }
 }

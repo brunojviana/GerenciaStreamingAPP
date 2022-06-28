@@ -27,9 +27,7 @@ class SubscriptionRepository implements ISubscription {
         }),
       );
       final Map<String, dynamic> data = jsonDecode(res.body);
-      print(data);
       _sub = Subscription.fromJson(data);
-      print(_sub.toJson());
       return _sub;
     } on Error catch (e) {
       print(e);

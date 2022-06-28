@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:frontend/src/features/auth/domain/model/profile.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/colored_print/print_color.dart';
 import 'package:localization/localization.dart';
+import '../../../../subscription/domain/model/subscription.dart';
 import '../../viewmodel/list_contents_viewmodel.dart';
 import '../../../../subscription/domain/model/provider.dart';
 import '../../../domain/model/content.dart';
 
 class ListContentsPage extends StatefulWidget {
-  final Profile profile;
-  final String category;
-  const ListContentsPage({Key? key, required this.profile, required this.category}) : super(key: key);
+  final List<Content> contents;
+  final String idSub;
+  const ListContentsPage({Key? key, required this.contents, required this.idSub}) : super(key: key);
 
   @override
   State<ListContentsPage> createState() => _ListContentsPageState();
@@ -19,20 +21,25 @@ class ListContentsPage extends StatefulWidget {
 class _ListContentsPageState extends ModularState<ListContentsPage, ListContentsViewModel> {
   late ThemeData _theme;
   late List<Content> _contents;
+  late Profile _profile;
+  late Subscription _sub;
+  late DateTime data;
 
   Widget get _dataContent => SizedBox(
     height: double.infinity,
     width: double.infinity,
     child: ListView.builder(
       padding: const EdgeInsets.all(10),
-      itemCount: _contents.length,
+      itemCount: widget.contents.length,
       itemBuilder: (context, index) {
-        final content = _contents[index];
+        final Content content = widget.contents[index];
+        data = DateTime.parse(content.lastAccess);
         
         return Card(
           child: ListTile(
             onTap: () {
-              Modular.to.pushNamed('detailcontent', arguments: _contents[index]);
+              Navigator.pop(context);
+              Modular.to.pushNamed("detailcontent/${int.parse(widget.idSub)}", arguments: content);
             },
             title: Text(content.name!,
               style: const TextStyle(
@@ -43,11 +50,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
               ),
             ),
             subtitle: Text(content.category!.i18n() + '\n' +
-              content.provider!.name! + '\n' +
+              content.subscription!.provider!.name! + '\n' +
               'last_access'.i18n() + ': ' + 
-              content.lastAccess!.day.toString() + '/' +
-              content.lastAccess!.month.toString() + '/' +
-              content.lastAccess!.year.toString() + '\n' +
+              data.day.toString() + '/' +
+              data.month.toString() + '/' +
+              data.year.toString() + '\n' +
               'status'.i18n() + ': ' +
               _verifyStatus(content.status!),
               style: const TextStyle(
@@ -58,7 +65,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
               ),
             ),
             minLeadingWidth: 80,
-            leading: Image.asset(content.provider!.path_image!,
+            leading: Image.asset(content.subscription!.provider!.path_image,
               width: 80,
               height: 80,
               fit: BoxFit.contain,
@@ -70,7 +77,7 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
   );
 
   Future<List<Content>> _loadContents(int userId, String category) async {
-    List<Content> _contents = await store.loadContents(userId, category);
+    List<Content> _contents = await store.loadContents(userId);
     return _contents;
   }
 
@@ -87,62 +94,6 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
     //_contents = _loadContents(widget.profile.id!, widget.category) as List<Content>;
-    
-    //Lista declarada apenas para carregar a página. A lista deve ser recebida da API. 
-    _contents = [
-      Content(
-        id: 0001,
-        provider: const Provider(
-          path_image: 'lib/assets/images/netflix.png',
-          name: 'Netflix',
-          category: 'cat_movies_and_series',
-        ),
-        name: 'Onde os Fracos Não tem Vez',
-        category: 'cat_movies',
-        startDate: DateTime(2022, 05, 11),
-        lastAccess: DateTime(2022, 05, 11, 22, 30),
-        time: const Duration(minutes: 120),
-        status: 0),
-      Content(
-        id: 0002,
-        provider: const Provider(
-          path_image: 'lib/assets/images/hbo.png',
-          name: 'HBO Max',
-          category: 'cat_movies_and_series',
-        ),
-        name: 'Band of Brothers',
-        category: 'cat_series',
-        startDate: DateTime(2022, 03, 05),
-        lastAccess: DateTime(2022, 05, 15, 0, 47),
-        time: const Duration(hours: 8, minutes: 35),
-        status: 1),
-      Content(
-        id: 0003,
-        provider: const Provider(
-          path_image: 'lib/assets/images/prime.png',
-          name: 'Amazon Prime Video',
-          category: 'cat_movies_and_series',
-        ),
-        name: 'The Boys',
-        category: 'cat_series',
-        startDate: DateTime(2021, 01, 28),
-        lastAccess: DateTime(2021, 02, 17, 23, 45),
-        time: const Duration(hours: 15, minutes: 18),
-        status: 0),
-      Content(
-        id: 0004,
-        provider: const Provider(
-          path_image: 'lib/assets/images/starplus.png',
-          name: 'Star +',
-          category: 'cat_movies_and_series',
-        ),
-        name: 'O Oitavo Passageiro',
-        category: 'cat_movies',
-        startDate: DateTime(2022, 03, 07),
-        lastAccess: DateTime(2022, 03, 07, 23, 15),
-        time: const Duration(minutes: 140),
-        status: 0),
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -164,8 +115,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
           size: 40,
           color: AppColors.textLight),
         backgroundColor: AppColors.primary,
-        onPressed: () {
-          Modular.to.pushNamed('selectsubscription', arguments: widget.profile);
+        onPressed: () async {
+          _profile = await store.getSavedUser();
+          _sub = await store.loadSubscription(int.parse(widget.idSub));
+          Navigator.pop(context);
+          Modular.to.pushNamed('newcontent', arguments: _sub);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -182,7 +136,8 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () async {
-                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                  _profile = await store.getSavedUser();
+                  Modular.to.pushNamed('/home', arguments: _profile);
                   }
                 ),
               ),

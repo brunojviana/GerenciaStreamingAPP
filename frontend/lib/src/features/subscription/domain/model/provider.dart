@@ -1,13 +1,13 @@
 class Provider {
   const Provider({
     this.id, 
-    this.path_image, 
+    required this.path_image, 
     this.name, 
     this.category}
   );
   
   final int? id;
-  final String? path_image;
+  final String path_image;
   final String? name;
   final String? category;
 
