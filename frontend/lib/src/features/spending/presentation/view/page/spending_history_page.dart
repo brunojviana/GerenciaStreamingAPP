@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import '../../../../auth/domain/model/profile.dart';
+import '../../../domain/model/spending.dart';
 import '../../viewmodel/spending_history_viewmodel.dart';
 
 class SpendingHistoryPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class SpendingHistoryPage extends StatefulWidget {
 class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, SpendingHistoryViewModel> {
   late ThemeData _theme;
   late List<SubscriptionCalendar> _data;
+  late List<SpendingPerSubscription> _dataSub;
 
   Future<List<SubscriptionCalendar?>> _loadSpendingHistory(int userId) async {
     List<SubscriptionCalendar?> response = await store.loadSpendingHistory(userId);
@@ -30,53 +32,148 @@ class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, Spendi
     _data = [
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 1,
+        month: 'January',
         year: 2022,
-        spending: 50.0,
+        spending: 35.0,
         useTime: 15.0,
       ),
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 2,
+        month: 'February',
         year: 2022,
-        spending: 70.0,
+        spending: 40.0,
         useTime: 18.0,
       ),
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 3,
+        month: 'March',
         year: 2022,
-        spending: 150.0,
+        spending: 40.0,
         useTime: 35.0,
       ),
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 4,
+        month: 'April',
         year: 2022,
-        spending: 100.0,
+        spending: 40.0,
         useTime: 30.0,
       ),
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 5,
+        month: 'May',
         year: 2022,
-        spending: 100.0,
+        spending: 50.0,
         useTime: 20.0,
       ),
       const SubscriptionCalendar(
         subscriptionId: 1,
-        month: 6,
+        month: 'June',
         year: 2022,
-        spending: 95.0,
+        spending: 50.0,
         useTime: 10.0,
-      ),      
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'January',
+        year: 2022,
+        spending: 15.0,
+        useTime: 17.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'February',
+        year: 2022,
+        spending: 15.0,
+        useTime: 12.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'March',
+        year: 2022,
+        spending: 25.0,
+        useTime: 30.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'April',
+        year: 2022,
+        spending: 25.0,
+        useTime: 25.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'May',
+        year: 2022,
+        spending: 25.0,
+        useTime: 19.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 2,
+        month: 'June',
+        year: 2022,
+        spending: 30.0,
+        useTime: 13.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'January',
+        year: 2022,
+        spending: 25.0,
+        useTime: 10.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'February',
+        year: 2022,
+        spending: 22.0,
+        useTime: 5.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'March',
+        year: 2022,
+        spending: 22.0,
+        useTime: 30.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'April',
+        year: 2022,
+        spending: 28.0,
+        useTime: 15.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'May',
+        year: 2022,
+        spending: 28.0,
+        useTime: 10.0,
+      ),
+      const SubscriptionCalendar(
+        subscriptionId: 3,
+        month: 'June',
+        year: 2022,
+        spending: 28.0,
+        useTime: 15.0,
+      ),
+    ];
+  _dataSub = [
+    SpendingPerSubscription(
+      subscriptionName: 'Netflix',
+      spending: 255.0),
+    SpendingPerSubscription(
+      subscriptionName: 'Amazon Prime Video',
+      spending: 135.0),
+    SpendingPerSubscription(
+      subscriptionName: 'HBO Max',
+      spending: 175.0),
     ];
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('spending_history'.i18n(), 
+        title: Text('spending_title'.i18n(), 
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 20,
@@ -88,11 +185,10 @@ class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, Spendi
         ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               BarChartWidget(data: _data),
-              PieChartWidget(data: _data),
+              PieChartWidget(data: _dataSub),
               BarChartWidget2(data: _data)
             ],
           ),
@@ -159,7 +255,7 @@ class BarChartWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              Text('spending_title'.i18n(),
+              Text('monthly_spending'.i18n(),
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 18,
@@ -180,23 +276,23 @@ class BarChartWidget extends StatelessWidget {
 }
 
 class PieChartWidget extends StatelessWidget {
-  final List<SubscriptionCalendar> data;
+  final List<SpendingPerSubscription> data;
 
   const PieChartWidget({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<SubscriptionCalendar, String>> series =
+    List<charts.Series<SpendingPerSubscription, String>> series =
     [
       charts.Series(
         id: "Spendings",
         data: data,
-        domainFn: (SubscriptionCalendar series, _) =>
-          series.subscriptionId.toString(),
-        measureFn: (SubscriptionCalendar series, _) =>
+        domainFn: (SpendingPerSubscription series, _) =>
+          series.subscriptionName!,
+        measureFn: (SpendingPerSubscription series, _) =>
           series.spending,
-        labelAccessorFn: (SubscriptionCalendar series, _) => 
-          '${series.subscriptionId}}: ${series.spending}',
+        labelAccessorFn: (SpendingPerSubscription row, _) => 
+          '${row.subscriptionName}}: ${row.spending}',
       )
     ];    
 
@@ -208,7 +304,7 @@ class PieChartWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              Text('spending_title'.i18n(),
+              Text('spending_per_subscription'.i18n(),
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 18,
@@ -221,11 +317,12 @@ class PieChartWidget extends StatelessWidget {
                 child: charts.PieChart(
                   series,
                   animate: true,
-                  /*defaultRenderer: charts.ArcRendererConfig(
-                    arcRendererDecorators: [charts.ArcLabelDecorator(
-                      labelPosition: charts.ArcLabelPosition.outside
+                  defaultRenderer: charts.ArcRendererConfig(
+                    arcRendererDecorators: [
+                      charts.ArcLabelDecorator(
+                        labelPosition: charts.ArcLabelPosition.outside
                     )]
-                  ), */ 
+                  ), 
                 ),   
               ),
             ],
@@ -263,7 +360,7 @@ class BarChartWidget2 extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              Text('spending_title'.i18n(),
+              Text('spending_per_hour'.i18n(),
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 18,
