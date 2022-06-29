@@ -55,6 +55,7 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       hint: 'currency'.i18n() + _currentAmount.toStringAsFixed(2),
+      onChange: (value) => store.amount = value,
     ),
   );
 

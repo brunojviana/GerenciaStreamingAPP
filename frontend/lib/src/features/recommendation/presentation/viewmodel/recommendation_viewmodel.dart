@@ -28,7 +28,7 @@ abstract class _RecommendationViewModelBase with Store {
     
     error.clear();
     validateAmount();
-    print(error);
+    print(amount);
     
     if (!error.hasErrors) {
       isLoading = true;

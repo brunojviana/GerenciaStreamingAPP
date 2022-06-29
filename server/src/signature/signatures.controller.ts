@@ -68,12 +68,13 @@ export class SignaturesController {
     
     @Get('/recommendations/:id_user/:maxSpending')
     async subscriptionSet(@Param() params) {
+        console.log(params.id_user)
         let i: number, w: number;
-        let subs = await this.findId(params.id_user);
+        let subs = await this.signaturesService.findAll(parseInt(params.id_user));
         let numberOfSubscriptions: number = subs.length;
         let subscriptionSet: any[];
         let K = new Array(numberOfSubscriptions + 1);
-        
+        console.log(params.maxSpending);
         for (i=0; i < K.length; i++) {
             K[i] = new Array(parseFloat(params.maxSpending) + 1);
             for (let j=0; j < (parseFloat(params.maxSpending) + 1); j++)
@@ -96,6 +97,7 @@ export class SignaturesController {
         }
    
         let res = K[numberOfSubscriptions][parseFloat(params.maxSpending)];
+        console.log(res);
    
         w = parseFloat(params.maxSpending);
         for (i = numberOfSubscriptions; (i > 0) && (res > 0); i--)
@@ -108,6 +110,8 @@ export class SignaturesController {
                 w = w - subs[i-1].price;
             }
         }
+
+        console.log(subscriptionSet);
 
         return subscriptionSet;
     }
