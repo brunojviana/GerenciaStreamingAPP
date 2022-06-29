@@ -9,8 +9,7 @@ import '../../viewmodel/recommendation_viewmodel.dart';
 
 class RecommendationPage extends StatefulWidget {
   final List<Subscription> subscriptions;
-  final String currentAmount;
-  const RecommendationPage({Key? key, required this.subscriptions, required this.currentAmount}) : super(key: key);
+  const RecommendationPage({Key? key, required this.subscriptions}) : super(key: key);
 
   @override
   State<RecommendationPage> createState() => _RecommendationPageState();
@@ -19,7 +18,9 @@ class RecommendationPage extends StatefulWidget {
 class _RecommendationPageState extends ModularState<RecommendationPage, RecommendationViewModel> {
   late ThemeData _theme;
   late Profile _profile;
+  late List<Subscription>? _response;
   late List<Subscription>? _subscriptionSet;
+  late double _currentAmount;
   late Subscription? _mostUsedSubscription;
   late Subscription? _lessUsedSubscription;
   late double _mostUsedSpendingPerHour;
@@ -36,7 +37,7 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
         fontWeight: FontWeight.bold,
         color: AppColors.text, 
       ),
-      textAlign: TextAlign.left,
+      textAlign: TextAlign.center,
     ),
   );
 
@@ -53,7 +54,7 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
       theme: _theme,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      hint: 'currency'.i18n() + widget.currentAmount,
+      hint: 'currency'.i18n() + _currentAmount.toStringAsFixed(2),
     ),
   );
 
@@ -71,19 +72,66 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
             ),
           ),
         ),
-        onPressed: () {
-          setState(() async {
-            store.isLoading ? null :          
-          _subscriptionSet = await calculateSubset();
-          (_subscriptionSet == null) ? 
+        onPressed: () async {
+          store.isLoading ? null :          
+          _response = await calculateSubset();
+          (_response == null) ? 
           _showDialog(_subscriptionSet):
-          _mostUsedSubscription = await calculateMostUsed(_subscriptionSet!);
-          _lessUsedSubscription = await calculateLessUsed(_subscriptionSet!);
-          _mostUsedSpendingPerHour = await calculateSpendingPerHour(_mostUsedSubscription!);
-          _lessUsedSpendingPerHour = await calculateSpendingPerHour(_lessUsedSubscription!);  
+          setState(() {
+            _subscriptionSet = _response;
+            _currentAmount = calculateCurrentAmount(_subscriptionSet!);
+            _mostUsedSubscription = calculateMostUsed(_subscriptionSet!);
+            _lessUsedSubscription = calculateLessUsed(_subscriptionSet!);
+            _mostUsedSpendingPerHour = calculateSpendingPerHour(_mostUsedSubscription!);
+            _lessUsedSpendingPerHour = calculateSpendingPerHour(_lessUsedSubscription!);
           });
         },
-        child: Text('store'.i18n()),
+        child: Text('send'.i18n()),
+      ),
+    ),
+  );
+
+  Widget get _suggestedSubset => Container(
+    alignment: Alignment.centerLeft,
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+    width: double.infinity,
+    child: Text('suggested_subset'.i18n(),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
+      ),
+      textAlign: TextAlign.center,
+    ),
+  );
+
+  Widget get _calculatedAmount => Container(
+    alignment: Alignment.centerLeft,
+    margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+    width: double.infinity,
+    child: Center(
+      child: Column(
+        children: [
+          Text('monthly_spending'.i18n(),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text('currency'.i18n() + _currentAmount.toStringAsFixed(2),
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text, 
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     ),
   );
@@ -92,99 +140,91 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
     child: GridView.builder(
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5),
-      padding: const EdgeInsets.all(40),
-      itemCount: (_subscriptionSet == null) ? widget.subscriptions.length : _subscriptionSet!.length,
+      padding: const EdgeInsets.fromLTRB(70,10,70,10),
+      itemCount: _subscriptionSet!.length,
       itemBuilder: (context,index) {
-        final subscription = (_subscriptionSet == null) ?  widget.subscriptions[index] : _subscriptionSet![index];
+        final subscription = _subscriptionSet![index];
                 
         return GestureDetector(
           onTap: () {
-            Modular.to.pushNamed('newcontent', arguments: (_subscriptionSet == null) ? widget.subscriptions[index] : _subscriptionSet![index]);
+            Modular.to.pushNamed('/subscriptions/detailsubscription', arguments: _subscriptionSet![index]);
           },
           child: GridTile(
-            header: Text('price'.i18n() + ': ' 'currency'.i18n() + subscription.price.toString()),
             child: Center(
-              child: Image.asset(subscription.provider!.path_image!,
-                width: 100,
-                height: 100,
+              child: Image.asset(subscription.provider!.path_image,
+                width: 80,
+                height: 80,
                 fit: BoxFit.contain,
               ),
             ),
-            footer: Text('use_time'.i18n() + ':' + subscription.useTime.toString()),
           ),
         );
       },
     ),
   );
 
-  Widget get _mostUsed => Card(
-    child: ListTile(
-      title: Text(_mostUsedSubscription!.provider!.name!,
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
+  Widget get _mostUsed => ListTile(
+    title: Text(_mostUsedSubscription!.provider!.name!,
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
       ),
-      subtitle: Text(
-        'use_time'.i18n() + ':' + _mostUsedSubscription!.useTime.toString() + '\n' +
-        'spending_per_hour'.i18n() + ': ' + 'currency'.i18n() +  
-          _mostUsedSpendingPerHour.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: AppColors.text, 
-        ),
-      ),
-      minLeadingWidth: 80,
-        leading: const Icon(Icons.arrow_circle_up, color: Colors.green),
     ),
+    subtitle: Text(
+      'use_time'.i18n() + ': ' + _mostUsedSubscription!.useTime.toString() + 'hours'.i18n() + '\n' +
+      'spending_per_hour'.i18n() + ': ' + 'currency'.i18n() +  
+        _mostUsedSpendingPerHour.toStringAsFixed(2),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.text, 
+      ),
+    ),
+    leading: const Icon(Icons.arrow_circle_up, color: Colors.green, size: 40),
   ); 
 
-  Widget get _lessUsed => Card(
-    child: ListTile(
-      title: Text(_lessUsedSubscription!.provider!.name!,
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text, 
-        ),
+  Widget get _lessUsed => ListTile(
+    title: Text(_lessUsedSubscription!.provider!.name!,
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.text, 
       ),
-      subtitle: Text(
-        'use_time'.i18n() + ':' + _lessUsedSubscription!.useTime.toString() + '\n' +
-        'spending_per_hour'.i18n() + ': ' + 'currency'.i18n() +  
-          _lessUsedSpendingPerHour.toString(),
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: AppColors.text, 
-        ),
-      ),
-      minLeadingWidth: 80,
-        leading: const Icon(Icons.arrow_circle_down, color: Colors.green),
     ),
+    subtitle: Text(
+      'use_time'.i18n() + ': ' + _lessUsedSubscription!.useTime.toString() + 'hours'.i18n() + '\n' +
+      'spending_per_hour'.i18n() + ': ' + 'currency'.i18n() +  
+        _lessUsedSpendingPerHour.toStringAsFixed(2),
+      style: const TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.text, 
+      ),
+    ),
+    leading: const Icon(Icons.arrow_circle_down, color: Colors.red, size: 40),
   );
 
-  Future<double> calculateCurrentAmount(List<Subscription> subscriptions) async {
+  double calculateCurrentAmount(List<Subscription> subscriptions) {
     return store.calculateCurrentAmount(subscriptions);
   }
 
-  Future<Subscription?> calculateMostUsed(List<Subscription> subscriptions) async {
+  Subscription? calculateMostUsed(List<Subscription> subscriptions) {
     return store.calculateMostUsed(subscriptions);
   }  
 
-  Future<Subscription?> calculateLessUsed(List<Subscription> subscriptions) async {
+  Subscription? calculateLessUsed(List<Subscription> subscriptions) {
     return store.calculateLessUsed(subscriptions);
   }
 
-  Future<double> calculateSpendingPerHour(Subscription subscription) async {
+  double calculateSpendingPerHour(Subscription subscription) {
     return store.calculateSpendingPerHour(subscription);
   }
 
@@ -225,12 +265,18 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    _subscriptionSet = widget.subscriptions;
+    _mostUsedSubscription = calculateMostUsed(_subscriptionSet!);
+    _mostUsedSpendingPerHour = calculateSpendingPerHour(_mostUsedSubscription!);
+    _lessUsedSubscription = calculateLessUsed(_subscriptionSet!);
+    _lessUsedSpendingPerHour = calculateSpendingPerHour(_lessUsedSubscription!);
+    _currentAmount = calculateCurrentAmount(_subscriptionSet!);
     
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 47,
         backgroundColor: AppColors.primary,
-        title: Text('subscription_detail'.i18n(), 
+        title: Text('recommendations_title'.i18n(), 
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 20,
@@ -245,10 +291,10 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Card(child: _messageAmount),
-              Card(child: _amount),
-              Card(child: _calculateButton),
-              Card(child: _grid),
+              Card(child: Column(
+                children: [_messageAmount, _amount, _calculateButton])),
+              Card(child: Column(
+                children: [_suggestedSubset, _calculatedAmount, _grid])),
               Card(child: _mostUsed),
               Card(child: _lessUsed),
             ],

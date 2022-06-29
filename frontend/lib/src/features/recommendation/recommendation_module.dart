@@ -15,6 +15,6 @@ class RecommendationModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/:amount', child: (_, args) => RecommendationPage(subscriptions: args.data, currentAmount: args.params['amount']))
+        ChildRoute('/', child: (_, args) => RecommendationPage(subscriptions: args.data))
       ];
 }

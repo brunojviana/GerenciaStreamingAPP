@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:frontend/src/features/recommendation/recommendation_module.dart';
 import 'package:frontend/src/features/subscription/data/repository/list_subscriptions_repository.dart';
 import 'package:frontend/src/features/subscription/domain/repository/list_subscriptions_interface.dart';
 import 'package:frontend/src/features/subscription/domain/usecase/list_subscriptions_usecase.dart';
@@ -32,7 +33,7 @@ class HomeModule extends Module {
         ModuleRoute('/otherContents', module: ContentModule()),
         ModuleRoute('/profile', module: ProfileModule()), 
         ModuleRoute('/spendings', module: SpendingModule()),
-        //ModuleRoute('/recommendations', module: RecommendationsModule()),
+        ModuleRoute('/recommendations', module: RecommendationModule()),
         ModuleRoute('/chatbot', module: ChatBotModule()),
       ];
 }

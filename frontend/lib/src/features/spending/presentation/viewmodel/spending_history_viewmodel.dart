@@ -9,6 +9,24 @@ class SpendingHistoryViewModel = _SpendingHistoryViewModelBase with _$SpendingHi
 abstract class _SpendingHistoryViewModelBase with Store {
   final _usecase = Modular.get<SpendingHistoryUseCase>();
 
+  double calculateTotalSpending(List<SubscriptionCalendar> spendings) {
+    
+    double total = 0;
+    
+    if (spendings.isNotEmpty)
+    {
+      for (int i=0; i<spendings.length; i++)
+      {
+        total = total + spendings[i].spending!;
+      }
+      return total;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+
   Future<List<SubscriptionCalendar?>> loadSpendingHistory(int userId) async {
     
     List<SubscriptionCalendar?> res = await _usecase.loadSpendingHistory(userId);
