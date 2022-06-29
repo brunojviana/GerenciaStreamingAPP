@@ -37,9 +37,11 @@ export class ContentsController {
     async update(@Body() content: Content): Promise<Content | Error> {
         try {
             const cnt: Content = await this.contentsService.update(content.id, content);
-            if (cnt.status == 0)
-                await this.calcViewTime(cnt.id, cnt.start, cnt.last_acess);
-
+            if (cnt.status == 0) {
+                var ret = await this.calcViewTime(cnt.id, cnt.start, cnt.last_acess);
+                return ret;
+            }
+            
             return cnt;
         } catch (error) {
             return error;
@@ -63,10 +65,11 @@ export class ContentsController {
         let diffTime: number = Math.abs(stp.getTime() - str.getTime());
         let duration: number = Math.ceil(diffTime / 3600000);
         let content: Content = await this.contentsService.findId(id);
-        console.log('no CALCVIEWTIME');
         
-        content.watch_time = content.watch_time + duration;
+        content.watch_time = duration;
         content.save();
-        this.signaturesService.calcUseTime(content.signature_id, start, stop);
+        await this.signaturesService.calcUseTime(content.signature_id, start, stop);
+
+        return content;
     }
 }

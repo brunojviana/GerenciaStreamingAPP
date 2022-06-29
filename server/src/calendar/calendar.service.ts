@@ -17,7 +17,7 @@ export class CalendarService {
         });
     }
 
-    async findAll(): Promise<Calendar[]> {
+    async findAll(signature_id: number): Promise<Calendar[]> {
         return this.calendarsModel.findAll({
             where: {
 

@@ -76,7 +76,6 @@ export class SignatureService {
         let listUseTime: Calendar[] = await this.calendarsService.findSubscription(subscription.id);
         let year: any;
         let month: any;
-        console.log('no calcule usetime');
         
         subscription.time = subscription.time + useTime;
         subscription.save();
@@ -88,7 +87,9 @@ export class SignatureService {
             listUseTime.map(async period => {
                 if (period.month == month && period.year == year) {
                     period.use_time = period.use_time + useTime;
-                    await this.calendarsService.update(period, period.id);
+                    console.log(period.use_time);
+                    period.save();
+                    console.log('atualizadp');
                 }
             });
         }
