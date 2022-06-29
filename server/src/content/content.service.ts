@@ -55,6 +55,18 @@ export class ContentService {
         return cnt;
     }
 
+    async update(id: number, content: Content) {
+        console.log(content);
+        return this.contentsModel.update(content, {
+            where: {
+                id: id
+            },
+            returning: true
+        }).then(() => {
+            return this.findId(id);
+        });
+    }
+
     async delete(id: number) {
         const content: Content = await this.findId(id);
         content.destroy();

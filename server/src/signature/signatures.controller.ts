@@ -63,31 +63,6 @@ export class SignaturesController {
             return error;
         }
     }
-
-    async calcUseTime(id, start, stop) {
-        const str: Date = new Date(start);
-        const stp: Date = new Date(stop);
-        let diffTime: number = Math.abs(stp.getTime() - str.getTime());
-        let useTime: number = Math.ceil(diffTime / 3600000);
-        let subscription: Signature = await this.signaturesService.find(id);
-        let listUseTime: Calendar[] = await this.calendarsService.findSubscription(subscription.id);
-        let year: any;
-        let month: any;
-        
-        subscription.time = subscription.time + useTime;
-        
-        month = new Date(stop).getMonth() + 1;
-        year = new Date(stop).getFullYear();
-        
-        if (listUseTime.length > 0) {
-            listUseTime.map(async period => {
-                if (period.month == month && period.year == year) {
-                    period.use_time = period.use_time + useTime;
-                    await this.calendarsService.update(period, period.id);
-                }
-            });
-        }
-    }
     
     async registerSpending(subscription: Signature) {
         let spending: number;

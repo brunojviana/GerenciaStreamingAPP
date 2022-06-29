@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from "@nestjs/common";
 import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { SignatureService } from "src/signature/signature.service";
 import { SignaturesController } from "src/signature/signatures.controller";
 import { ContentInterface } from "./content.interface";
 import { Content } from "./content.model";
@@ -9,7 +10,7 @@ import { ContentService } from "./content.service";
 
 @Controller('contents')
 export class ContentsController {
-    constructor(private contentsService: ContentService) {}
+    constructor(private contentsService: ContentService, private signaturesService: SignatureService) {}
 
     //@UseGuards(JwtAuthGuard)
     @Get('/all/:id_sub')
@@ -22,20 +23,23 @@ export class ContentsController {
     }
 
     @Post()
-    async add(@Body() content: ContentInterface): Promise<Content | Error> {
+    async add(@Body() content: Content): Promise<Content | Error> {
         try {
-            let contentAdd = { 
-                name: content.name, 
-                category: content.category, 
-                start: content.start,
-                last_acess: content.last_acess,
-                watch_time: content.watch_time,
-                status: content.status,
-                signature_id: content.signature_id
-            };
-            let cnt: Content = await this.contentsService.add(contentAdd);
-            console.log(cnt);
+            var cnt: Content = await this.contentsService.add(content);
             //this.calcViewTime(cnt.id, content.param_start, content.param_stop);
+            return cnt;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    @Put()
+    async update(@Body() content: Content): Promise<Content | Error> {
+        try {
+            const cnt: Content = await this.contentsService.update(content.id, content);
+            if (cnt.status == 0)
+                await this.calcViewTime(cnt.id, cnt.start, cnt.last_acess);
+
             return cnt;
         } catch (error) {
             return error;
@@ -59,11 +63,10 @@ export class ContentsController {
         let diffTime: number = Math.abs(stp.getTime() - str.getTime());
         let duration: number = Math.ceil(diffTime / 3600000);
         let content: Content = await this.contentsService.findId(id);
-        let sig: SignaturesController;
+        console.log('no CALCVIEWTIME');
         
         content.watch_time = content.watch_time + duration;
-        content.last_acess = stop;
         content.save();
-        sig.calcUseTime(content.signature_id, start, stop);
+        this.signaturesService.calcUseTime(content.signature_id, start, stop);
     }
 }

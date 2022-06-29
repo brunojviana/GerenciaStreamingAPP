@@ -3,12 +3,15 @@ import { Signature } from "./signature.model";
 import { SIGNATURE_REPOSITORY } from "./constants";
 import { User } from "src/user/user.model";
 import { Provider } from "src/provider/provider.model";
+import { CalendarService } from "src/calendar/calendar.service";
+import { Calendar } from "src/calendar/calendar.model";
 
 @Injectable()
 export class SignatureService {
     constructor(
         @Inject(SIGNATURE_REPOSITORY)
-        private signaturesModel: typeof Signature
+        private signaturesModel: typeof Signature,
+        private calendarsService: CalendarService
     ) {}
     
     async find(id: number): Promise<Signature> {
@@ -62,6 +65,33 @@ export class SignatureService {
     async delete(id: number) {
         const signature: Signature = await this.find(id);
         await signature.destroy();
+    }
+
+    async calcUseTime(id, start, stop) {
+        const str: Date = new Date(start);
+        const stp: Date = new Date(stop);
+        let diffTime: number = Math.abs(stp.getTime() - str.getTime());
+        let useTime: number = Math.ceil(diffTime / 3600000);
+        let subscription: Signature = await this.find(id);
+        let listUseTime: Calendar[] = await this.calendarsService.findSubscription(subscription.id);
+        let year: any;
+        let month: any;
+        console.log('no calcule usetime');
+        
+        subscription.time = subscription.time + useTime;
+        subscription.save();
+        
+        month = new Date(stop).getMonth() + 1;
+        year = new Date(stop).getFullYear();
+        
+        if (listUseTime.length > 0) {
+            listUseTime.map(async period => {
+                if (period.month == month && period.year == year) {
+                    period.use_time = period.use_time + useTime;
+                    await this.calendarsService.update(period, period.id);
+                }
+            });
+        }
     }
 
 }

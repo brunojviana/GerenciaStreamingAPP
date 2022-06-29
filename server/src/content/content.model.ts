@@ -28,7 +28,7 @@ export class Content extends Model {
     last_acess: Date;
     
     @Column({
-        type: DataType.BIGINT
+        type: DataType.INTEGER
     })
     watch_time: number;
 
