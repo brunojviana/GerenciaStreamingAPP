@@ -29,6 +29,7 @@ class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, Spendi
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+    //Lista declara apenas para carregar a tela
     _data = [
       const SubscriptionCalendar(
         subscriptionId: 1,
@@ -317,12 +318,12 @@ class PieChartWidget extends StatelessWidget {
                 child: charts.PieChart(
                   series,
                   animate: true,
-                  defaultRenderer: charts.ArcRendererConfig(
+                  /*defaultRenderer: charts.ArcRendererConfig(
                     arcRendererDecorators: [
                       charts.ArcLabelDecorator(
                         labelPosition: charts.ArcLabelPosition.outside
                     )]
-                  ), 
+                  ),*/ 
                 ),   
               ),
             ],

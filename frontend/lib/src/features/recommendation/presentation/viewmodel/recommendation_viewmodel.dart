@@ -40,7 +40,7 @@ abstract class _RecommendationViewModelBase with Store {
     }
   }
 
-  Future<double> calculateCurrentAmount(List<Subscription> subscriptions) async {
+  double calculateCurrentAmount(List<Subscription> subscriptions) {
     
     double currentAmount = 0;
     
@@ -58,7 +58,7 @@ abstract class _RecommendationViewModelBase with Store {
     }
   }
 
-  Future<Subscription?> calculateMostUsed(List<Subscription> subscriptions) async {
+  Subscription? calculateMostUsed(List<Subscription> subscriptions) {
     
     if (subscriptions.isNotEmpty)
     {
@@ -80,7 +80,7 @@ abstract class _RecommendationViewModelBase with Store {
     }
   }  
 
-  Future<Subscription?> calculateLessUsed(List<Subscription> subscriptions) async {
+  Subscription? calculateLessUsed(List<Subscription> subscriptions) {
     
     if (subscriptions.isNotEmpty)
     {
@@ -101,7 +101,7 @@ abstract class _RecommendationViewModelBase with Store {
     }
   }
 
-  Future<double> calculateSpendingPerHour(Subscription subscription) async {
+  double calculateSpendingPerHour(Subscription subscription) {
     return subscription.price! / subscription.useTime!;
   }
 

@@ -102,6 +102,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       enabled: !store.isLoading,
       errorText: store.error.password,
       onChange: (value) => store.password = value,
+      obscureText: true,
     ),
   );
 
