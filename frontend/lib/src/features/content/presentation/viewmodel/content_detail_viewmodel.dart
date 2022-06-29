@@ -24,9 +24,16 @@ abstract class _ContentDetailViewModelBase with Store {
     return _profile;    
   }
 
-  Future<int> switchStatus(int status) async {
+  Future<Content> switchStatus(int status, Content cnt) async {
+
+    DateTime now = DateTime.now();
+    String lastDate = "${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}";
+
+    cnt.lastAccess = lastDate;
+    cnt.status = status;
     
-    int res = await _usecase.switchStatus(status);
+    Content res = await _usecase.switchStatus(status, cnt);
+
     return res;
   }
 
@@ -38,6 +45,6 @@ abstract class _ContentDetailViewModelBase with Store {
 
   Future<List<Content>> loadContents(idSub) async {
     List<Content> res = await _usecaseContents.loadContents(idSub);
-      return res;
+    return res;
   }
 }

@@ -173,7 +173,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
           const Icon(Icons.timelapse, color: AppColors.accent),
           const SizedBox(width: 10),
           Text('entertainment_time'.i18n() + ': ' +
-                      '10' + 'hours'.i18n(),
+                      widget.content.time.toString() + 'hours'.i18n(),
             style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 18,
@@ -212,6 +212,7 @@ class _ContentDetailPageState extends ModularState<ContentDetailPage, ContentDet
       IconButton(
         iconSize: 30,
         onPressed: () {
+          Navigator.pop(context);
           Modular.to.pushNamed('editcontent', arguments: widget.content);
         },
         icon: const Icon(Icons.edit),
@@ -224,9 +225,10 @@ Widget get _pauseButton => Column(
     children: [
       IconButton(
         iconSize: 30,
-        onPressed: () {
+        onPressed: () async {
           if (widget.content.status == 0){
-            store.switchStatus(1);  
+            Content res = await store.switchStatus(1, widget.content);
+            _showDialog(0);
           }
         },
         icon: const Icon(Icons.pause_circle, color: Colors.red),
@@ -239,9 +241,10 @@ Widget get _pauseButton => Column(
     children: [
       IconButton(
         iconSize: 30,
-        onPressed: () {
+        onPressed: () async {
           if (widget.content.status == 1){
-            store.switchStatus(0);  
+            Content res = await store.switchStatus(0, widget.content);
+            _showDialog(1); 
           }
         },
         icon: const Icon(Icons.done, color: AppColors.accent),
@@ -258,7 +261,7 @@ Widget get _pauseButton => Column(
           int res = await store.deleteContent(widget.content.id!);
           _contents = await store.loadContents(int.parse(widget.idSub));
           Navigator.pop(context);
-          Modular.to.pushNamed("listcontents/${widget.idSub}", arguments: _contents);
+          Modular.to.pushNamed("listcontents/${int.parse(widget.idSub)}", arguments: _contents);
         },
         icon: const Icon(Icons.delete),
       ),
@@ -275,11 +278,74 @@ Widget get _pauseButton => Column(
     }
   }
 
+  Future<void> _showDialog(int res) async {
+    //Subscription? subscription = widget.subscription;
+
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: (res == 1) ? 
+            const Icon(Icons.done, size: 40, color: Colors.green) :
+            const Icon(Icons.pause, size: 40, color: Colors.red),
+          content: (res == 1) ?
+            Text('content_concluded_success'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.text, 
+              ),
+              textAlign: TextAlign.center,
+            ) :
+            Text('content_pause'.i18n(),
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          actions: <Widget>[TextButton(
+            child: Text('ok'.i18n().toString()),
+              onPressed: () async {
+                _contents = await store.loadContents(int.parse(widget.idSub));
+                print(_contents);
+                print(widget.idSub);
+                Navigator.pop(context);
+                //Modular.to.pushNamed("listcontents/${int.parse(widget.idSub)}", arguments: _contents);
+              },  
+            ),
+          ]
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    lastDate = DateTime.parse(widget.content.lastAccess);
-    startDate = DateTime.parse(widget.content.startDate);
+    List<String> listDate = widget.content.lastAccess.split(' ');
+    List<String> formattedYear = listDate[0].split('-');
+    String newDate;
+    String newYear = "${formattedYear[0]}-0${formattedYear[1]}-${formattedYear[2]}";
+
+    if (formattedYear[1].length != 2 && listDate[1].length != 5) {
+      newDate = "${newYear} 0${listDate[1]}";
+      lastDate = DateTime.parse(newDate);
+      startDate = DateTime.parse(widget.content.startDate);
+    } else if (listDate[1].length == 5 && formattedYear[1].length != 2) {
+      newDate = "${newYear} ${listDate[1]}";
+      lastDate = DateTime.parse(newDate);
+      startDate = DateTime.parse(widget.content.startDate);
+    } else if (listDate[1].length != 5 && formattedYear[1].length == 2) {
+      newDate = "${listDate[0]} 0${listDate[1]}";
+      lastDate = DateTime.parse(newDate);
+      startDate = DateTime.parse(widget.content.startDate);
+    } else {
+      lastDate = DateTime.parse(widget.content.lastAccess);
+      startDate = DateTime.parse(widget.content.startDate);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -313,7 +379,8 @@ Widget get _pauseButton => Column(
       ),
       persistentFooterButtons: [
         _editButton,
-        _pauseButton,
+        (_verifyStatus(widget.content.status!) == 'Concluded') ?
+        _pauseButton :
         _concludeButton,
         _deleteButton
       ],

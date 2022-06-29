@@ -22,20 +22,6 @@ class RegisterContentUseCase {
     return null;
   }
 
-  String? validateDate(String date) {
-    if (date.isEmpty) {
-      return 'date_required'.i18n(); 
-    }
-    return null;
-  }
-
-  String? validateLastAcess(String lastAcess) {
-    if (lastAcess.isEmpty) {
-      return 'last_acess_required'.i18n(); 
-    }
-    return null;
-  }
-
   Future<Content?> registerContent(
     int subscriptionId,
     String name,

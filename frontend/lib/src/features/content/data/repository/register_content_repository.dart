@@ -10,6 +10,7 @@ class RegisterContentRepository implements IRegisterContent {
   @override
   Future<Content?> registerContent(ContentDto content) async {
     Content _cnt;
+
     try {
       final res = await http.post(
         Uri.http('192.168.0.136:3000', '/contents'), 

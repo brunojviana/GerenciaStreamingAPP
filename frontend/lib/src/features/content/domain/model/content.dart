@@ -2,7 +2,7 @@ import '../../../subscription/domain/model/provider.dart';
 import '../../../subscription/domain/model/subscription.dart';
 
 class Content {
-  const Content({
+  Content({
     this.id, 
     required this.subscriptionId, 
     this.name, 
@@ -17,10 +17,10 @@ class Content {
   final int subscriptionId;
   final String? name;
   final String? category;
-  final String startDate;
-  final String lastAccess;
+  late String startDate;
+  late String lastAccess;
   final int? time;
-  final int? status;
+  late int? status;
   final Subscription? subscription;
 
   factory Content.fromJson(Map<String, dynamic> json) =>

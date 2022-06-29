@@ -34,7 +34,6 @@ abstract class _SelectSubscriptionViewModelBase with Store {
   Future<List<Content>> loadContents(int idSub) async {
 
     List<Content> res = await _usecaseList.loadContents(idSub);
-    print(res);
 
     return res;
   }

@@ -1,4 +1,6 @@
+import '../model/content.dart';
+
 abstract class IContentDetail {
-  Future<int> switchStatus(int status);
+  Future<Content> switchStatus(int status, Content content);
   Future<int> deleteContent(int id);
 }

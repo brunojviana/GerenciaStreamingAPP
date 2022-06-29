@@ -24,12 +24,6 @@ abstract class _RegisterContentViewModelBase with Store {
   String category = '';
 
   @observable
-  String date = '';
-
-  @observable
-  String lastAcess = '';
-
-  @observable
   bool isLoading = false;
 
   int id = 0;
@@ -48,16 +42,6 @@ abstract class _RegisterContentViewModelBase with Store {
     error.category = _usecase.validateCategory(category);
   }
 
-  @action
-  void validateDate() {
-    error.date = _usecase.validateDate(date);
-  }
-
-  @action
-  void validateLastAcess() {
-    error.lastAcess = _usecase.validateLastAcess(lastAcess);
-  }
-
   Future<Profile> getSavedUser() async {
     SharedPreferences _user = await SharedPreferences.getInstance();
     String? jsonUser = _user.getString("profile");
@@ -72,27 +56,26 @@ abstract class _RegisterContentViewModelBase with Store {
 
     validateName();
     validateCategory();
-    validateDate();
-    validateLastAcess();
 
     if (!error.hasErrors) {
       isLoading = true;
-
-      List<String> dateFormat = date.split(' ');
+      DateTime now = DateTime.now();
+      String startDate = "${now.year}-0${now.month}-${now.day} ${now.hour}:${now.minute}";
+      
+      /* List<String> dateFormat = date.split(' ');
       final String dataFinal = "${dateFormat[0].split('/')[2]}-${dateFormat[0].split('/')[1]}-${dateFormat[0].split('/')[0]} ${dateFormat[1]}";
 
       List<String> dateFormatLast = lastAcess.split(' ');
       final String dataFinalLast = "${dateFormatLast[0].split('/')[2]}-${dateFormatLast[0].split('/')[1]}-${dateFormatLast[0].split('/')[0]} ${dateFormatLast[1]}";
+      */
 
       Content? res = await _usecase.registerContent(
         subscriptionId,
         name, 
         category,
-        dataFinal,
-        dataFinalLast,
+        startDate,
+        startDate,
         status);
-
-        print(res);
       
       if (res != null) {
         return res;
@@ -123,19 +106,11 @@ abstract class _RegisterContentErrorBase with Store {
   @observable
   String? category;
 
-  @observable
-  String? date;
-
-  @observable
-  String? lastAcess;
-
   @computed
-  bool get hasErrors => name != null || category != null || date != null || lastAcess != null;
+  bool get hasErrors => name != null || category != null;
 
   void clear() {
     name = null;
     category = null;
-    date = null;
-    lastAcess = null;
   }
 }

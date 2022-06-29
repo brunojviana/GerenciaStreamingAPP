@@ -38,6 +38,10 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         return Card(
           child: ListTile(
             onTap: () {
+              List<String> data1 = content.lastAccess.split('T');
+              List<String> data2 = content.startDate.split('T');
+              content.lastAccess = "${data1[0]} ${data1[1].split(':')[0]}:${data1[1].split(':')[1]}";
+              content.startDate = "${data2[0]} ${data2[1].split(':')[0]}:${data2[1].split(':')[1]}";
               Navigator.pop(context);
               Modular.to.pushNamed("detailcontent/${int.parse(widget.idSub)}", arguments: content);
             },
@@ -117,7 +121,11 @@ class _ListContentsPageState extends ModularState<ListContentsPage, ListContents
         backgroundColor: AppColors.primary,
         onPressed: () async {
           _profile = await store.getSavedUser();
+          print('aqui');
+          print(widget.idSub);
           _sub = await store.loadSubscription(int.parse(widget.idSub));
+          print(_sub);
+          print('agora');
           Navigator.pop(context);
           Modular.to.pushNamed('newcontent', arguments: _sub);
         },
