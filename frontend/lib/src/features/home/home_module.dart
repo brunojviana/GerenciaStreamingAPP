@@ -1,5 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/recommendation/recommendation_module.dart';
+import 'package:frontend/src/features/spending/data/repository/spending_history_repository.dart';
+import 'package:frontend/src/features/spending/domain/repository/spending_history_interface.dart';
+import 'package:frontend/src/features/spending/domain/usecase/spending_history_usecase.dart';
 import 'package:frontend/src/features/subscription/data/repository/list_subscriptions_repository.dart';
 import 'package:frontend/src/features/subscription/domain/repository/list_subscriptions_interface.dart';
 import 'package:frontend/src/features/subscription/domain/usecase/list_subscriptions_usecase.dart';
@@ -21,6 +24,8 @@ class HomeModule extends Module {
         Bind.factory((i) => HomeUseCase()),
         Bind.factory((i) => ListSubscriptionsUseCase()),
         Bind.factory<IListSubscriptions>((i) => ListSubsciptionsRepository()),
+        Bind.factory((i) => SpendingHistoryUseCase()),
+        Bind.factory<ISpendingHistory>((i) => SpendingHistoryRepository()),
         Bind.factory<IProfile>((i) => HomeRepository()),
       ];
 

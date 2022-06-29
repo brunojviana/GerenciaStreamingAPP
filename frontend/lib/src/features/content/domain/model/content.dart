@@ -19,7 +19,7 @@ class Content {
   final String? category;
   late String startDate;
   late String lastAccess;
-  final int? time;
+  late int? time;
   late int? status;
   final Subscription? subscription;
 

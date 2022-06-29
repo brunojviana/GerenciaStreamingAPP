@@ -2,7 +2,7 @@ import 'package:image_picker/image_picker.dart';
 
 class Profile {
   const Profile({
-    this.id, 
+    required this.id, 
     this.path_image, 
     this.cpf, 
     required this.name, 
@@ -11,7 +11,7 @@ class Profile {
     this.password,
     this.access_token});
 
-  final int? id;
+  final int id;
   final String? path_image;
   final String? cpf;
   final String name;

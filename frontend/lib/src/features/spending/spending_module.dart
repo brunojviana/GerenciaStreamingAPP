@@ -15,6 +15,6 @@ class SpendingModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, args) => SpendingHistoryPage(profile: args.data))
+        ChildRoute('/', child: (_, args) => SpendingHistoryPage(calendars: args.data))
       ];
 }

@@ -9,8 +9,8 @@ import '../../../domain/model/spending.dart';
 import '../../viewmodel/spending_history_viewmodel.dart';
 
 class SpendingHistoryPage extends StatefulWidget {
-  final Profile profile;
-  const SpendingHistoryPage({Key? key, required this.profile}) : super(key: key);
+  final List<SubscriptionCalendar> calendars;
+  const SpendingHistoryPage({Key? key, required this.calendars}) : super(key: key);
 
   @override
   State<SpendingHistoryPage> createState() => _SpendingHistoryPageState();
@@ -30,6 +30,9 @@ class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, Spendi
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
     //Lista declara apenas para carregar a tela
+
+    print("calendario porra");
+    print(widget.calendars);
     _data = [
       const SubscriptionCalendar(
         subscriptionId: 1,
@@ -208,7 +211,7 @@ class _SpendingHistoryPageState extends ModularState<SpendingHistoryPage, Spendi
                 icon: const Icon(Icons.home, color: AppColors.textLight),
                 iconSize: 35,
                 onPressed: () async {
-                  Modular.to.pushNamed('/home', arguments: widget.profile);
+                  //Modular.to.pushNamed('/home', arguments: widget.profile);
                 }
               ),
             ),

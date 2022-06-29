@@ -60,14 +60,29 @@ abstract class _RegisterContentViewModelBase with Store {
     if (!error.hasErrors) {
       isLoading = true;
       DateTime now = DateTime.now();
-      String startDate = "${now.year}-0${now.month}-${now.day} ${now.hour}:${now.minute}";
-      
-      /* List<String> dateFormat = date.split(' ');
-      final String dataFinal = "${dateFormat[0].split('/')[2]}-${dateFormat[0].split('/')[1]}-${dateFormat[0].split('/')[0]} ${dateFormat[1]}";
+      String mes = "${now.month}";
+      String dia = "${now.day}";
+      String hora = "${now.hour}";
+      String minuto = "${now.minute}";
 
-      List<String> dateFormatLast = lastAcess.split(' ');
-      final String dataFinalLast = "${dateFormatLast[0].split('/')[2]}-${dateFormatLast[0].split('/')[1]}-${dateFormatLast[0].split('/')[0]} ${dateFormatLast[1]}";
-      */
+      if (now.month < 10) {
+        mes = "0${now.month}";
+      }
+
+      if (now.day < 10) {
+        dia = "0${now.day}";
+      }
+
+      if (now.hour < 10) {
+        hora = "0${now.hour}";
+
+      }
+
+      if (now.minute < 10) {
+        minuto = "0${now.minute}";
+      }
+
+      String startDate = "${now.year}-${mes}-${dia} ${hora}:${minuto}";
 
       Content? res = await _usecase.registerContent(
         subscriptionId,

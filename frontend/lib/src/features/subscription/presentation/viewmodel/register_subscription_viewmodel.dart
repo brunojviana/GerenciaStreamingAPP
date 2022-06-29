@@ -36,7 +36,7 @@ abstract class _RegisterSubscriptionViewModelBase with Store {
   bool isLoading = false;
 
   int content = 0;
-  double useTime = 0.15;
+  double useTime = 0.1;
   int status = 1;
 
   @action

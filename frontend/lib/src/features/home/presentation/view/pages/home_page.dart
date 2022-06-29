@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/src/features/auth/domain/model/profile.dart';
+import 'package:frontend/src/features/spending/domain/model/calendar.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,6 +21,9 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   late ThemeData _theme;
   late List<Subscription> _response;
   late List<Subscription> _subscriptions;
+  late List<SubscriptionCalendar> _calendars;
+  late SubscriptionCalendar _calendar;
+  late List<List<SubscriptionCalendar>> _lista;
 
   Widget get _myData => Column(
     children: [
@@ -70,7 +74,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () async {
-          _response = await store.getSubs(widget.profile.id!);
+          _response = await store.getSubs(widget.profile.id);
           Modular.to.pushNamed('subscriptions', arguments: _response);
         },
         child: SizedBox(
@@ -103,7 +107,7 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),      
       GestureDetector(
         onTap: () async {
-          _response = await store.getSubs(widget.profile.id!);
+          _response = await store.getSubs(widget.profile.id);
           Modular.to.pushNamed('movies', arguments: _response);
         },
         child: SizedBox(
@@ -135,7 +139,12 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
           ),
         ),
       GestureDetector(
-        onTap: () {
+        onTap: () async {
+          _response = await store.getSubs(widget.profile.id);
+          _response.map((e) async => {
+            _calendars = await store.getCalendars(e.id),
+            _lista.add(_calendars)
+          });
           Modular.to.pushNamed('spendings', arguments: widget.profile);
         },
         child: SizedBox(
@@ -168,9 +177,9 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
         ),
       GestureDetector(
         onTap: () async {
-          //_response = await store.getSubs(widget.profile.id!);
-          //Modular.to.pushNamed('recommendations', arguments: _response);
-          Modular.to.pushNamed('recommendations', arguments: _subscriptions);
+          _response = await store.getSubs(widget.profile.id);
+          Modular.to.pushNamed('recommendations', arguments: _response);
+          //Modular.to.pushNamed('recommendations', arguments: _subscriptions);
         },
         child: SizedBox(
           height: 110,

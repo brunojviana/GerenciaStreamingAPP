@@ -253,7 +253,7 @@ class _RegisterSubscriptionPageState extends ModularState<RegisterSubscriptionPa
         onPressed: () async {
           store.isLoading ? null :
           _profile = await store.getSavedUser(); 
-          _response = await _registerSubscription(_profile.id!, widget.provider.id!);
+          _response = await _registerSubscription(_profile.id, widget.provider.id!);
           _subs = await store.getSubs(_response!.userId!);
           _showDialog(_response);
         },

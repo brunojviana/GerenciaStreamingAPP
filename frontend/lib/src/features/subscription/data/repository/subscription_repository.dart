@@ -30,6 +30,7 @@ class SubscriptionRepository implements ISubscription {
       _sub = Subscription.fromJson(data);
       return _sub;
     } on Error catch (e) {
+      print('aqui');
       print(e);
       return null;
     }

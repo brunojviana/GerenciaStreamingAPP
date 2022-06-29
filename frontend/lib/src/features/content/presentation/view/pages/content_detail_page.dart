@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:localization/localization.dart';
 import '../../../../auth/domain/model/profile.dart';
 import '../../../domain/model/content.dart';
@@ -228,6 +229,10 @@ Widget get _pauseButton => Column(
         onPressed: () async {
           if (widget.content.status == 0){
             Content res = await store.switchStatus(1, widget.content);
+            setState(() {
+              widget.content.status = res.status;
+              widget.content.time = res.time;
+            });
             _showDialog(0);
           }
         },
@@ -244,6 +249,12 @@ Widget get _pauseButton => Column(
         onPressed: () async {
           if (widget.content.status == 1){
             Content res = await store.switchStatus(0, widget.content);
+            print(res.time);
+            setState(() {
+              widget.content.status = res.status;
+              print(res.time);
+              widget.content.time = res.time;
+            });
             _showDialog(1); 
           }
         },
@@ -310,10 +321,8 @@ Widget get _pauseButton => Column(
             child: Text('ok'.i18n().toString()),
               onPressed: () async {
                 _contents = await store.loadContents(int.parse(widget.idSub));
-                print(_contents);
-                print(widget.idSub);
                 Navigator.pop(context);
-                //Modular.to.pushNamed("listcontents/${int.parse(widget.idSub)}", arguments: _contents);
+                //Modular.to.pushNamed("listcontents/${widget.idSub}", arguments: _contents);
               },  
             ),
           ]
@@ -325,27 +334,9 @@ Widget get _pauseButton => Column(
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    List<String> listDate = widget.content.lastAccess.split(' ');
-    List<String> formattedYear = listDate[0].split('-');
-    String newDate;
-    String newYear = "${formattedYear[0]}-0${formattedYear[1]}-${formattedYear[2]}";
 
-    if (formattedYear[1].length != 2 && listDate[1].length != 5) {
-      newDate = "${newYear} 0${listDate[1]}";
-      lastDate = DateTime.parse(newDate);
-      startDate = DateTime.parse(widget.content.startDate);
-    } else if (listDate[1].length == 5 && formattedYear[1].length != 2) {
-      newDate = "${newYear} ${listDate[1]}";
-      lastDate = DateTime.parse(newDate);
-      startDate = DateTime.parse(widget.content.startDate);
-    } else if (listDate[1].length != 5 && formattedYear[1].length == 2) {
-      newDate = "${listDate[0]} 0${listDate[1]}";
-      lastDate = DateTime.parse(newDate);
-      startDate = DateTime.parse(widget.content.startDate);
-    } else {
-      lastDate = DateTime.parse(widget.content.lastAccess);
-      startDate = DateTime.parse(widget.content.startDate);
-    }
+    lastDate = DateTime.parse(widget.content.lastAccess).toLocal();
+    startDate = DateTime.parse(widget.content.startDate).toLocal();
 
     return Scaffold(
       appBar: AppBar(

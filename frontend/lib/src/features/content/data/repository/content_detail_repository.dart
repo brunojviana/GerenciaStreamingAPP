@@ -27,6 +27,7 @@ class ContentDetailRepository implements IContentDetail {
 
     final Map<String, dynamic> data = jsonDecode(res.body);
     _cnt = Content.fromJson(data);
+    print(_cnt.toJson());
     return _cnt;
   }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:frontend/src/features/content/domain/usecase/list_contents_usecase.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,10 +28,34 @@ abstract class _ContentDetailViewModelBase with Store {
   Future<Content> switchStatus(int status, Content cnt) async {
 
     DateTime now = DateTime.now();
-    String lastDate = "${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}";
+    String mes = "${now.month}";
+    String dia = "${now.day}";
+    String hora = "${now.hour}";
+    String minuto = "${now.minute}";
 
+    if (now.month < 10) {
+      mes = "0${now.month}";
+    }
+
+    if (now.day < 10) {
+      dia = "0${now.day}";
+    }
+
+    if (now.hour < 10) {
+      hora = "0${now.hour}";
+
+    }
+
+    if (now.minute < 10) {
+      minuto = "0${now.minute}";
+    }
+
+    String lastDate = "${now.year}-${mes}-${dia} ${hora}:${minuto}";
     cnt.lastAccess = lastDate;
     cnt.status = status;
+
+    print('na viewmodel');
+    print(cnt.time);
     
     Content res = await _usecase.switchStatus(status, cnt);
 

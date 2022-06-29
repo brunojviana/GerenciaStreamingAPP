@@ -5,7 +5,7 @@ import '../repository/spending_history_interface.dart';
 class SpendingHistoryUseCase {
   final repository = Modular.get<ISpendingHistory>();
 
-  Future<List<SubscriptionCalendar?>> loadSpendingHistory(int userId) {
+  Future<List<SubscriptionCalendar>> loadSpendingHistory(int userId) {
     return repository.loadSpendingHistory(userId);
   }
 }

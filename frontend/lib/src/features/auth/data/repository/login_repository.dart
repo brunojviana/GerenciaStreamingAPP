@@ -12,7 +12,7 @@ class LoginRepository implements ILogin {
 
     try {
       final res = await http.post(
-        Uri.http('192.168.122.1:3000', '/login'),
+        Uri.http('192.168.0.136:3000', '/login'),
         body: {
           "email": user.usermail,
           "password": user.password

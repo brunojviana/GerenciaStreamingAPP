@@ -1,6 +1,7 @@
 class SubscriptionCalendar {
 
   const SubscriptionCalendar({
+    this.id,
     this.subscriptionId,
     this.month,
     this.year,
@@ -8,6 +9,7 @@ class SubscriptionCalendar {
     this.useTime}
   );
 
+  final int? id;
   final int? subscriptionId;
   final String? month;
   final int? year;
@@ -16,6 +18,7 @@ class SubscriptionCalendar {
 
   factory SubscriptionCalendar.fromJson(Map<String, dynamic> json) =>
     SubscriptionCalendar(
+      id: json['id'],
       subscriptionId: json['subscriptionId'], 
       month: json['month'], 
       year: json['year'], 

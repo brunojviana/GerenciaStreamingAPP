@@ -36,6 +36,8 @@ class _ListSubscriptionsPageState extends ModularState<ListSubscriptionsPage, Li
           return Card(
             child: ListTile(
               onTap: () {
+                print('aqui na sub');
+                print(widget.subscriptions[index].toJson());
                 Modular.to.pushNamed('detailsubscription', arguments: widget.subscriptions[index]);
               },
               title: Text(subscription.provider!.name!,

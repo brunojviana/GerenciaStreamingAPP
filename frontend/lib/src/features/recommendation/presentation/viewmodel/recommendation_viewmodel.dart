@@ -24,14 +24,15 @@ abstract class _RecommendationViewModelBase with Store {
     error.amount = _usecase.validateAmount(amount);
   }
 
-  Future<List<Subscription>?> calculateSubset() async {
+  Future<List<Subscription>?> calculateSubset(int idUser) async {
     
     error.clear();
     validateAmount();
+    print(error);
     
     if (!error.hasErrors) {
       isLoading = true;
-      List<Subscription>? res = await _usecase.calculateSubset(double.parse(amount));
+      List<Subscription>? res = await _usecase.calculateSubset(double.parse(amount), idUser);
       return res;
     } 
     else {

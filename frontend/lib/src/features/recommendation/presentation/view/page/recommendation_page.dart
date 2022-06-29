@@ -73,7 +73,7 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
           ),
         ),
         onPressed: () async {
-          store.isLoading ? null :          
+          store.isLoading ? null :        
           _response = await calculateSubset();
           (_response == null) ? 
           _showDialog(_subscriptionSet):
@@ -229,7 +229,8 @@ class _RecommendationPageState extends ModularState<RecommendationPage, Recommen
   }
 
   Future<List<Subscription>?> calculateSubset() async {
-    return store.calculateSubset();
+    _profile = await store.getSavedUser();
+    return store.calculateSubset(_profile.id);
   }
 
   Future<void> _showDialog(List<Subscription>? subscriptions) async {
